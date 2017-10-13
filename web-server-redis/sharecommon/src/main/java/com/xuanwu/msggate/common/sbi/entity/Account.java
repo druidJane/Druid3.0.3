@@ -4,15 +4,6 @@
  */
 package com.xuanwu.msggate.common.sbi.entity;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.apache.commons.lang.StringUtils;
-
-import com.xuanwu.msggate.common.sbi.entity.MsgContent.MsgType;
-import com.xuanwu.msggate.common.util.EditeTrustIps;
-
 /**
  * 账户
  * 

@@ -5,15 +5,6 @@
 package com.xuanwu.mos.domain.entity;
 
 import com.xuanwu.msggate.common.sbi.entity.*;
-import com.xuanwu.msggate.common.sbi.entity.Carrier;
-import com.xuanwu.msggate.common.sbi.entity.MsgContent.MsgType;
-
-import org.apache.commons.lang.StringUtils;
-
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * 账户
