@@ -1,0 +1,67 @@
+<form class="form-inline table-toolbar">
+	<div class="search_box">
+        <div class="pull-left">
+        	<div class="form-group">
+
+                <div style="display:inline-block;">
+         
+						<label class="label">计费账户</label>
+						<div style="display: inline-block;">						
+							<angucomplete-alt id="completeBillName"
+										  selected-object="watchBillName"
+										  input-changed="watchBillName"
+										  maxlength="50"
+										  pause="100"
+										  remote-url="{{acompleteBillNameUrl}}"
+										  title-field="name"
+										  minlength="1"
+										  input-class="form-control input-sm"
+										  search-fields="name"
+										  matchclass="highlight"
+										  remote-url-data-field="data"
+										  required=""
+										  text-no-results="查不到相关记录"
+										  class="angucomplete-holder" ng-model="completeBillName"/>
+						</div>
+				</div>
+            </div>
+           
+             <div class="form-group">
+                <label class="label">日期</label>
+                <input type="text" name="beginDate" ng-model="stParams.beginDate" class="form-control input-sm" placeholder="开始时间" style="width: 137px" /> 至
+                <input type="text" name="endDate" ng-model="stParams.endDate" class="form-control input-sm" placeholder="结束时间" style="width: 137px"/>
+            </div>
+            
+            <div class="form-group">
+                <button type="button" class="btn btn_search" ng-if="hasPermission(urlPerMap.STATISTICS_BILLINGACCOUNTSTATISTICS_GETBILLINGACCOUNTSTATISTICS);" ng-click="searchBillAccountStat();">查询</button>
+            </div>
+            <div class="form-group">
+                <button type="button" class="btn btn_t1 icon_import" ng-if="hasPermission(urlPerMap.STATISTICS_BILLINGACCOUNTSTATISTICS_EXPORTBILLINGACCOUNTSTATISTICS);" ng-click="exportBillStat()">导出</button>
+            </div>
+        </div>
+	</div>
+</form>
+
+<div class="table_t1 mar_t10">
+    <div class="fixed-table-container loading-container">
+    <div class="loading" ng-show="billAccountStatTable.settings().$loading"></div>
+    <table ng-table="billAccountStatTable" class="table table-hover" template-pagination="custom/pager">
+        <tbody>
+            <tr ng-repeat="billCountStat in $data">
+                <td data-title="cols[0].title" ng-if="cols[0].show" align="center">
+                    {{billCountStat.accountName}}
+                </td>
+                <td data-title="cols[1].title" ng-if="cols[1].show" align="center" sortable="'smsConsume'">{{billCountStat.smsConsume|number:4}}</td>
+                <td data-title="cols[2].title" ng-if="cols[2].show" align="center" sortable="'mmsConsume'">{{billCountStat.mmsConsume|number:4}}</td>
+                <td data-title="cols[3].title" ng-if="cols[3].show" align="center" sortable="'sumConsume'">{{billCountStat.sumConsume|number:4}}</td>
+                <td data-title="cols[4].title" ng-if="cols[4].show" align="center">
+                	 <a href="javascript:;" ng-if="hasPermission(urlPerMap.STATISTICS_BILLINGACCOUNTSTATISTICS_GETDETAILSTAT);" ng-click="showSelectedUserData(billCountStat);">计费详情</a>
+                </td>
+            </tr>
+			<tr ng-show="$data==0" align="center">
+                <td colspan="5"><div class="bootstrapTable_noData"><div></div><p>没有找到相关数据！</p></div></td>
+            </tr>
+        </tbody>
+    </table>
+    </div>
+</div>

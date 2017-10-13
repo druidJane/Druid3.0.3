@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.xuanwu.mos.mapper.FileTaskMapper">
+
+    <!-- entity  文件操作任务表(gsms_user_task),记录如导入、导出之类的任务 -->
+    <resultMap type="FileTask" id="taskResult">
+        <id property="id" column="id"/>
+        <result property="userId" column="create_user"/>
+        <result property="type" column="operate_type"/>
+        <result property="taskName" column="task_name"/>
+        <result property="typeIndex" column="operate_type"/>
+        <result property="dataTypeIndex" column="data_type"/>
+        <result property="stateIndex" column="state"/>
+        <result property="resultIndex" column="result_code"/>
+        <result property="postTime" column="create_time"/>
+        <result property="percent" column="percent"/>
+        <result property="fileName" column="file_name"/>
+        <result property="handleTime" column="start_time"/>
+        <result property="commitTime" column="end_time"/>
+        <result property="progress" column="progress"/>
+        <result property="message" column="result_message"/>
+        <result property="parameters" column="parameter"/>
+        <result property="isRead" column="is_read"/>
+        <result property="taskType" column="task_type"/>
+        <result property="fileAddress" column="file_address"/>
+    </resultMap>
+
+    <!-- 添加新任务 -->
+    <insert id="insert" parameterType="FileTask">
+        <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
+            select last_insert_id() as id
+        </selectKey>
+        insert into gsms_user_task(id,create_user,task_name,percent,state,
+        file_name,file_size,operate_type,data_type,create_time,parameter,task_type)
+        values(#{id}, #{userId},#{taskName},#{percent},#{state.index},#{fileName},
+        #{fileSize},#{type.index},#{dataType.index},#{postTime},#{parameters},#{taskType})
+    </insert>
+
+    <!-- 更新根据id查询得到的任务 -->
+    <update id="updateHandlingTask">
+        update gsms_user_task set state = #{state.index},
+        start_time = #{handleTime},percent=#{percent},progress=#{progress}
+        where id = #{id}
+    </update>
+
+    <!-- 更新根据id查询得到的已完成任务 -->
+    <update id="updateHandledTask">
+        update gsms_user_task set percent = 100, state = #{state.index},
+        result_code = #{result.index}, end_time = #{commitTime},file_name=#{fileName},
+        result_message=#{message},progress=#{progress}
+        where id = #{id}
+    </update>
+
+    <!-- 根据所给参数查询出符合条件的任务条数 -->
+    <select id="findResultCount" resultType="int">
+        select count(id) from gsms_user_task
+        where operate_type = #{params.type} and create_user = #{params.userId}
+        <if test="params.state >= 0">and state = #{params.state}</if>
+        <if test="params.beginTime != null">and create_time &gt;= #{params.beginTime}</if>
+        <if test="params.endTime != null">and create_time &lt;= #{params.endTime}</if>
+        <if test="params.taskName != null">and task_name like concat('%',#{params.taskName},'%') </if>
+    </select>
+
+    <!-- 根据所给参数查询出符合条件的任务条数 -->
+    <select id="findResultCountByUserId" resultType="int">
+        select count(id) from gsms_user_task
+        where create_user = #{userId}  and is_read = 0 union all
+        (select operate_type from gsms_user_task
+        where create_user = #{userId}  and is_read = 0 order by id desc limit 1)
+    </select>
+
+    <!-- 根据所给参数,分页查询出符合条件的任务 -->
+    <select id="findResults" resultMap="taskResult">
+        select id,task_name,state,result_code,operate_type,data_type,percent,file_name,create_time,
+        start_time,end_time,progress,result_message,parameter,task_type,file_address from gsms_user_task
+        where operate_type = #{params.type} and create_user = #{params.userId}
+        <if test="params.state >= 0">and state=#{params.state}</if>
+        <if test="params.beginTime != null">and create_time &gt;= #{params.beginTime}</if>
+        <if test="params.endTime != null">and create_time &lt;= #{params.endTime}</if>
+        <if test="params.taskName != null">and task_name like concat('%',#{params.taskName},'%') </if>
+        order by create_time desc
+        limit #{page.from}, #{page.size}
+    </select>
+
+    <!-- 查询出未开始(state=0)或处理中(state=1)的任务id,以List<Integer>格式返回 -->
+    <select id="fetchUnHandledTaskIDs" resultType="int">
+        select id from gsms_user_task where state <![CDATA[<]]> 2 and task_type = 1
+    </select>
+
+    <!-- 批量查找任务-->
+    <select id="fetchUnLoadTasks" resultMap="taskResult">
+        select id,create_user,task_name,state,result_code,operate_type,data_type,percent,
+        file_name,create_time,start_time,end_time,progress,result_message,parameter
+        from gsms_user_task where task_type = 1 and id in
+        <foreach item="item" index="index" collection="params.taskIDs" open="("
+                 separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <!-- 查询出未开始(state=0)或处理中(state=1)的任务
+            以List<FileTask>格式返回  -->
+    <select id="fetchUnHandledTasks" resultMap="taskResult">
+        select id,create_user,task_name,state,result_code,operate_type,data_type,percent,
+        file_name,create_time,start_time,end_time,progress,result_message,parameter
+        from gsms_user_task where state = 0 or state = 1
+    </select>
+
+    <update id="updateReadStateByUserId">
+        update gsms_user_task set is_read = 1
+        where create_user = #{userId} and operate_type = #{taskType}
+        and is_read = 0
+    </update>
+
+</mapper>

@@ -1,0 +1,88 @@
+<form class="form-inline table-toolbar">
+    <div class="text-right">
+        通道名:
+        <input type="text" ng-model="params.channelName" class="form-control input-sm" placeholder="通道名" aria-describedby="basic-addon" /> &nbsp; 通道号:
+        <input type="text" ng-model="params.channelNum" class="form-control input-sm" placeholder="通道号" aria-describedby="basic-addon" /> &nbsp; 资源类型:
+        <select ng-model="params.resourceType" class="form-control input-sm">
+            <option value="-1">请选择</option>
+            <option value="1">ADC</option>
+            <option value="2">移动短信批发</option>
+            <option value="3">联通短信批发</option>
+            <option value="4">电信短信批发</option>
+            <option value="5">移动第三方</option>
+            <option value="6">联通第三方</option>
+            <option value="7">电信第三方</option>
+            <option value="8">国际短信</option>
+            <option value="9">专用移动直连</option>
+            <option value="10">专用移动代收代缴</option>
+            <option value="11">专用联通直连</option>
+            <option value="12">专用电信直连</option>
+            <option value="13">移动彩信批发</option>
+            <option value="14">联通彩信批发</option>
+            <option value="15">电信彩信批发</option>
+            <option value="16">特殊通道</option>
+            <option value="17">移动400批发</option>
+            <option value="18">联通400批发</option>
+            <option value="19">电信400批发</option>
+        </select> &nbsp; 是否报备:
+        <select  ng-model="params.isRegist" class="form-control  input-sm"
+                ng-options="option.index as option.label for option in [{'index':1,'label':'是'},{'index':0,'label':'否'}]" ng-init="params.isRegist=null;">
+            <option value="">请选择</option>
+        </select>
+        <button class="btn btn_search" ng-click="search();">查询</button>
+    </div>
+</form>
+<div class="loading-container">
+    <div class="loading" ng-show="channelTable.settings().$loading"></div>
+    <table ng-table="channelTable" class="table table-striped table-bordered table-hover">
+        <tbody>
+            <tr ng-repeat="channel in $data">
+                <td data-title="'通道名'" align="center">{{channel.name}}</td>
+                <td data-title="'通道号'" align="center">{{channel.channelNum}}</td>
+                <td data-title="'通道类型'" align="center">{{channel.channelTypeName}}</td>
+                <td data-title="'所属运营商'" align="center">{{channel.carrier}}</td>
+                <td data-title="'可发送运营商'" align="center">{{channel.canSendCarriers}}</td>
+                <td data-title="'资源类型'" align="center" ng-switch="channel.resourceType">
+                    <span ng-switch-when="1">ADC</span>
+                    <span ng-switch-when="2">移动短信批发</span>
+                    <span ng-switch-when="3">联通短信批发</span>
+                    <span ng-switch-when="4">电信短信批发</span>
+                    <span ng-switch-when="5">移动第三方</span>
+                    <span ng-switch-when="6">联通第三方</span>
+                    <span ng-switch-when="7">电信第三方</span>
+                    <span ng-switch-when="8">国际短信</span>
+                    <span ng-switch-when="9">专用移动直连</span>
+                    <span ng-switch-when="10">专用移动代收代缴</span>
+                    <span ng-switch-when="11">专用联通直连</span>
+                    <span ng-switch-when="12">专用电信直连</span>
+                    <span ng-switch-when="13">移动彩信批发</span>
+                    <span ng-switch-when="14">联通彩信批发</span>
+                    <span ng-switch-when="15">电信彩信批发</span>
+                    <span ng-switch-when="16">特殊通道</span>
+                    <span ng-switch-when="17">移动400批发</span>
+                    <span ng-switch-when="18">联通400批发</span>
+                    <span ng-switch-when="19">电信400批发</span>
+                </td>
+                <td data-title="'通道保量'" align="center">{{channel.minSendMum}}</td>
+                <td data-title="'可扩展位数'" align="center">{{channel.extendNumLength}}</td>
+                <td data-title="'支持业务能力'" align="center">{{channel.supportBizTypes}}</td>
+                <td data-title="'是否报备'" align="center" ng-switch="channel.isRegist">
+                    <span ng-switch-when="false">否</span>
+                    <span ng-switch-when="true">是</span>
+                </td>
+                <td data-title="'是否三网同号'" align="center" ng-switch="channel.isSameNum">
+                    <span ng-switch-when="false">否</span>
+                    <span ng-switch-when="true">是</span>
+                </td>
+                <td data-title="'是否白名单'" align="center" ng-switch="channel.isWhiteChannel">
+                    <span ng-switch-when="false">否</span>
+                    <span ng-switch-when="true">是</span>
+                </td>
+                <td data-title="'限制发送区域'" align="center">{{channel.limitRegions}}</td>
+                <td data-title="'操作'" width="100" align="center">
+                    <a href="javascript:;" class="btn btn-info btn-xs" ng-click="selectOneChannel(channel)">{{operate}}</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

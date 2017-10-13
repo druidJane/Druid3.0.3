@@ -1,0 +1,208 @@
+<!--tab切换-->
+<ul class="nav nav-tabs nav_tabs_t1" role="tabList" id="tab">
+    <li ng-if="hasPermission(urlPerMap.SMSMGR_SENDTRACKING_LOADBATCHS)" role="sendRecord">
+        <a data-toggle="tab" ng-click="showSendRecord()">发送记录</a>
+    </li>
+    <li ng-if="hasPermission(urlPerMap.SMSMGR_SENDTRACKING_BATCHHISTORY)" role="sendDetail"  class="active">
+        <a data-toggle="tab" ng-click="showSendDetail()">发送详情</a>
+    </li>
+    <li ng-if="hasPermission(urlPerMap.SMSMGR_INBOX_INDEX)" role="receiveRecord">
+        <a data-toggle="tab" ng-click="showReceiveRecord()">接收记录</a>
+    </li>
+</ul>
+<!--tab切换 end-->
+<div class="tab-content mar_t10">
+    <!--发送详情-->
+    <div role="tabpanel" class="tab-pane in active" id="sendDetail">
+        <div>
+            <!--搜索栏-->
+            <form class="form-inline table-toolbar ng-scope ng-valid ng-dirty">
+                <div class="search_box">
+                    <div class="pull-left">
+                        <div class="form-group">
+                            <label class="label">批次名称</label>
+                            <input type="text" ng-model="stParams._lk_batchName" class="form-control input-sm ng-pristine ng-valid w140">
+                        </div>
+                        <div class="form-group">
+                            <label class="label">手机号码</label>
+                            <input type="text" ng-model="stParams.phone" maxlength="11" class="form-control input-sm ng-pristine ng-valid w140">
+                        </div>
+                        <div class="form-group">
+                            <label class="label">检核结果</label>
+                            <select class="form-control input-sm" ng-model="stParams.fBizForm">
+                                <option value="-1">全部</option>
+                                <!-- 6为端口分配成功，页面hardcode为检核通过-->
+                                <option value="6">检核通过</option>
+                                <option value="21">空信息过滤</option>
+                                <option value="11">非法号码过滤</option>
+                                <option value="18">重复号码过滤</option>
+                                <option value="26">重复提交过滤</option>
+                                <option value="1">黑名单过滤</option>
+                                <option value="3">关键字过滤</option>
+                                <option value="4">区域限制</option>
+                                <option value="13">非白名单</option>
+                                <!--<option value="14">非法彩信帧</option>-->
+                                <!--<option value="16">超过最大容量</option>-->
+                                <!--<option value="17">类型不支持</option>-->
+                                <option value="24">条数限制过滤</option>
+                                <option value="20">不在运营商号段</option>
+                                <option value="10">端口选择失败</option>
+                                <option value="22">审批不通过</option>
+                                <option value="5">发送取消</option>
+                                <option value="12">信息已过期</option>
+                                <option value="25">余额不足</option>
+                                <option value="27">用户内容不含有合法签名</option>
+                                <option value="31">系统错误</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="label">发送结果<!--批次状态--></label>
+                            <select class="form-control input-sm" ng-model="stParams.reportState" >
+                                <option value="-1">请选择</option>
+                                <option value="0">发送成功</option>
+                                <option value="1">发送失败</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group more-btn">
+                        <button ng-init="moreFlag = false;" href="javascript:;" type="button" class="btn btn_more more_spacing" ng-click="moreFlag = !moreFlag;">
+                            更多
+                        </button>
+                        <button type="button" class="btn btn-sm btn-primary"
+                                ng-click="searchSMSNumberRecord()">
+                            <i class="fa fa-search"></i> 查询
+                        </button>
+                    </div>
+
+                    <div class="more-search" ng-show="moreFlag">
+                        <div class="pull-left">
+                            <div class="form-group">
+                                <select-one-day query-term="queryTerm"/>
+                            </div>
+                            <div class="form-group">
+                                <auto-complete-user id="smsDetailUser"
+                                                    complete-user="completeUser">
+                                </auto-complete-user>
+                            </div>
+                            <div class="form-group">
+                                <label class="label">提交报告</label>
+                                <input type="text" ng-model="stParams._eq_tOriginResult" class="form-control input-sm ng-pristine ng-valid">
+                            </div>
+                            <div class="form-group">
+                                <label class="label">状态报告</label>
+                                <input type="text" ng-model="stParams._eq_sOriginResult" class="form-control input-sm ng-pristine ng-valid">
+                            </div>
+                            <div class="form-group">
+                                <label class="label">通道</label>
+                                <select ng-model="stParams.specNumber" ng-options="item.channelId as item.basicNumber  for item in channel" class="form-control form-control-small input-sm">
+                                    <option value="">请选择</option>
+                                </select>
+                                <span ng-model="stParams.specNumber" ng-hide="true"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div class="table_t1 mar_t10">
+                <div class="fixed-table-container loading-container">
+                    <div class="loading" ng-show="smsNumberRecordTable.settings().$loading"></div>
+                    <table ng-table="smsNumberRecordTable" class="table table-hover" template-pagination="custom/withoutPageNumber">
+                        <tbody>
+                        <tr ng-repeat="numberRecord in $data">
+                            <td width="30" data-title="&nbsp;" header="'ng-table/headers/checkbox.html'" align="center">
+                                <div class="checkbox checkbox-info">
+                                    <input name="id" value="{{numberRecord.id}}" ng-checked="numberRecord.$checked" ng-click="checkOne(numberRecord);" type="checkbox">
+                                    <label></label>
+                                </div>
+                            </td>
+                            <td data-title="'批次名称'" align="center">
+                                {{numberRecord.batchName}}
+                            </td>
+                            <td data-title="'手机号码'" align="center">
+                                {{numberRecord.phone}}
+                            </td>
+                            <td width="15%" data-title="'短信内容'" align="center">
+                                <a ng-click="showTemplateContent(numberRecord)">{{numberRecord.smsContent| cutContent:true:30:"......"}}</a>
+                            </td>
+                            <td data-title="'检核结果'" align="center">
+                                {{numberRecord.bizFormName}}
+                            </td>
+                            <td data-title="'发送结果'" align="center">
+                                <span ng-if="numberRecord.sendResult==0">发送成功</span>
+                                <span ng-if="numberRecord.sendResult!=0">发送失败</span>
+                            </td>
+                            <td data-title="'提交时间'" align="center"><!--号码提交到网关的时间-->
+                                {{numberRecord.commitTime|date:'yyyy-MM-dd HH:mm:ss'}}
+                            </td>
+                            <td data-title="'发送时间'" align="center"><!--号码提交运营商时间-->
+                                {{numberRecord.sendTime|date:'yyyy-MM-dd HH:mm:ss'}}
+                            </td>
+
+                            <td data-title="'提交报告'" align="center">
+                                <span ng-if="numberRecord.ticketOriginResult==null">未返回</span>
+                                <span ng-if="numberRecord.ticketOriginResult!=null">{{numberRecord.ticketOriginResult}}</span>
+                            </td>
+                            <td data-title="'状态报告'" align="center">
+                                {{numberRecord.stateReportOriginResult}}
+                            </td>
+                            <td data-title="'发送用户'" align="center">
+                                {{numberRecord.sendUserName}}
+                            </td>
+                            <td data-title="'通道'" align="center">
+                                {{numberRecord.specNumber}}
+                            </td>
+                        </tr>
+
+						<tr ng-show="$data==0" align="center">
+							<td colspan="12"><div class="bootstrapTable_noData"><div></div><p>没有找到相关数据！</p></div></td>
+						</tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/ng-template" id="template/syTimepicker/timepicker.html">
+    <table>
+        <tbody>
+        <tr class="text-center">
+            <td><a ng-click="incrementHours()" class="btn btn-link"><span class="glyphicon glyphicon-chevron-up"></span></a></td>
+            <td>&nbsp;</td>
+            <td><a ng-click="incrementMinutes()" class="btn btn-link"><span class="glyphicon glyphicon-chevron-up"></span></a></td>
+            <td ng-show="showSeconds">&nbsp;</td>
+            <td ng-show="showSeconds"><a ng-click="incrementSeconds()" class="btn btn-link"><span class="glyphicon glyphicon-chevron-up"></span></a></td>
+            <td ng-show="showMeridian"></td>
+        </tr>
+        <tr>
+            <td style="width:50px;" class="form-group" ng-class="{'has-error': invalidHours}">
+                <input type="text" ng-model="hours" ng-change="updateHours()" class="form-control text-center" ng-mousewheel="incrementHours()" ng-readonly="readonlyInput" style="width:inherit;" maxlength="2">
+            </td>
+            <td>:</td>
+            <td style="width:50px;" class="form-group" ng-class="{'has-error': invalidMinutes}">
+                <input type="text" style="width:inherit;" ng-model="minutes" ng-change="updateMinutes()" class="form-control text-center" ng-readonly="readonlyInput" maxlength="2">
+            </td>
+            <td ng-show="showSeconds">:</td>
+            <td ng-show="showSeconds" style="width:50px;" class="form-group" ng-class="{'has-error': invalidSeconds}" ng-show="showSeconds">
+                <input type="text" style="width:inherit;" ng-model="seconds" ng-change="updateSeconds()" class="form-control text-center" ng-readonly="readonlyInput" maxlength="2">
+            </td>
+            <td ng-show="showMeridian">
+                <button type="button" class="btn btn-default text-center" ng-click="toggleMeridian()">{{meridian}}</button>
+            </td>
+        </tr>
+        <tr class="text-center">
+            <td><a ng-click="decrementHours()" class="btn btn-link"><span class="glyphicon glyphicon-chevron-down"></span></a></td>
+            <td>&nbsp;</td>
+            <td><a ng-click="decrementMinutes()" class="btn btn-link"><span class="glyphicon glyphicon-chevron-down"></span></a></td>
+            <td ng-show="showSeconds">&nbsp;</td>
+            <td ng-show="showSeconds"><a ng-click="decrementSeconds()" class="btn btn-link"><span class="glyphicon glyphicon-chevron-down"></span></a></td>
+            <td ng-show="showMeridian"></td>
+        </tr>
+        </tbody>
+    </table>
+</script>
+<script type="text/ng-template" id="template/syTimepicker/popup.html">
+    <ul class="dropdown-menu" ng-style="{display: (isOpen && 'block') || 'none', top: position.top+'px', left: position.left+'px'}" style="min-width:0px;">
+        <li ng-transclude></li>
+    </ul>
+</script>

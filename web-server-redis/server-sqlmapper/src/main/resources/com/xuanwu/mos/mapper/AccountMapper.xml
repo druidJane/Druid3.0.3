@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.xuanwu.web.wechat.dao.mapper.AccountMapper">
+
+    <resultMap id="account" type="com.xuanwu.mos.domain.entity.CommonAccount">
+        <id property="id" column="id" />
+        <result property="openId" column="open_id" />
+        <result property="nick" column="nick" />
+        <result property="email" column="email" />
+        <result property="name" column="name" />
+        <result property="stateIdx" column="state" />
+        <result property="token" column="token" />
+        <result property="appId" column="app_id" />
+        <result property="appSecret" column="app_secret" />
+        <result property="userId" column="user_id" />
+        <result property="remark" column="remark" />
+        <result property="addTime" column="add_time" />
+        <result property="modifyTime" column="modify_time" />
+        <result property="statusIdx" column="status" />
+        <result property="syncMember" column="sync_member" />
+        <result property="lastSyncTime" column="last_sync_time" />
+        <result property="accessToken" column="access_token" />
+        <result property="expireTime" column="expire_time" />
+        <result property="massSendCount" column="mass_send_count" />
+        <result property="lastFSendTime" column="last_fsend_time" />
+        <association property="userName" column="user_id" select="findUserNameById" />
+    </resultMap>
+
+    <select id="findAccount" resultMap="account">
+        select * from wechat_account where state!=2
+        <choose>
+            <when test="type.index==0">and id=#{idOrName}</when>
+            <when test="type.index==1">and open_id=#{idOrName}</when>
+            <when test="type.index==2">and email=#{idOrName}</when>
+            <when test="type.index==3">and name=#{idOrName}</when>
+        </choose>
+    </select>
+
+    <select id="findAccountById" resultMap="account">
+        select * from wechat_account where state!=2 and id=#{id}
+    </select>
+
+    <select id="findAccountContainDelById" resultMap="account">
+        select * from wechat_account where id=#{id}
+    </select>
+
+    <select id="findAccountsByState" resultMap="account">
+        select * from wechat_account
+        <if test="state!=null">where state=#{state.index}</if>
+        order by id desc
+    </select>
+
+    <select id="findAccountsCount" resultType="int">
+        select count(*) from wechat_account where state!=2
+        <if test="state!=null">and state=#{state.index}</if>
+        <if test="email!=null">and email like concat('%',#{email},'%')</if>
+        <if test="name!=null">and name like concat('%',#{name},'%')</if>
+        <if test="nick!=null">and nick like concat('%',#{nick},'%')</if>
+    </select>
+
+    <select id="findAccounts" resultMap="account">
+        select * from wechat_account where state!=2
+        <if test="state!=null">and state=#{state.index}</if>
+        <if test="email!=null">and email like concat('%',#{email},'%')</if>
+        <if test="name!=null">and name like concat('%',#{name},'%')</if>
+        <if test="nick!=null">and nick like concat('%',#{nick},'%')</if>
+        order by id desc
+        <if test="reqNum>0">limit #{offset},#{reqNum}</if>
+    </select>
+
+    <insert id="addAccount" useGeneratedKeys="true" keyProperty="id">
+        insert into wechat_account(`open_id`,`nick`,`email`,`name`,`state`,`token`,`app_id`,`app_secret`,`user_id`,`remark`,`add_time`,`status`,`sync_member`)
+        values(#{openId},#{nick},#{email},#{name},#{state.index},#{token},#{appId},#{appSecret},#{userId},#{remark},#{addTime},#{status.index},#{syncMember})
+    </insert>
+
+    <update id="updateAccount">
+        update wechat_account set `open_id`=#{openId},`nick`=#{nick},`email`=#{email},`name`=#{name},
+        `state`=#{state.index},`token`=#{token},`app_id`=#{appId},`app_secret`=#{appSecret},
+        `user_id`=#{userId},`remark`=#{remark},
+        `modify_time`=#{modifyTime},`status`=#{status.index}
+        where id=#{id}
+    </update>
+
+    <delete id="deleteAccountById">
+        update wechat_account set state=2 where id=#{id}
+    </delete>
+
+    <update id="updateAccountState">
+        update wechat_account set `state`=#{state.index} where id=#{id}
+    </update>
+
+    <update id="updateAccountLastSyncTime">
+        update wechat_account set `last_sync_time`=#{lastSyncTime} where id=#{id}
+    </update>
+
+    <update id="updateSyncMember">
+        update wechat_account set `sync_member`=#{sync} where id=#{id}
+    </update>
+
+    <update id="updateAccountStatus">
+        update wechat_account set `status`=#{status.index} where id=#{id}
+    </update>
+
+    <update id="updateAccountOpenId">
+        update wechat_account set `open_id`=#{openId} where id=#{id}
+    </update>
+
+    <update id="updateAccessToken">
+        update wechat_account set access_token=#{accessToken},expire_time=#{expireTime} where id=#{id}
+    </update>
+
+    <update id="updateFSendCount">
+        update wechat_account set mass_send_count=#{massSendCount},last_fsend_time=#{lastFSendTime} where id=#{id}
+    </update>
+
+    <select id="findUserNameById" resultType="String">
+        select user_name from gsms_user where id=#{id}
+    </select>
+
+</mapper>

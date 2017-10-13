@@ -1,0 +1,34 @@
+<form class="form-inline table-toolbar">
+    <div class="panel panel-info">
+        <table class="table table-bordered middle" >
+            <tbody >
+            <tr ng-repeat="item in batchList">
+                <td class="row_title" width="15%">
+                    发送用户：
+                </td>
+                <td style="word-break:break-all" >
+                    {{user}}
+                </td>
+                <td class="row_title" width="10%">
+                    批次：
+                </td>
+                <td style="word-break:break-all">
+                    {{item.batchName}}
+                </td>
+                <td class="row_title" width="10%">
+                    号码：
+                </td>
+                <td style="word-break:break-all">
+                    {{item.ticketPerPack}}个
+                </td>
+                <td class="row_title" width="10%">
+                    结果：
+                </td>
+                <td style="word-break:break-all" width="10%">
+                    {{item.result}}
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</form>

@@ -1,0 +1,17 @@
+<label class="label">{{params.labelDescription}}</label>
+<label angucomplete-alt id="{{autoId}}"
+       placeholder="{{params.placeholderDescription}}"
+       maxlength="50"
+       selected-object="completeDept.sendDept"
+       field-required="false"
+       pause="100"
+       search-fields="name"
+       title-field="name"
+       remote-url-data-field="data"
+       remote-url="{{completeDept.deptPath}}"
+       minlength="0"
+       input-changed="watchDeptChange"
+       input-class="form-control input-sm"
+	   text-no-results="查不到相关记录"
+       match-class="highlight">
+</label>

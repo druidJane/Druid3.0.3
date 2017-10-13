@@ -1,0 +1,47 @@
+<form class="form-inline w5c-form" name="form" w5c-form-validate="" novalidate>
+    <div class="panel panel-info">
+        <div class="panel-heading">新增模板</div>
+        <table class="table table-bordered middle">
+            <tbody>
+            <tr>
+                <td width="30%" class="row_title">
+                    <span class="red">*</span> 模板名称：
+                </td>
+                <td width="70%">
+                    <!--<input type="text" class="form-control" name="phone" ng-model="phraseAdd.name" ng-pattern="/^[0-9]{11}$/" required/>-->
+                    <input type="text" class="form-control" name="title" ng-model="phraseAdd.title" maxlength="50" required/>
+                </td>
+            </tr>
+            <tr ng-if="smsType=='var'">
+                <td class="row_title">
+                    <label> 添加变量：</label>
+                </td>
+                <td>
+                    <button type="button" class="btn btn-sm btn-info" ng-click="addVariable();">数字变量</button>
+                    <button type="button" class="btn btn-sm btn-info" ng-click="addChineseVariable();">中文变量</button>
+                </td>
+            </tr>
+            <tr>
+                <td class="row_title">
+                    <span class="red">*</span>模板内容：
+                </td>
+                <td>
+                        <textarea class="form-control" id="phraseContent" name="phraseContent" ng-model="phraseAdd.phraseSMSContent"
+                                  ng-keyup="reatextchange();" required maxlength="1000"></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td width="30%" class="row_title">
+                    发送免审：
+                </td>
+                <td width="70%">
+                    <select class="form-control input-sm" ng-model="phraseAdd.templateType" ng-init="phraseAdd.templateType=0">
+                        <option value="1">是</option>
+                        <option value="0">否</option>
+                    </select>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</form>

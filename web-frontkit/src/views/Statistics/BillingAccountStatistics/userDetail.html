@@ -1,0 +1,23 @@
+
+<div class="return-btn"><button type="button" class="btn btn_search callback" ng-click="go_back();">&nbsp;&nbsp;返回</button><label>{{accountName}}</label></div>
+
+<div class="table_t1 mar_t10">
+    <div class="fixed-table-container loading-container">
+    <div class="loading" ng-show="userDetailTable.settings().$loading"></div>
+    <table ng-table="userDetailTable" class="table table-hover" template-pagination="custom/pager">
+        <tbody>
+            <tr ng-repeat="userDetail in $data">
+                <td data-title="cols[0].title" ng-if="cols[0].show" align="center">{{userDetail.linkMan}}</td>
+                <td data-title="cols[1].title" ng-if="cols[1].show" align="center">{{userDetail.userName}}</td>
+                <td data-title="cols[2].title" ng-if="cols[2].show" align="center">{{userDetail.deptName}}</td>
+                <td data-title="cols[3].title" ng-if="cols[3].show" align="center">{{userDetail.sumConsume|number:4}}</td>
+                <td data-title="cols[4].title" ng-if="cols[4].show" align="center">{{userDetail.smsConsume|number:4}}</td>
+                <td data-title="cols[5].title" ng-if="cols[5].show" align="center">{{userDetail.mmsConsume|number:4}}</td>
+            </tr>
+			<tr ng-show="$data==0" align="center">
+                <td colspan="6"><div class="bootstrapTable_noData"><div></div><p>没有找到相关数据！</p></div></td>
+            </tr>
+     </tbody>
+    </table>
+    </div>
+</div>

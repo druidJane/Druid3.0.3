@@ -1,0 +1,62 @@
+<ul class="nav nav-tabs nav_tabs_t1">
+    <li ng-class="tab1"><a data-toggle="tab" ng-click="urlImport();" style="cursor:pointer;">导入管理</a></li>
+    <li ng-class="tab2"><a data-toggle="tab" ng-click="urlExport();" style="cursor:pointer;">导出管理</a></li>
+</ul>
+<form class="form-inline table-toolbar" style="margin-top: 10px;">
+    <div class="search_box">
+        <div class="pull-left">
+            <div class="form-group">
+                <label class="label">任务名称</label>
+                <input type="text" ng-model="filetaskParams.taskName" class="form-control input-sm" />
+            </div>
+            <div class="form-group">
+                <label class="label">任务状态</label>
+                <select ng-model="filetaskParams.state" class="form-control input-sm">
+                    <option value="-1">请选择</option>
+                    <option value="0">未开始</option>
+                    <option value="1">处理中</option>
+                    <option value="2">已完成</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="label">提交时间</label>
+                <input type="text" name="startTime" ng-model="filetaskParams.beginTime" class="form-control input-sm" style="width: 137px" /> 至
+                <input type="text" name="endTime" ng-model="filetaskParams.endTime" class="form-control input-sm" style="width: 137px"/>
+            </div>
+            <div class="form-group">
+                <button type="button" class="btn btn_search" ng-click="searchFiletasks();">查询</button>
+            </div>
+        </div>
+    </div>
+    <div style="clear: both;"></div>
+</form>
+<div class="table_t1 mar_t10">
+    <div class="fixed-table-container">
+    <div class="loading" ng-show="filetasksTable.settings().$loading"></div>
+    <table ng-table="filetasksTable" class="table table-hover" template-pagination="custom/pager">
+        <tbody>
+        <tr ng-repeat="filetask in $data">
+            <td data-title="'任务名称'" width="15%" align="center" sortable="'taskName'">{{filetask.taskName}} </td>
+            <td data-title="'任务状态'" width="15%" align="center">{{filetask.stateName}} </td>
+            <td data-title="'任务进度'" width="15%" align="center" sortable="'percent'">
+                <div class="progress">
+                    <div class="progress-bar" ng-style="filetask.progressStyle"> {{filetask.percent}}% </div>
+                </div>
+            </td>
+            <td data-title="'完成占比'" width="15%" align="center">{{filetask.progress}} </td>
+            <td data-title="'提交时间'" width="15%" align="center" sortable="'postTime'">{{filetask.postTime | date:'yyyy-MM-dd HH:mm:ss'}} </td>
+            <td data-title="'完成时间'" width="15%" align="center">{{filetask.commitTime | date:'yyyy-MM-dd HH:mm:ss'}} </td>
+            <td data-title="'操作'" width="10%" align="center">
+                <a ng-hide="!filetask.canShowReport && filetask.type.index == 1" ng-click="showReport(filetask.message);">查看报告</a>
+                <a ng-click="downloadResult(filetask)" ng-hide="!filetask.canShowDownload">{{downloadText}}</a>
+            </td>
+        </tr>
+        <tr ng-show="$data==0" align="center">
+            <td colspan="7">
+			<div class="bootstrapTable_noData"><div></div><p>没有找到相关数据！</p></div>
+			</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</div>

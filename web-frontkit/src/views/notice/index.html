@@ -1,0 +1,67 @@
+<form class="form-inline table-toolbar">
+    <div class="search_box">
+        <div class="pull-left">
+            <div class="form-group ">
+                <button type="button" class="btn btn_t1 icon_mail mar_r10" ng-click="batchFlagRead();">标记为已读</button>
+                <button type="button" class="btn btn_t1 icon_mail_all mar_r10" ng-click="allFlagRead();">全部标记为已读</button>
+                <button type="button" class="btn btn_t3 icon_delete" ng-click="batchRmv()">删除</button>
+            </div>
+        </div>
+        <div class="pull-right">
+            <div class="form-group">
+                消息类型&nbsp;&nbsp;
+                <select ng-model="params.type" class="form-control input-sm" aria-describedby="basic-addon">
+                    <option value="">请选择</option>
+                    <option value="1">发送通知</option>
+                    <option value="2">审核通知</option>
+                    <option value="3">系统公告</option>
+                </select>
+            </div>
+            <div class="form-group">
+                &nbsp;&nbsp;时间
+            </div>
+            <div class="input-group input-group-sm">
+                <input class="form-control input-sm date" id="beginTime" start-date = "params.beginTime" ng-model="params.beginTime"  ng-date-time type="text">
+            </div>
+            <div class="form-group">
+                &nbsp;&nbsp;至
+            </div>
+            <div class="input-group input-group-sm">
+                <input class="form-control input-sm date" id="endTime" start-date = "params.endTime" ng-model="params.endTime"  ng-date-time type="text">
+            </div>
+            <div class="form-group ">
+                &nbsp;&nbsp;<button type="button" ng-click="search();" class="btn btn_search">查询</button>
+            </div>
+        </div>
+    </div>
+    <div style="clear: both"></div>
+</form>
+<div class="table_t1 mar_t10">
+    <div class="fixed-table-container">
+    <div class="loading" ng-show="table.settings().$loading"></div>
+    <table ng-table="table" class="table table-hover" template-pagination="custom/pager">
+        <tbody>
+        <tr ng-repeat="item in $data">
+            <td width="30" data-title="&nbsp;" header="'ng-table/headers/checkbox.html'">
+                <div class="checkbox checkbox-info">
+                    <input name="id" value="{{item.id}}" ng-checked="item.$checked" ng-click="checkOne(item);" type="checkbox">
+                    <label></label>
+                </div>
+            </td>
+            <td data-title="'标题'" align="center"><img align="left" ng-src="{{item.state.name == 'UNREAD'?'styles/default/images/mail_unopen.png':'styles/default/images/mail_open.png'}}"/>
+                <a ng-href="javascript:;" ng-click="readNotice(item);redirect('/notice/detail',true);">{{item.messageTitle}}</a>
+            </td>
+            <td data-title="'消息类型'" align="center">
+                <span ng-if="item.messageType.index == 1 || item.messageType.index == 2">发送通知</span>
+                <span ng-if="item.messageType.index == 3 || item.messageType.index == 4">审核通知</span>
+                <span ng-if="item.messageType.index == 5">系统公告</span>
+            </td>
+            <td data-title="'推送时间'" align="center">{{item.pushTime|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+        </tr>
+        <tr ng-show="$data==0" align="center">
+            <td colspan="4"><div class="bootstrapTable_noData"><div></div><p>没有找到相关数据！</p></div></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</div>

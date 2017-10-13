@@ -1,0 +1,112 @@
+<ul class="nav nav-tabs nav_tabs_t1" role="tabList" id="tab">
+    <li ng-if="hasPermission(urlPerMap.INFO_COMMONTEMPLATE_INDEX)"
+        ng-class="smsTemplateType==0?'active':''">
+        <a data-toggle="tab"
+           ng-click="showNormalTemplate();redirect('/SmsMgr/SmsTemplate/Index',true)">普通模板</a>
+    </li>
+    <li ng-if="hasPermission(urlPerMap.INFO_VARIANTTEMPLATE_INDEX)"
+        ng-class="smsTemplateType==1?'active':''">
+        <a data-toggle="tab"
+           ng-click="showVarTemplate();redirect('/SmsMgr/SmsTemplate/VariantTemplate',true)">变量模板</a>
+    </li>
+</ul>
+<div class=" mar_t10">
+    <div class="tab-pane">
+        <form class="form-inline table-toolbar">
+            <div class="search_box">
+                <div class="pull-left">
+                    <div class="form-group">
+                        <button ng-if="hasAddTemplate"
+                                type="button" class="btn btn_t1 icon_add float_l mar_r10"
+                                ng-click="addSmsTemplate(smsTemplateType)">
+                            新增
+                        </button>
+                        <button ng-if="hasDelTemplate"
+                                type="button" class="btn btn_t3 icon_delete" ng-click="delSmsTemplate()">
+                            删除
+                        </button>
+                    </div>
+                </div>
+                <div class="pull-right">
+                    <div class="form-group">
+                        <label class="label">模板名称：</label>
+                        <input type="text" ng-model="smsTemplateParams.title"
+                               class="form-control input-sm"/>
+                    </div>
+                    <div class="form-group">
+                        <label class="label">模板内容：</label>
+                        <input type="text" ng-model="smsTemplateParams.content"
+                               class="form-control input-sm"/>
+                    </div>
+                    <div class="form-group">
+                        <label class="label">发送免审：</label>
+                        <select class="form-control input-sm" ng-model="smsTemplateParams.templateType">
+                            <option value="-1">请选择</option>
+                            <option value="1">是</option>
+                            <option value="0">否</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="label">审核结果</label>
+                        <select class="form-control input-sm" ng-model="smsTemplateParams.result">
+                            <option value="-1">全部</option>
+                            <option value="0">待审核</option>
+                            <option value="1">通过</option>
+                            <option value="2">不通过</option>
+                        </select>
+                    </div>
+                    <div class="form-group more-btn">
+                        <button type="button" class="btn btn-sm btn-primary" ng-if="hasQueryTemplate"
+                                ng-click="searchSmsTemplate()"><i class="fa fa-search"></i> 查询
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+        <div class="table_t1 mar_t10">
+            <div class="fixed-table-container">
+                <div class="loading" ng-show="smsTemplateTable.settings().$loading"></div>
+                <table ng-table="smsTemplateTable" class="table table-hover"
+                       template-pagination="custom/pager">
+                    <tbody>
+                    <tr ng-repeat="info in $data">
+                        <td data-title="&nbsp;" header="'ng-table/headers/checkbox.html'">
+                            <div class="checkbox checkbox-info">
+                                <input name="id" value="{{info.id}}" ng-checked="info.$checked"
+                                       ng-click="checkOne(info);" type="checkbox">
+                                <label></label>
+                            </div>
+                        </td>
+                        <td data-title="'模板编号'" width="10%" align="center">{{info.identify}}</td>
+                        <td data-title="'模板名称'" width="15%" align="center">{{info.title}}</td>
+                        <td data-title="'模板内容'" width="25%" align="center">{{info.contentStr |
+                            cutContent:true:30:"......"}}
+                        </td>
+                        <td data-title="'发送免审'" width="5%" align="center">
+                            <span ng-if="info.templateType == 0">否</span>
+                            <span ng-if="info.templateType == 1">是</span>
+                        </td>
+                        <td data-title="'更新时间'" width="15%" align="center">
+                            {{info.lastUpdateTime|date:'yyyy-MM-dd HH:mm:ss'}}
+                        </td>
+                        <td data-title="'审核结果'" width="10%" align="center">
+                            <span ng-if="info.auditState == 0">待审核</span>
+                            <span ng-if="info.auditState == 1">通过</span>
+                            <span ng-if="info.auditState == 2">不通过</span>
+                        </td>
+                        <td data-title="'操作'" width="20%" align="center">
+                            <a ng-if="hasQueryTemplate" href="javascript:;" ng-click="detail(info);"> 查看</a>
+                            <a ng-if="hasUpdateTemplate && info.auditState != 0"
+                               href="javascript:;" ng-click="editSmsTemplateInfo(info)">修改</a>
+                        </td>
+                    </tr>
+                    <tr ng-show="$data==0" align="center">
+                        <td colspan="9"><div class="bootstrapTable_noData"><div></div><p>没有找到相关数据！</p></div></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

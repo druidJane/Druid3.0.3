@@ -1,0 +1,20 @@
+<form class="form-inline table-toolbar">
+    <div class="loading-container">
+        <div class="loading" ng-show="channelTable.settings().$loading"></div>
+        <table ng-table="channelTable" class="table table-striped table-bordered table-hover">
+            <tbody>
+            <tr ng-repeat="channel in $data">
+                <td data-title="'端口号'" align="center">
+                    {{channel.basicNumber}}
+                </td>
+                <td data-title="'可发送运营商'" align="center">
+                    <p style="color: red">{{channel.carrierName}}</p>
+                </td>
+                <td data-title="'单价'" align="center">
+                    {{channel.price}} 元/条
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</form>

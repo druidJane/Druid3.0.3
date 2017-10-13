@@ -1,0 +1,68 @@
+<form class="form-inline table-toolbar">
+    <div class="search_box">
+    <div class="form-group">
+        <button ng-if="hasPermission(urlPerMap.INFO_KEYWORD_ADD)" type="button" class="btn btn_t1 icon_add mar_r10" ng-click="addKeyword();">新增
+        </button>
+        <button ng-if="hasPermission(urlPerMap.INFO_KEYWORD_UPDATE)" type="button" class="btn btn_t1 icon_edit mar_r10" ng-click="updateKeywords()">修改
+        </button>
+        <button ng-if="hasPermission(urlPerMap.INFO_KEYWORD_DEL)" type="button" class="btn btn_t3 icon_delete mar_r10" ng-click="deleteKeywords()">删除
+        </button>
+        <button ng-if="hasPermission(urlPerMap.INFO_KEYWORD_IMPORT)" type="button" class="btn btn_t1 icon_export mar_r10" ng-click="importKeyword()">导入
+        </button>
+        <button ng-if="hasPermission(urlPerMap.INFO_KEYWORD_EXPORT)" type="button" class="btn btn_t1 icon_import" ng-click="exportKeywords()">导出
+        </button>
+    </div>
+    <div class="form-group pull-right">
+        <div class="form-group">
+            <label class="label">非法关键字</label>
+            <input type="text" maxlength="50" ng-model="params._lk_keywordName" class="form-control  input-sm" aria-describedby="basic-addon">
+        </div>
+        <div class="form-group">
+            <button type="button" class="btn btn_search" ng-click="searchKeywords()">查询</button>
+        </div>
+    </div>
+    </div>
+</form>
+<div class="table_t1 mar_t10">
+    <div class="fixed-table-container">
+    <div class="loading" ng-show="keywordsTable.settings().$loading"></div>
+    <table ng-table="keywordsTable" class="table table-hover" template-pagination="custom/pager">
+        <tbody>
+            <tr ng-repeat="keyword in $data">
+                <td width="30" data-title="&nbsp;" header="'ng-table/headers/checkbox.html'">
+                    <div class="checkbox checkbox-info">
+                        <input name="id" value="{{keyword.id}}" ng-checked="keyword.$checked" ng-click="checkOne(keyword);" type="checkbox">
+                        <label></label>
+                    </div>
+                </td>
+                <td width="20%" data-title="'非法关键字'" align="center">
+                    </a>{{keyword.keywordName}}</td>
+                <td width="80%" data-title="'最后修改时间'" align="center" sortable="'handleTime'">{{keyword.handleTime | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+            </tr>
+            <tr ng-show="$data==0" align="center">
+                <td colspan="9"><div class="bootstrapTable_noData"><div></div><p>没有找到相关数据！</p></div></td>
+            </tr>
+        </tbody>
+    </table>
+    </div>
+</div>
+<script type="text/ng-template" id="modal/addKeywordForm.tpl.html">
+    <form class="form-inline w5c-form" name="form" w5c-form-validate="" novalidate>
+        <div class="panel panel-info">
+            <div class="panel-heading" ng-if="keyword.mode=='add'">新增非法关键字</div>
+            <div class="panel-heading" ng-if="keyword.mode=='edit'">修改非法关键字</div>
+            <table class="table table-bordered middle">
+                <tbody>
+                <tr>
+                    <td width="30%" class="row_title">
+                        <span class="red">*</span> 非法关键字：
+                    </td>
+                    <td width="70%">
+                        <input type="text" class="form-control" name="phone" ng-model="keyword.keywordName" ng-pattern="/^[\u4e00-\u9fa5\w-\(\)\[\]【】\（\）]+$/" maxlength="50" required/>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </form>
+</script>

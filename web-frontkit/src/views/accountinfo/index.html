@@ -1,0 +1,139 @@
+<div class="panel panel-info">
+    <div class="panel-heading">账号信息</div>
+    <form class="w5c-form form-horizontal text-left" name="accinfo" w5c-form-validate="" novalidate>
+        <table class="table table-bordered middle">
+            <tr>
+                <td width="15%" class="row_title">
+                    <span class="red">*</span> 用户姓名：
+                </td>
+                <td width="85%">
+					<span ng-show="!updateFlag">{{user.linkMan}}</span>
+                    <input class="inp_type1" style="width:300px;line-height:1.42857143;height:34px;" type="text" ng-model="user.linkMan" ng-show="updateFlag" maxlength="50" required/>
+                </td>
+            </tr>
+            <tr>
+                <td class="row_title">
+                    <label> 登录账号：</label>
+                </td>
+                <td>
+                    <div>
+                        {{user.username}}
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="row_title">所属部门：</td>
+                <td>
+                    <div>
+                        {{user.deptName}}
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="row_title">扩展码：</td>
+                <td>
+                    <div>
+                        {{user.identify}}
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="row_title">用户签名：</td>
+                <td>
+                    <div>
+                        {{user.signature}}
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="row_title">签名位置：</td>
+                <td>
+                    <span ng-if="user.sigLocation == 0">后置</span><span ng-if="user.sigLocation == 1">前置</span>
+                </td>
+            </tr>
+            <tr>
+                <td class="row_title">描述：</td>
+                <td>
+                    <textarea class="text_inp_type1" ng-model="user.remark" readonly></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td class="row_title">账户余额：</td>
+                <td>
+                    <div >
+                        {{user.balance|number:4}}
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="row_title"><span class="red">*</span> 手机号码：</td>
+                <td>
+                    <span ng-show="!updateFlag">{{user.phone}}</span>
+                    <input class="inp_type1" style="line-height:1.42857143;height:34px;" type="text" ng-model="user.phone" name="phone" ng-show="updateFlag"  ng-pattern="/^(1[3|4|5|7|8]\d{9})$/" required/>
+                </td>
+            </tr>
+            <tr>
+                <td class="row_title">&nbsp;</td>
+                <td>
+                    <button type="button" class="btn btn_blue" ng-click="updateFlag=true" ng-show="!updateFlag">
+                        更新资料
+                    </button>
+                    <button type="button" class="btn btn_2x_t1" ng-click="save()" ng-disabled="accinfo.$invalid || accinfo.$pristine" ng-show="updateFlag">保存</button>
+                    <button type="button" class="btn btn_2x_cancel" ng-click="cancel()" ng-show="updateFlag">取消
+                    </button>
+                </td>
+            </tr>
+        </table>
+    </form>
+    <form class="w5c-form form-horizontal text-left" name="passwdinfo" w5c-form-validate="" novalidate>
+        <table class="table table-bordered middle" ng-show="!updatePsswdFlag">
+            <tr>
+                <td width="15%" class="row_title">登录密码：</td>
+                <td width="85%">******</td>
+            </tr>
+            <tr>
+                <td class="row_title">
+                    上一次修改密码时间：
+                </td>
+                <td>{{user.lastUpdateTime|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+            </tr>
+            <tr>
+                <td class="row_title">&nbsp;</td>
+                <td><button type="button" class="btn btn_blue" ng-click="updatePsswdFlag=true">修改密码</button></td>
+            </tr>
+        </table>
+
+        <table class="table table-bordered middle" ng-show="updatePsswdFlag">
+            <tr>
+                <td width="15%" class="row_title">
+                    <span style="color:red;">*</span>旧密码</td>
+                <td width="85%">
+                    <div class="clear_del w200">
+                        <input class="form-control clear_input" type="password" id="oldPassword" name="oldpassword" ng-model="password.oldPassword" required/>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="row_title"><span style="color:red;">*</span>新密码</td>
+                <td>
+                    <input class="form-control w200" type="password" id="newPassword" name="password" ng-model="password.newPassword" required ng-pattern="/^(?![\d]+$)(?![a-zA-Z]+$)(?=[\da-zA-Z]+$).{8,20}$/"/>
+                </td>
+            </tr>
+            <tr>
+                <td class="row_title">
+                    <span style="color:red;">*</span>确认新密码</td>
+                <td>
+                    <input class="form-control w200" type="password" id="secondPassword" name="repeatPassword" ng-model="password.secondPassword"  required w5c-repeat="password"/>
+                </td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td>
+                    <button type="button" class="btn btn_2x_t1" ng-disabled="passwdinfo.$invalid || passwdinfo.$pristine" ng-click="updatePasswd()">确认修改
+                    </button>
+                    <button type="button" class="btn btn_2x_cancel" ng-click="reset()">取消</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>

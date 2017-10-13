@@ -1,0 +1,59 @@
+<div class="tab_con_type1 mar_t10">
+    <div class="first">
+        <!--左边树-->
+        <div class="con_left" style="overflow: auto;">
+            <div class="hd">
+                <div class="f16">个人通讯录</div>
+            </div>
+            <div class="left_tree" style="top:90px;padding:10px 0;">
+                <treecontrol class="tree-classic" tree-model="dataForTheTree" options="treeOptions" on-selection="showSelected(node)" expanded-nodes="expandedNodes">
+                    {{node.name|limitTo:20}}
+                </treecontrol>
+            </div>
+        </div>
+        <!--右边内容-->
+        <div class="con_right">
+            <form class="form-inline w5c-form" name="keywordForm" w5c-form-validate="" novalidate>
+                <div class="panel panel-info">
+                    <div class="panel-heading" ng-if="keyword.mode=='add'">新增共享群组</div>
+                    <div class="panel-heading" ng-if="keyword.mode=='edit'">修改共享群组</div>
+                    <table class="table table-bordered middle">
+                        <tbody>
+                        <tr>
+                            <td width="30%" class="row_title">
+                                <span class="red">*</span> 是否共享详细信息：
+                            </td>
+                            <td width="70%">
+                                <div class="radio_set">
+                                    <input ng-model="econtact.showContactFlag" value="true" type="radio" id="radio-01" name="showContactFlag" class="regular-radio" checked /><label for="radio-01"></label><label>显示</label>&nbsp;
+                                    <input ng-model="econtact.showContactFlag" value="false" type="radio" id="radio-02" name="showContactFlag" class="regular-radio" /><label for="radio-02"></label><label>不显示</label>&nbsp;
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="30%" class="row_title">
+                                <span class="red">*</span> 是否共享子组：
+                            </td>
+                            <td width="70%">
+                                <div class="radio_set">
+                                    <input ng-model="econtact.shareChildFlag" value="true" type="radio" id="radio-1" name="shareChildFlag" class="regular-radio" checked /><label for="radio-1"></label><label>共享</label>&nbsp;
+                                    <input ng-model="econtact.shareChildFlag" value="false" type="radio" id="radio-2" name="shareChildFlag" class="regular-radio" /><label for="radio-2"></label><label>不共享</label>&nbsp;
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <div class="text-center">
+                                    <button type="button" class="btn btn_2x_t1" ng-disabled="illegalkeyForm.$invalid || illegalkeyForm.$pristine" ng-click="submitForm();">保存</button>
+                                    &nbsp;
+                                    <button type="button" class="btn btn_2x_cancel" onclick="window.history.back();">返回</button>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

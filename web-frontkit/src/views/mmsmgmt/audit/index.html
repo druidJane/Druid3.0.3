@@ -1,0 +1,82 @@
+<div id="idx_content">
+    <div class="tab-content mar_t10">
+        <div role="tabpanel" class="tab-pane active" id="tab1">
+            <div class="search_box">
+                <form class="form-inline" role="form" action="" onsubmit="return search();" method="post">
+                    <div class="form-group mar_r10">
+                        <label class="label">批次名称</label>
+                        <input type="text" class="form-control" ng-model="stParams.batchName"
+                               size="12"
+                        maxlength="50" value="">
+                    </div>
+                    <div class="form-group mar_r10">
+                        <auto-complete-user id="mmsAduitUser" complete-user="completeUser"/>
+                    </div>
+                    <div class="form-group">
+                        <auto-complete-dept id="mmsAuditDept"
+                                            complete-dept="completeDept">
+                        </auto-complete-dept>
+                    </div>
+                    <div class="form-group" style="vertical-align: inherit;">
+                        <div class="checkbox checkbox-info">
+                            <input type="checkbox" name="subDept" ng-model="stParams.subDept" class="ng-pristine ng-valid">
+                            <label><span>包括子部门</span></label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <select-multi-day st-params="stParams">nima</select-multi-day>
+                    </div>
+                    <div class="form-group" style="vertical-align: top;">
+                        <button type="button" class="btn btn_search"
+                                ng-click="searchAuditRecord();"
+                                ng-if="hasPermission(urlPerMap.SEND_MMS_AUDIT_QUERY)">查询</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="table_t1 mar_t20">
+        <div class="fixed-table-container loading-container">
+            <div class="loading" ng-show="auditTable.settings().$loading"></div>
+            <table ng-table="auditTable" class="table table-hover" template-pagination="custom/pager">
+                <tbody>
+                <tr ng-repeat="verifyPack in $data">
+                    <td data-title="'批次名称'" align="center" ng-click="goToMmsSendRecord($index)">
+                        <a>{{verifyPack.batchName}}</a></td>
+                    <td data-title="'提交时间'" align="center">
+                        </a>{{verifyPack.postTime|date:'yyyy-MM-dd HH:mm:ss'}}
+                    </td>
+                    <td data-title="'发送部门'" align="center">{{verifyPack.sendDeptName}}
+                    </td>
+                    <td data-title="'发送用户'" align="center">{{verifyPack.sendUserName}}
+                    </td>
+                    <td data-title="'批次状态'"
+                        align="center">{{verifyPack.packState}}
+                    </td>
+                    <td data-title="'用户提交号码数'"
+                        align="center">{{verifyPack.totalTickets}}
+                    </td>
+                    <td data-title="'被过滤号码数'"
+                        align="center">{{verifyPack.filterTickets}}
+                    </td>
+                    <td data-title="'业务类型'" align="center">{{verifyPack.bizTypeName}}
+                    </td>
+                    <td data-title="'操作'" align="center">
+                        <a href="javascript:;"
+                           ng-click="preAuditMms($index)" ng-if="hasPermission(urlPerMap.SEND_MMS_AUDIT_BUTTON)">审核</a>
+                        <a href="javascript:;" class="btn btn-xs"
+                           ng-click="checkAuditDetail($index)"><i class="fa fa-edit"></i> 检核详情</a>
+                    </td>
+                </tr>
+
+				<tr ng-show="$data==0" align="center">
+					<td colspan="9"><div class="bootstrapTable_noData"><div></div><p>没有找到相关数据！</p></div></td>
+				</tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script type="text/ng-template" id="checkAuditDetail.tpl.html">
+
+</script>

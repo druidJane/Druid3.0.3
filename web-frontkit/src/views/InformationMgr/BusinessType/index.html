@@ -1,0 +1,77 @@
+﻿<form class="form-inline table-toolbar">
+    <div class="search_box">
+    <div class="form-group">
+        <button ng-if="hasPermission(urlPerMap.INFO_BIZTYPE_ADD)" type="button" class="btn btn_t1 icon_add mar_r10" ng-click="addBiztype();">新增
+        </button>
+        <button ng-if="hasPermission(urlPerMap.INFO_BIZTYPE_UPDATE)" type="button" class="btn btn_t1 icon_edit mar_r10" ng-click="updateBiztype();">修改
+        </button>
+        <button ng-if="hasPermission(urlPerMap.INFO_BIZTYPE_DELETE)" type="button" class="btn btn_t3 icon_delete" ng-click="deleteBiztypes();">删除
+        </button>
+    </div>
+    <div class="form-group pull-right">
+        <div class="form-group">
+            <label class="label">编号:</label>
+            <input type="text" maxlength="50" ng-model="params.id" class="form-control  input-sm" aria-describedby="basic-addon">
+        </div>
+        <div class="form-group">
+            <label class="label">业务类型名称:</label>
+            <input type="text" maxlength="20" ng-model="params._lk_name" class="form-control  input-sm" aria-describedby="basic-addon">
+        </div>
+        <div class="form-group">
+            <label class="label">优先级:</label>
+            <select class="form-control input-sm" ng-model="params.priority" ng-init="params.priority=-1">
+                <option value="-1">请选择</option>
+                <option value="4">低</option>
+                <option value="3">中</option>
+                <option value="2">较高</option>
+                <option value="1">最高</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <button type="button" class="btn btn_search" ng-click="searchBiztype()">查询</button>
+        </div>
+    </div>
+    </div>
+</form>
+<div class="table_t1 mar_t10">
+    <div class="fixed-table-container">
+    <div class="loading" ng-show="bizTypesTable.settings().$loading"></div>
+    <table ng-table="bizTypesTable" class="table table-hover" template-pagination="custom/pager">
+        <tbody>
+            <tr ng-repeat="bizType in $data">
+                <td width="30" data-title="&nbsp;" header="'ng-table/headers/checkbox.html'">
+                    <div class="checkbox checkbox-info">
+                        <input name="id" value="{{bizType.id}}" ng-checked="bizType.$checked" ng-click="checkOne(bizType);" type="checkbox">
+                        <label></label>
+                    </div>
+                </td>
+                <td width="10%" data-title="'编号'" align="center" >
+                    </a>{{bizType.id}}</td>
+                <td width="10%" data-title="'业务类型名称'" align="center" >
+                    </a>{{bizType.name}}</td>
+                <td width="10%" data-title="'发送速度'" align="center" >
+                    </a>
+                    <span ng-if="bizType.speedMode==1 && bizType.speed > 0">{{bizType.speed}}条/秒</span>
+                    <span ng-if="bizType.speedMode==2 && bizType.speed > 0">{{bizType.speed}}条/分</span>
+                </td>
+                <td width="10%" data-title="'发送时间段'" align="center" >
+                    </a>{{bizType.startTime | date:'HH:mm:ss'}} 至 {{bizType.endTime | date:'HH:mm:ss'}}</td>
+                <td width="10%" data-title="'优先级'" align="center">
+                    </a>{{bizType.priorityStr}}</td>
+                <td width="10%" data-title="'带用户扩展码'" align="center">
+                    <span ng-if="bizType.extendFlag==true">是</span>
+                    <span ng-if="bizType.extendFlag!=true">否</span>
+                </td>
+                <td width="10%" data-title="'描述'" align="center" >
+                    </a>{{bizType.remark}}</td>
+                <td width="30%" data-title="'操作'" width="20%" align="center">
+                    <a href="javascript:;" ng-if="hasPermission(urlPerMap.INFO_BIZTYPE_DELETE)" ng-click="detail(bizType)">查看</a>
+                </td>
+            </tr>
+            <tr ng-show="$data==0" align="center">
+                <td colspan="9"><div class="bootstrapTable_noData"><div></div><p>没有找到相关数据！</p></div></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+</div>

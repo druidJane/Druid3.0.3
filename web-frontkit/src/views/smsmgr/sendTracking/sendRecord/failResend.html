@@ -1,0 +1,69 @@
+<form class="form-inline table-toolbar">
+    <div class="panel panel-info">
+        <table class="table table-bordered middle" >
+            <tbody >
+            <tr>
+                <td width="30%" class="row_title">
+                    发送用户：
+                </td>
+                <td width="70%">
+                    当前登录用户
+                </td>
+            </tr>
+            <tr>
+                <td width="30%" class="row_title">
+                    业务类型：
+                </td>
+                <td width="70%">
+                    <select ng-model="selectedBizType" ng-change="changeBiztype(selectedBizType)"
+                            ng-options="bizType.name for bizType in bizTypes"></select>
+                    <input type="hidden" value="{{selectedBizType.id}}">
+                </td>
+            </tr>
+            <tr>
+                <td width="30%" class="row_title">
+                    发送时间段：
+                </td>
+                <td width="70%">
+                    <span id="span_biz_info"><span ng-bind="selectedBizType.startTime"></span>至<span ng-bind="selectedBizType.endTime"></span></span>
+                </td>
+            </tr>
+            <tr>
+                <td width="30%" class="row_title">
+                    过滤重复号码：
+                </td>
+                <td width="70%">
+                    <label class="radio-inline">
+                        <input type="radio" ng-model="distinct" value="true" ng-click="changeDistinct(true)" />是
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" ng-model="distinct" value="false" ng-click="changeDistinct(false)" />否
+                    </label>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="loading-container">
+        <div class="panel-heading">即将重发以下批次短信，预估重发{{failSum}}条</div>
+        <div class="loading" ng-show="failResendTable.settings().$loading"></div>
+        <table ng-table="failResendTable" class="table table-striped table-bordered table-hover" template-pagination="custom/pager">
+            <tbody>
+            <tr ng-repeat="fail in $data">
+                <td width="30%" data-title="'批次名称'" align="center" style="word-break:break-all">
+                    {{fail.batchName| cutContent:true:20:"......"}}
+                </td>
+                <td width="30%" data-title="'短信内容'" align="center" style="word-break:break-all">
+                    <a ng-click="showContent(fail);">{{fail.smsContent| cutContent:true:20:"......"}}</a>
+                </td>
+                <td width="30%" data-title="'预估重发'" align="center">
+                    {{fail.failedTickets}}
+                </td>
+            </tr>
+            <tr ng-show="$data==0" align="center">
+                <td colspan="3"><div class="bootstrapTable_noData"><div></div><p>没有找到相关数据！</p></div></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</form>

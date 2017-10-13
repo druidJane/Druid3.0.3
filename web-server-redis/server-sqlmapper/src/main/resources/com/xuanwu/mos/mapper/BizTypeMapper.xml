@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.xuanwu.mos.mapper.BizTypeMapper">
+	
+	<!-- entity 类型信息表(gsms_business_type)， 存放各企业的业务类型信息，每个企业均有一个默认业务类型-->
+	<resultMap id="bizType" type="com.xuanwu.mos.domain.entity.BizType">
+		<id property="id" column="id" />
+		<result property="extendFlag" column="extend_flag" />
+		<result property="priority" column="priority" />
+		<result property="name" column="name" />
+		<result property="state" column="state" />
+		<result property="startTime" column="start_time" />
+		<result property="endTime" column="end_time" />
+		<result property="enterpriseId" column="enterprise_id" />
+		<result property="type" column="type" />
+		<result property="speed" column="sendspeed" />
+		<result property="speedMode" column="speedunit" />
+		<result property="remark" column="remark" />
+		<result property="busType" column="bus_type" />
+		<result property="numExtendSize" column="extend_size" />
+	</resultMap>
+	
+	<!-- delete business_type that found by the given id
+		根据id删除企业的业务类型
+	 -->
+	<update id="deleteBizType">
+		update gsms_business_type set state=2,name =concat(name,'【已删】') where id=#{id}
+	</update>
+	
+	<!-- get business_type that found by the given id
+		根据id查找企业的业务类型
+	 -->
+	<select id="getById" resultMap="bizType">
+		select * from gsms_business_type where id = #{id}
+		<if test="enterpriseId!=null">and enterprise_id=#{enterpriseId}</if>
+	</select>
+	
+	<!--get bussiness_type that found by the given name
+		 根据业务类型名称查找企业的业务类型
+	 -->
+	<select id="findBizTypeByName" resultMap="bizType">
+		select id,name from gsms_business_type where state=1 and name = #{name}
+	</select>
+	
+	<select id="findBizTypeByNameAndEntId" resultMap="bizType">
+		select id,name from gsms_business_type where state=1 and name = #{name} and enterprise_id =#{entId}
+		<if test="oid != null and oid!=0">
+			and id != #{oid}
+		</if>
+		limit 1
+	</select>
+	<!--get (id,name) from all bussiness_type with id asc
+		 查找所有业务类型的id和业务类型名称，以id顺序排序
+	 -->
+	<select id="findAllBizType" resultMap="bizType">
+		select id,name from gsms_business_type order by id asc
+	</select>
+	
+	<!--get name of bussiness_type that found by the given id
+		 根据id查找出业务类型的名称
+	 -->
+	<select id="findBizTypeNameById" resultType="string">
+		select name from gsms_business_type where id=#{id}
+	</select>
+	<sql id="Where_Clause">
+		<where>
+			enterprise_id = #{params.enterpriseId} and state=1
+			<if test="params.id != null and params.id != ''">
+				and id = #{params.id}
+			</if>
+			<if test="params.type != null">
+				and type = #{params.type}
+			</if>
+			<if test="params._lk_name != null and params._lk_name != ''">
+				and name like concat('%',#{params._lk_name},'%')
+			</if>
+			<if test="params.priority > 0">
+				and priority = #{params.priority}
+			</if>
+		</where>
+	</sql>
+	<select id="findBizTypeCount" resultType="int">
+		select count(1) from gsms_business_type
+		<include refid="Where_Clause"/>
+	</select>
+	
+	<select id="findBizType" resultMap="bizType">
+		select id,extend_flag,priority,name,
+		start_time,end_time,remark,sendspeed,speedunit
+		from gsms_business_type
+		<include refid="Where_Clause"/>
+		order by id asc
+		<if test="page!=null">limit #{page.from}, #{page.size}</if>
+	</select>
+	<select id="findUserBizType" resultMap="bizType">
+		select id,extend_flag,priority,name,
+		start_time,end_time,remark,sendspeed,speedunit
+		from gsms_business_type t LEFT JOIN gsms_user_business_type u on u.type_id = t.id
+		 where u.user_id = #{params.userId}
+	</select>
+	<resultMap type="com.xuanwu.mos.domain.entity.CarrierChannel" id="carrierChannelMap">
+		<id property="id" column="id" />
+		<result property="name" column="name" />
+		<result property="channelNum" column="channel_num" />
+		<result property="basicNumber" column="basic_number" />
+		<result property="msgType" column="msg_type" />
+		<result property="paras" column="specnum_bind_id" />
+		<result property="price" column="price" />
+		<collection property="canSendCarrier" ofType="com.xuanwu.mos.domain.entity.Carrier" column="c_carrier_id">
+			<id property="id" column="carrier_id" />
+		</collection>
+	</resultMap>
+	
+	<select id="findCarrierChannelByEnterpriseId" resultMap="carrierChannelMap" parameterType="map">
+		select b.basic_number AS basic_number,a.id as id,a.name as name,a.channel_num as channel_num,c.id as specnum_bind_id,c.msg_type as msg_type,d.carrier_id as carrier_id,
+		c.price
+		from gsms_carrier_channel a
+		left join gsms_specsvs_num b on a.id = b.channel_id
+		left join gsms_enterprise_specnum_bind c on b.id = c.specnum_id
+		left join gsms_channel_carrier_map d on a.id = d.channel_id
+		where c.enterprise_id =#{params.enterpriseId} and a.state=1
+		<if test="params.msgType!=null">
+			and c.msg_type = #{params.msgType}
+		</if>
+	</select>
+	
+	<select id="findExtentChannel" resultMap="carrierChannelMap">
+		select id as id,name as name
+		from gsms_carrier_channel
+		where is_extend is false and id=#{id}
+	</select>
+	
+	<insert id="storeBizType" parameterType="com.xuanwu.mos.domain.entity.BizType">
+		<selectKey order="AFTER" keyProperty="id" resultType="java.lang.Integer">
+     		select last_insert_id() as id
+     	</selectKey>
+		insert into gsms_business_type (id,extend_flag,priority,name,state,start_time,end_time,remark,enterprise_id,type,sendspeed,speedunit)
+			values (#{id},#{extendFlag},#{priority},#{name},#{state},#{startTime},#{endTime},#{remark},#{enterpriseId},#{type},#{speed},#{speedMode});
+	</insert>
+	
+	<insert id="storeBizTypeSpecnum" parameterType="com.xuanwu.mos.domain.entity.BiztypeSpecnum">
+		insert into gsms_biztype_specnum (enterprise_specnum_bind_id,biztype_id,is_remove,carrier_id)
+			values (#{enterpriseSpecnumBindId},#{biztypeId},#{isRemove},#{carrierId})
+	</insert>
+	
+	<select id="findGsmsSyncTimePeriod" resultType="int">
+		select config_value as value from gsms_sys_config where config_key = 'GsmsSyncTimePeriod' and platform_id =2 limit 1
+	</select>
+	
+	<resultMap type="com.xuanwu.mos.domain.entity.BizType" id="bizTypeMap">
+		<id property="id" column="id" />
+		<result property="extendFlag" column="extend_flag" />
+		<result property="priority" column="priority" />
+		<result property="name" column="name" />
+		<result property="startTime" column="start_time" />
+		<result property="endTime" column="end_time" />
+		<result property="remark" column="remark" />
+		<result property="speed" column="sendspeed" />
+		<result property="speedMode" column="speedunit" />
+		<collection property="carrierChannel" ofType="com.xuanwu.mos.domain.entity.CarrierChannel" column="e_id">
+			<id property="id" column="e_id" />
+			<result property="name" column="e_name" />
+			<result property="channelNum" column="e_channel_num" />
+			<result property="msgType" column="c_msg_type" />
+			<collection property="canSendCarrier" ofType="com.xuanwu.mos.domain.entity.Carrier" column="b_carrier_id">
+				<id property="id" column="b_carrier_id" />
+			</collection>
+		</collection>
+	</resultMap>
+	
+	<select id="findBizTypeDetailById" resultMap="bizTypeMap" >
+		select a.id as id,a.extend_flag as extend_flag,a.priority as priority,a.name as name,a.start_time as start_time,a.end_time as end_time,a.remark as remark,
+		a.sendspeed,a.speedunit,b.carrier_id as b_carrier_id,c.msg_type as c_msg_type,e.id as e_id,e.name as e_name,e.channel_num as e_channel_num
+		from gsms_business_type a
+		left join gsms_biztype_specnum b on a.id =b.biztype_id
+		left join gsms_enterprise_specnum_bind c on b.enterprise_specnum_bind_id = c.id
+		left join gsms_specsvs_num d on c.specnum_id =d.id
+		left join gsms_carrier_channel e on d.channel_id = e.id
+		where a.id=#{id}
+	</select>
+	
+	<update id="modifyBizType" parameterType="com.xuanwu.mos.domain.entity.BizType">
+		update gsms_business_type set extend_flag=#{extendFlag},priority=#{priority},name=#{name},start_time=#{startTime},end_time=#{endTime},remark=#{remark}
+			,sendspeed=#{speed},speedunit=#{speedMode} where id=#{id}
+	</update>
+	
+	<delete id="delBizTypeSpecnum">
+		delete from gsms_biztype_specnum where biztype_id=#{id}
+	</delete>
+	
+	<delete id="delUserBusinessType">
+		delete from gsms_user_business_type where type_id=#{id}
+	</delete>
+	
+	<insert id="storeUserBusinessType">
+		insert into gsms_user_business_type (type_id,user_id,bus_type) values (#{params.bizTypeId},#{params.userId},#{params.busType})
+	</insert>
+	
+	<select id="findBizTypeName" resultType="String">
+      select name as biztype_name from gsms_business_type where id=#{bizTypeId}
+    </select>
+    
+     <select id="findAllBizTypeByEntId" resultMap="bizType">
+	   select t.id,t.name from gsms_business_type t where t.enterprise_id=#{entId}
+	</select>
+    
+    <select id="findBizTypesSimple" resultMap="bizType">
+        select id,name from gsms_business_type where enterprise_id=#{entId} 
+        <if test="name!=null">and name like concat(#{name}, '%')</if>
+        limit #{fetchSize}
+    </select>
+    
+    <select id="findBizTypesSimpleNotDel" resultMap="bizType">
+        select id,name,start_time,end_time from gsms_business_type where enterprise_id=#{params.entId}
+        and state!=2
+        <if test="params.name!=null">and name like concat('%',#{params.name}, '%')</if>
+        limit #{params.fetchSize}
+    </select>
+    
+       
+    <select id="findBizTypeID" resultType="int">
+        select id from gsms_business_type where name=#{bizTypeName}
+    </select>
+
+	<select id="findBizTypesByDeptId" parameterType="int" resultMap="bizType">
+		select a.id, a.name, a.type, b.bus_type,sn.extend_size from gsms_business_type a
+		left join gsms_biztype_specnum bs on bs.biztype_id = a.id
+		left join gsms_specsvs_num sn on sn.id = bs.enterprise_specnum_bind_id
+		inner join gsms_user_business_type b on b.type_id=a.id
+		where b.user_id=#{deptId} group by a.id
+	</select>
+
+	<select id="findBizTypeByEntId" parameterType="int" resultType="bizType">
+		select id, name,state from gsms_business_type where enterprise_id=#{enterpriseId}
+		and state != 2 ORDER BY id
+	</select>
+	
+	<select id="findBizTypeByEntId4BizStat" parameterType="int" resultType="bizType">
+		select id, name,state from gsms_business_type where enterprise_id=#{enterpriseId} ORDER BY id
+	</select>
+
+	<select id="findChildTypeByPath" resultMap="bizType">
+		select distinct(type_id) as id from gsms_user_business_type
+		where user_id
+		in (select id from gsms_user where state!=2 and type = 1 and path like concat(#{path}, '%'))
+	</select>
+	<resultMap type="com.xuanwu.mos.domain.entity.SpecsvsNumVo" id="specsvsNumVo">
+		<result property="basicNumber" column="BasicNumber"/>
+		<result property="carrierId" column="carrierId"/>
+		<result property="price" column="price"/>
+		<result property="carrierName" column="carrierName"/>
+		<result property="channelId" column="channelId"/>
+		<result property="channelName" column="channelName"/>
+		<result property="assignType" column="assignType"/>
+		<result property="mmsMaxLength" column="mms_max_length"/>
+	</resultMap>
+	<select id="getCarrierDetailByBizId" resultType="specsvsNumVo">
+		select a.id as id,a.extend_flag as extend_flag,a.priority as priority,a.name as name,a.start_time as start_time,a.end_time as end_time,a.remark as remark,
+		a.sendspeed,a.speedunit,b.carrier_id as b_carrier_id,c.msg_type as c_msg_type,e.id as channelId,e.name as channelName,d.basic_number as BasicNumber,c.price
+		,GROUP_CONCAT(carrier.name) carrierName,carrier.name,d.assign_type as assignType, e.mms_max_length AS mmsMaxLength
+		from gsms_business_type a
+		left join gsms_biztype_specnum b on a.id =b.biztype_id
+		left join gsms_enterprise_specnum_bind c on b.enterprise_specnum_bind_id = c.id
+		left join gsms_specsvs_num d on c.specnum_id =d.id
+		left join gsms_carrier_channel e on d.channel_id = e.id
+		LEFT JOIN gsms_carrier carrier on carrier.id=b.carrier_id
+		<where>
+			a.enterprise_id=#{entId} and carrier.showed=1
+			<if test="id!=null">
+				and a.id=#{id}
+			</if>
+			<if test="msgType!=null">
+				and c.msg_type = #{msgType}
+			</if>
+		</where>
+		GROUP BY e.id
+		ORDER BY c.price desc
+	</select>
+
+	<select id="findCommonBusTypeByUserId" resultMap="bizType">
+		select type_id as id, bus_type from gsms_user_business_type
+		where user_id = #{userId} and bus_type = 10 limit 1
+	</select>
+</mapper>

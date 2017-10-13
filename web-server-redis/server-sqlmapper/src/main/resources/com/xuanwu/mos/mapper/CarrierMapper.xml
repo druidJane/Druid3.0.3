@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.xuanwu.mos.mapper.CarrierMapper">
+	<!-- entity 运营商实体，存放各运营商信息，包含信息表(gsms_carrier)的所有字段-->
+	<resultMap id="carrierResult" type="com.xuanwu.mos.domain.entity.Carrier">
+		<id property="id" column="id" />
+		<result property="name" column="name" />
+		<result property="showed" column="showed" />
+		<result property="sort" column="sort" />
+	</resultMap>
+
+	<resultMap id="carrierMap" type="com.xuanwu.mos.domain.entity.CarrierPrice">
+		<id property="id" column="id" />
+		<result property="price" column="price" />
+		<result property="carrierName" column="carrierName" />
+	</resultMap>
+	
+	<!-- entity  运营商号码段实体，存放运营商号码段信息，包含运营商号码段信息表(gsms_carrier_teleseg_map)的所有字段，并包含了运营商信息表(gsms_carrier)的(id,name)字段-->
+	<resultMap id="carrierTeleseg" type="com.xuanwu.mos.domain.entity.CarrierTeleseg">
+		<id property="id" column="id" />
+		<result property="phone" column="phone" />
+		<result property="showed" column="showed" />
+		<result property="sort" column="sort" />
+		<!-- <result property="handleTime" column="handle_time" /> -->
+		<association property="carrier"
+			javaType="com.xuanwu.mos.domain.entity.Carrier">
+			<id property="id" column="carrier_id" />
+			<result property="name" column="carrier_name" />
+		</association>
+
+	</resultMap>
+
+	<!-- entity 运营商信息(gsms_carrier) -->
+	<resultMap type="com.xuanwu.mos.domain.entity.Carrier" id="carrier">
+		<result property="id" column="id"/>
+		<result property="name" column="name"/>
+	</resultMap>
+
+	<sql id="findResultsSql">
+		where gc.showed=1
+		<if test="params.name != null" >and gc.name=#{params.name}</if>
+	</sql>
+
+	<select id="findResults" resultMap="carrierResult" parameterType="map">
+		select * from gsms_carrier gc
+		<include refid="findResultsSql"/>
+	</select>
+	<!-- get (id,name) of all from carrier order by id asc  
+		查找所有运营商的(id,运营商名称)，并根据id顺序排序
+	-->
+	<select id="findAllCarrier" resultMap="carrierResult">
+		select id,name from
+		gsms_carrier order by id asc
+	</select>
+	
+	<!--get the count from carrier_teleseg that found by params
+		根据所给条件查询出符合条件的运营商号码段的条数(phone模糊查询)
+	 -->
+	<select id="findCarrierTelesegCount" resultType="int">
+		select
+		count(*)
+		from gsms_carrier_teleseg_map
+		where showed=1
+		<if test="carrierId!=-1">and carrier_id=#{carrierId}</if>
+		<if test="phone!=null ">and phone like concat('%',#{phone},'%')</if>
+	</select>
+	
+	<!-- get carrier_teleseg(id,phone,showed) and gsms_carrier(id,name,handle_time) from carrier_teleseg which left join gsms_carrier
+		that found by given params
+		根据所给参数，将运营商信息表和运营商号码段信息表关联，分页查询，得到运营商号码段实体，以List形式返回
+	 -->
+	<select id="findCarrierTelesegByCarrierIdOrPhone" resultMap="carrierTeleseg">
+		select
+		a.id as id,
+		a.phone as phone,
+		a.showed as showed,
+		b.id as
+		carrier_id,
+		b.name as carrier_name<!--,
+		 a.handle_time as handle_time -->
+		from
+		gsms_carrier_teleseg_map a
+		left join gsms_carrier b on
+		a.carrier_id=b.id
+		where a.showed=1
+		<if test="carrierId!=null and carrierId!=-1">and carrier_id=#{carrierId}</if>
+		<if test="phone!=null and phone!=''">and phone like concat('%',#{phone},'%')</if>
+		<choose>
+			<when test="param.orderField == 'carrierName'">order by carrier_name <if test="param.desc">desc</if>,phone asc</when>
+			<when test="param.orderField == 'phone'">order by phone <if test="param.desc">desc</if></when>	
+			<!-- <otherwise>order by a.handle_time desc</otherwise> -->
+		</choose>
+		limit #{param.pi.from}, #{param.pi.size}
+	</select>
+
+	
+	<!--add new  carrier_teleseg
+		添加新的运营商号码段
+	 -->
+	<insert id="addCarrierTeleseg">
+		insert into
+		gsms_carrier_teleseg_map(phone,carrier_id,showed<!-- ,handle_time -->)
+		values(#{phone},#{carrier.id},#{showed}<!-- ,#{handleTime} -->)
+	</insert>
+	
+	<!--delete carrier_teleseg that found by id
+		删除根据id查找到的运营商号码段
+	 -->
+	<delete id="deleteCarrierTeleseg">
+		delete from gsms_carrier_teleseg_map where id=#{id}
+	</delete>
+	
+	<!-- update carrier_teleseg that found by id
+		更新根据id查找到的运营商号码段
+	 -->
+	<update id="updateCarrierTeleseg">
+		update gsms_carrier_teleseg_map set
+		carrier_id=#{carrier.id},
+		phone=#{phone},
+		showed=#{showed}<!-- ,
+		handle_time=#{handleTime} -->
+		where
+		id=#{id}
+	</update>
+	
+	<!--get (id,phone) from  carrier_teleseg that found by the given params
+		根据所给条件查询运营商号码段的(id,phone)
+	 -->
+	<select id="isExistCarrierTeleseg"  resultMap="carrierTeleseg">
+		select
+		carrier_id,phone
+		 from gsms_carrier_teleseg_map 
+		where phone = #{phone} 
+		<if test="id!=-1">and id !=#{id}</if>
+	</select>
+	
+	<select id="findAllCarrierTeleseg" resultMap="carrierTeleseg">
+		select * from gsms_carrier_teleseg_map
+	</select>
+	
+	<select id="findCarrierTelesegById"  resultMap="carrierTeleseg">
+		select	a.id as id,
+		a.phone as phone,
+		a.showed as showed,
+		b.id as	carrier_id,
+		b.name as carrier_name<!--,
+		 a.handle_time as handle_time -->
+		from gsms_carrier_teleseg_map a
+		left join gsms_carrier b on
+		a.carrier_id=b.id
+		where a.showed=1
+		and a.id=#{id}
+	</select>
+	
+	<select id="findCarriersByChannelId" resultMap="carrierResult">
+		select gc.id,gc.name,gc.showed,gc.sort from gsms_carrier gc,gsms_channel_carrier_map gccm where gc.id=gccm.carrier_id and gccm.channel_id=#{channelId}
+	</select>
+	
+	<select id="findTeleSegCount" resultType="long">       
+        select count(1) from gsms_carrier_teleseg_map where phone=#{teleSeg}
+    </select>
+
+	<select id="findCarrierPrice" resultMap="carrierMap">
+		select *, gc.name as carrierName from gsms_account_carrier_price gac
+		left join gsms_carrier gc on gac.carrier_id = gc.id
+		where enterprise_id = #{enterpriseId} and msg_type=#{msgType.index} group by gc.name
+	</select>
+
+	<!-- 查找出所有运营商信息 -->
+	<select id="findAllCarriers" resultMap="carrier">
+		select id, name from gsms_carrier
+	</select>
+</mapper>

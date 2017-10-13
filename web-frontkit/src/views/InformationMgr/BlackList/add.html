@@ -1,0 +1,56 @@
+<form class="form-inline w5c-form" name="blacklistForm" w5c-form-validate="" novalidate>
+    <div class="panel panel-info">
+        <div class="panel-heading">新增黑名单</div>
+        <table class="table table-bordered middle">
+            <tbody>
+                <tr >
+                    <td width="30%" class="row_title">
+                        <span class="red">*</span> 手机号码：</td>
+                    <td width="70%">
+                        <!--<input type="text" class="form-control" name="phone" ng-model="blacklist.phone" ng-pattern="/^[0-9]{11}$/" required/>-->
+                        <input type="text" class="form-control" name="phone" ng-model="blacklist.phone" ng-change="checkPhone(blacklist.phone);"
+                               required ng-pattern="/^(86|\+86)?((0((10[0-9]{7,8})|([2-9]{1}[0-9]{8,10})))|(0?1[3-8]{1}[0-9]{9}))$/"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="row_title">
+                        <span class="red">*</span> 黑名单类型：</td>
+                    <td>
+                        <select ng-model="blacklist.type" class="form-control" id="type">
+                            <option value="2">企业</option>
+                            <option value="0">用户</option>
+                            <option value="5">业务类型</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr ng-switch="blacklist.type">
+                    <td class="row_title">
+                        <label> <span class="red">*</span> 所属对象：</label>
+                    </td>
+                    <td>
+                        <angucomplete-alt ng-switch-default id="domain" selected-object="domain.item" field-required="true" pause="100" remote-url="{{EntDomains}}"
+                                          title-field="name"
+                                          minlength="0" input-class="form-control  input-sm" matchclass="highlight" field-required="true"
+                                          remote-url-data-field="data" ng-model="domain.item" ></angucomplete-alt>
+                        <span ng-switch-when="2" ng-bind="enterprise.name"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="row_title">备注：</td>
+                    <td>
+                        <textarea class="form-control" ng-model="blacklist.remark" type="text" name="remark" ng-maxlength="100" style="width: 400px;height:100px;"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <div class="text-center">
+                            <button type="button" class="btn btn_2x_t1" ng-disabled="blacklistForm.$invalid || blacklistForm.$pristine || !correctPhone" ng-click="submitForm();">保存</button>
+                            &nbsp;
+                            <button type="button" class="btn btn_2x_cancel" onclick="window.history.back();">返回</button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</form>

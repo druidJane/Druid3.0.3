@@ -1,0 +1,54 @@
+<form class="form-inline table-toolbar">
+    <div class="radio_set"><label>文件类型：</label>
+        <input ng-model="importParams.fileType" value="excel" type="radio" id="fileType01" name="radio-set-1" class="regular-radio"/>
+        <label for="fileType01"></label><label>Excel文件</label>&nbsp;
+        <input ng-model="importParams.fileType" value="txt" type="radio" id="fileType02" name="radio-set-2" class="regular-radio" />
+        <label for="fileType02"></label><label>Txt文件</label>&nbsp;
+        <input ng-model="importParams.fileType" value="csv" type="radio" id="fileType03" name="radio-set-3" class="regular-radio" />
+        <label for="fileType03"></label><label>Csv文件</label>
+    </div>
+    <div ng-show="importParams.fileType == 'txt'">
+        <div class="radio_set"><label>分隔符号：</label>
+            <input ng-model="importParams.delimiter" value="," type="radio" id="rad_delimiter0" name="delimiter1" class="regular-radio"/>
+            <label for="rad_delimiter0"></label><label>逗号</label>&nbsp;
+            <input ng-model="importParams.delimiter" value="\|" type="radio" id="rad_delimiter1" name="delimiter2" class="regular-radio" />
+            <label for="rad_delimiter1"></label><label>&nbsp;|&nbsp;</label>&nbsp;
+            <input ng-model="importParams.delimiter" value=" " type="radio" id="rad_delimiter2" name="delimiter3" class="regular-radio" />
+            <label for="rad_delimiter2"></label><label>空格</label>&nbsp;
+            <input ng-model="importParams.delimiter" value="\t" type="radio" id="rad_delimiter3" name="delimiter4" class="regular-radio" />
+            <label for="rad_delimiter3"></label><label>Tab</label>&nbsp;
+            <input ng-model="importParams.delimiter" value="otherDelimiter" type="radio" id="rad_delimiter4" name="delimiter5" class="regular-radio" />
+            <label for="rad_delimiter4"></label><label>其他</label>&nbsp;
+            <input type="text" ng-model="importParams.otherDelimiter" maxlength="1" size="3" ng-disabled="importParams.delimiter !='otherDelimiter'" style="width:30px;" />
+        </div>
+    </div>
+    <div>
+        <input type="text" ng-model="uploadData.file.name" class="form-control" ng-maxlength="50" disabled="disabled" />
+        <button type="button" class="btn btn_search " ngf-select ngf-pattern="" ng-model="uploadData.file" accept="" ngf-max-size="10MB" ngf-multiple="false">
+            选择附件
+        </button>
+        <button class="btn btn-primary" ng-click="uploadFile();" ng-show="uploadData.file">开始上传</button>
+    </div>
+    <div>
+        <span ng-show="uploadData.uploadSuccess">{{uploadData.file.name}}({{uploadData.fileSize | number:2}}MB)</span>
+    </div>
+    <div style="margin-top: 10px;">
+        <table class="table table-striped table-bordered table-hover">
+            <tbody>
+                <tr>
+                    <td align="center">系统列</td>
+                    <td align="center">文件列</td>
+                </tr>
+                <tr ng-repeat="headDMapToF in headDMapToFList">
+                    <td data-title="'系统列'" align="center">{{headDMapToF.dataHeadInfo.name}}
+                    </td>
+                    <td data-title="'文件列'" align="center">
+                        <select ng-show="progress.file == 100" class="form-control" ng-model="headDMapToF.fileHeadInfo" ng-options="x.name for x in fileHeads">
+                            <option value="">-- 请选择</option>
+                        </select>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</form>

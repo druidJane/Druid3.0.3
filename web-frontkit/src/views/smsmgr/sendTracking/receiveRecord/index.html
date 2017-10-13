@@ -1,0 +1,141 @@
+<!--tab切换-->
+<ul class="nav nav-tabs nav_tabs_t1" role="tabList" id="tab">
+    <li ng-if="hasPermission(urlPerMap.SMSMGR_SENDTRACKING_LOADBATCHS)" role="sendRecord">
+        <a data-toggle="tab" ng-click="showSendRecord()">发送记录</a>
+    </li>
+    <li ng-if="hasPermission(urlPerMap.SMSMGR_SENDTRACKING_BATCHHISTORY)" role="sendDetail" >
+        <a data-toggle="tab" ng-click="showSendDetail()">发送详情</a>
+    </li>
+    <li ng-if="hasPermission(urlPerMap.SMSMGR_INBOX_INDEX)" role="receiveRecord"  class="active">
+        <a data-toggle="tab" ng-click="showReceiveRecord()">接收记录</a>
+    </li>
+</ul>
+<!--tab切换 end-->
+<div class="tab-content mar_t10">
+    <!--接收记录-->
+    <div role="tabpanel" class="tab-pane in active" id="sendDetail">
+        <div>
+            <!--搜索栏-->
+            <form class="form-inline table-toolbar ng-scope ng-valid ng-dirty">
+                <div class="search_box">
+                    <div class="pull-left">
+                        <div class="form-group">
+                            <label class="label">手机号码</label>
+                            <input type="text" ng-model="stParams.phone" class="form-control input-sm ng-pristine ng-valid"
+                                   onkeyup="(this.v=function(){this.value=this.value.replace(/[^0-9-]+/,'');}).call(this)" onblur="this.v();" maxlength="11"/>
+                        </div>
+                        <div class="form-group">
+                            <auto-complete-user id="smsReceiverUser"
+                                                complete-user="completeUser"
+                                                label-description="接收用户"
+                                                placeholder-description="输入接收用户">
+                            </auto-complete-user>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="label">回复状态</label>
+                            <select name="" ng-model="stParams.hasReply"
+                                    class="form-control input-sm">
+                                <option value="-1">请选择</option>
+                                <option value="1">已回复</option>
+                                <option value="0">未回复</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group more-btn">
+                            <button ng-init="moreFlag = false;" href="javascript:;" type="button" class="btn btn_more more_spacing" ng-click="moreFlag = !moreFlag;">
+                                更多
+                            </button>
+                            <button type="button" class="btn btn-sm btn-primary" ng-click="searchReceiveRecord()">
+                                <i class="fa fa-search"></i>&nbsp;查询
+                            </button>
+                        </div>
+
+                        <div class="more-search" ng-show="moreFlag">
+                            <div class="pull-left">
+                                <div class="form-group">
+                                    <auto-complete-dept id="smsReceiverDept" complete-dept="completeDept"
+                                                        label-description="接收部门"
+                                                        placeholder-description="输入接收部门">
+                                    </auto-complete-dept>
+                                </div>
+                                <div class="form-group">
+                                    <div class="checkbox checkbox-info">
+                                        <input type="checkbox" id="subDept" name="subDept" ng-model="stParams.subDept" class="ng-pristine ng-valid">
+                                        <label><span>包括子部门</span></label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <select-multi-day st-params="stParams" description="接收时间" maxDate="new Date()"/>
+                                    <!--<label class="label"></label>-->
+                                    <!--<input type="text" class="form-control input-sm" ng-date-time ng-model="stParams.beginTime" date-format="YYYY-MM-DD HH:mm:ss" style="width:200px;"/>-->
+                                    <!--至-->
+                                    <!--<input type="text" class="form-control input-sm" ng-date-time ng-model="stParams.endTime" date-format="YYYY-MM-DD HH:mm:ss" style="width:200px;" />-->
+                                </div>
+                                <div class="form-group">
+                                    <label class="label">接收端口号</label>
+                                    <input type="text" ng-model="stParams.specNumber" class="form-control input-sm ng-pristine ng-valid">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="pull-left" style="margin: 10px 0;">
+                    <button  class="btn btn_t1 icon_import mar_r10" ng-click="exportReceiveRecord();" ng-show="hasPermission(urlPerMap.SMSMGR_INBOX_EXPORTINBOX)">导出</button>
+                </div>
+            </form>
+            <div class="table_t1">
+                <div class="fixed-table-container loading-container">
+                    <div class="loading" ng-show="receiveTable.settings().$loading"></div>
+                    <table ng-table="receiveTable" class="table table-hover" template-pagination="custom/pager">
+                        <tbody>
+                        <tr ng-repeat="moTicket in $data">
+                            <td width="30" data-title="&nbsp;" header="'ng-table/headers/checkbox.html'" align="center">
+                                <div class="checkbox checkbox-info">
+                                    <input name="id" value="{{moTicket.id}}" ng-checked="moTicket.$checked" ng-click="checkOne(msgPack);" type="checkbox">
+                                    <label></label>
+                                </div>
+                            </td>
+                            <td data-title="'姓名'" align="center">
+                                {{moTicket.contactName}}
+                            </td>
+                            <td data-title="'手机号码'" align="center">
+                                {{moTicket.phone}}
+                            </td>
+                            <td data-title="'接收内容'" align="center">
+                                {{moTicket.content}}
+                            </td>
+                            <td data-title="'接收用户'" align="center">
+                                {{moTicket.userName}}
+                            </td>
+                            <td data-title="'接收部门'" align="center">
+                                {{moTicket.enterpriseName}}
+                            </td>
+                            <td data-title="'接收端口'" align="center">
+                                {{moTicket.specNumber}}
+                            </td>
+                            <td data-title="'接收时间'" align="center">
+                                {{moTicket.postTime|date:'yyyy-MM-dd HH:mm:ss'}}
+                            </td>
+                            <td data-title="'回复状态'" align="center">
+                                <span ng-if="moTicket.hasReply==0">未回复</span>
+                                <span ng-if="moTicket.hasReply==1">已回复</span>
+                            </td>
+
+                            <td width="10%" data-title="'操作'" align="center">
+                                <a href="javascript:;" ng-click="makeCall(moTicket)" ng-if="hasPermission(urlPerMap.SMSMGR_INBOX_REPLYSMS)">
+                                    回复
+                                </a>
+                            </td>
+                        </tr>
+
+						<tr ng-show="$data==0" align="center">
+							<td colspan="10"><div class="bootstrapTable_noData"><div></div><p>没有找到相关数据！</p></div></td>
+						</tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

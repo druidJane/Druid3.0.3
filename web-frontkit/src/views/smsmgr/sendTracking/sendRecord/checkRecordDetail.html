@@ -1,0 +1,40 @@
+<ul class="nav nav-tabs nav_tabs_t1" role="tabList" id="tab">
+    <li role="allCheckItem" >
+        <a data-toggle="tab" ng-click="checkAllPhones();">查看全部检核项</a>
+    </li>
+    <li role="invalidCheckItem" class="active">
+        <a data-toggle="tab"  ng-click="checkFilterPhones();">查看被过滤项</a>
+    </li>
+</ul>
+<div style="margin-top: 10px;">
+    <span >全部检核数({{params.totalTickets}})</span>&nbsp;&nbsp;&nbsp;
+    <span >被过滤号码数({{params.filterTickets}})</span>
+</div>
+<div class="tab-content" style="margin-top:20px;">
+    <!--region 全部项目-->
+    <div role="tabpanel" class="tab-pane in active" id="allCheckItem">
+        <div>
+            <div class="table_t1">
+                <div class="fixed-table-container">
+                    <div class="loading" ng-show="checkPackTable.settings().$loading"></div>
+                    <table ng-table="checkPackTable"
+                           class="table table-hover" template-pagination="custom/pager" >
+                        <tbody>
+                        <tr style="width: 30%" ng-repeat="checkResult in $data">
+                            <td data-title="'手机号码'" align="center">
+                                <span>{{checkResult.phone}}</span>
+                            </td>
+                            <td data-title="'短信內容'" align="center">
+                                <a ng-click="showTemplateContent(checkResult)">{{checkResult.smsContent| cutContent:true:10:"......"}}</a>
+                            </td>
+                            <td data-title="'核检结果'" align="center">
+                                <span>{{checkResult.checkState}}</span>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

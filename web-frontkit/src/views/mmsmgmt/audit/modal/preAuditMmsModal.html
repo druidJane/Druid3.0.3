@@ -1,0 +1,59 @@
+<table class="batch_detail">
+    <tbody>
+    <tr>
+        <td class="tit">彩信标题：</td>
+        <td class="msg" ng-click="showCurPackMms()">{{params.mmsTitle | cutContent:true:30:"......"}}</td>
+    </tr>
+    <tr>
+        <td class="tit">提交时间：</td>
+        <td ng-bind="params.postTime|date:'yyyy-MM-dd HH:mm:ss'"></td>
+    </tr>
+    <tr>
+        <td class="tit">定时时间：</td>
+        <td ng-bind="params.scheduleTime|showContentOrRod|date:'yyyy-MM-dd HH:mm:ss'"></td>
+    </tr>
+    <tr  class="bor_btm">
+        <td class="tit">业务类型：</td>
+        <td ng-bind="params.bizTypeName"></td>
+    </tr>
+    <tr>
+        <td class="tit">批次来源：</td>
+        <td ng-bind="params.commitFrom"></td>
+    </tr>
+    <tr>
+        <td class="tit">批次名称：</td>
+        <td ng-bind="params.batchName"></td>
+    </tr>
+    <tr  class="bor_btm">
+        <td class="tit">批次备注：</td>
+        <td ng-bind="params.packRemark|showContentOrRod"></td>
+    </tr>
+    <tr >
+        <td class="tit">发送部门：</td>
+        <td ng-bind="params.sendDeptName"></td>
+    </tr>
+    <tr  class="bor_btm">
+        <td class="tit">发送用户：</td>
+        <td ng-bind="params.sendUserName"></td>
+    </tr>
+    <tr>
+        <td class="tit">审批结果：</td>
+        <td style="padding:10px 0px 0px 10px;">
+            <div class="radio_set">
+                <input ng-value="true" ng-checked="true" ng-model="params.checkState" type="radio" id="radio-01" name="checkState" class="regular-radio" required /><label for="radio-01"></label><label>通过</label>&nbsp;
+                <input ng-value="false" ng-model="params.checkState" type="radio" id="radio-02" name="checkState" class="regular-radio" /><label for="radio-02"></label><label>不通过</label>&nbsp;
+            </div>
+        </td>
+    </tr>
+    <tr class="bor_btm">
+        <td class="tit">
+            <label ng-show="!params.checkState" class="font_red12">*</label>审批意见：</td>
+        <td>
+            <textarea ng-model="params.auditRemark" maxlength="200"
+                      style="height:50px;width:250px;">
+            </textarea>
+        </td>
+    </tr>
+    </tbody>
+</table>
+

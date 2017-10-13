@@ -1,0 +1,8 @@
+<label class="label">{{params.description}}</label>
+<input type="text" name="postTime" ng-date-time
+       ng-model="queryTerm.postTime"
+       class="form-control input-sm" style="height: 30px;width: 100px;"/>
+<input sy-timepicker-popup="HH:mm:ss" ng-model="queryTerm.begin" show-meridian="false" first-value="00:00:00"
+       class="form-control input-sm" style="height: 30px;width: 100px;"/> 至
+<input sy-timepicker-popup="HH:mm:ss" ng-model="queryTerm.end" first-value="23:59:59"
+       show-meridian="false" class="form-control input-sm" style="height: 30px;width: 100px;"/>

@@ -1,0 +1,96 @@
+<table class="table table-bordered table-middle">
+    <tbody>
+    <tr>
+        <td width="12%" class="row_title"> 用户账号：</td>
+        <td width="38%">
+            <label>{{user.userName}}</label>
+        </td>
+    </tr>
+    <tr>
+        <td width="12%" class="row_title"> 用户名称：</td>
+        <td width="38%">
+            <label>{{user.linkMan}}</label>
+        </td>
+    </tr>
+    <tr>
+        <td width="12%" class="row_title"> 部门名称：</td>
+        <td width="38%">
+            <label>{{user.enterpriseName}}</label>
+        </td>
+    </tr>
+    <tr>
+        <td width="12%" class="row_title"> 手机号码：</td>
+        <td width="38%">
+            <label>{{user.phone}}</label>
+        </td>
+    </tr>
+    <tr>
+        <td width="12%" class="row_title"> 用户扩展码：</td>
+        <td width="38%">
+            <label>{{user.identify}}</label>
+        </td>
+    </tr>
+    <tr>
+        <td width="12%" class="row_title"> 用户签名：</td>
+        <td width="38%">
+            <label>{{user.signature}}</label>
+        </td>
+    </tr>
+    <tr>
+        <td width="12%" class="row_title"> 签名位置：</td>
+        <td width="38%">
+            <label ng-if="user.sigLocation == 0">后置</label>
+            <label ng-if="user.sigLocation == 1">前置</label>
+        </td>
+    </tr>
+    <tr>
+        <td width="12%" class="row_title"> 业务类型：</td>
+        <td width="38%">
+            <label>{{user.bizNames}}</label>
+        </td>
+    </tr>
+    <tr>
+        <td width="12%" class="row_title"> 状态：</td>
+        <td width="38%">
+            <label>{{user.showState}}</label>
+        </td>
+    </tr>
+    <tr>
+        <td width="12%" class="row_title"> 账号类型：</td>
+        <td width="38%">
+            <label>{{user.showAccountType}}</label>
+        </td>
+    </tr>
+    <tr ng-if="user.accountType.index == 3">
+        <td width="12%" class="row_title"> 协议类型：</td>
+        <td width="38%">
+            <label>{{user.showProtocolType}}</label>
+        </td>
+    </tr>
+    <tr ng-if="user.accountType.index == 3">
+        <td width="12%" class="row_title"> 源端口：</td>
+        <td width="38%">
+            <label>{{user.srcPort}}</label>
+        </td>
+    </tr>
+    <tr ng-if="user.showProtocolType == 'sgip1.2'">
+        <td width="12%" class="row_title"> 回调地址：</td>
+        <td width="38%">
+            <label>{{user.callbackAddress}}</label>
+        </td>
+    </tr>
+    <tr>
+        <td width="12%" class="row_title"> 自定义签名：</td>
+        <td width="38%">
+            <label ng-if="user.customerSignature == 1">是</label>
+            <label ng-if="user.customerSignature == 0">否</label>
+        </td>
+    </tr>
+    <tr>
+        <td width="12%" class="row_title"> 角色：</td>
+        <td width="38%">
+            <label>{{user.roleNames}}</label>
+        </td>
+    </tr>
+    </tbody>
+</table>

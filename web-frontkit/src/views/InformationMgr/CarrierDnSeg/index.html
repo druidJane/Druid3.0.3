@@ -1,0 +1,38 @@
+<form class="form-inline table-toolbar">
+    <div class="search_box">
+    <div class="form-group pull-left">
+        <div class="form-group">
+            <label class="label">运营商</label>
+            <select ng-model="carrierDnSegParams.carrier.id" ng-options="item.id as item.name for item in carrier" class="form-control form-control-small input-sm">
+                <option value="">请选择</option>
+            </select>
+        </div>
+        <div class="form-group" >
+            <label class="label">号码段</label>
+            <input type="text" onkeyup="(this.v=function(){this.value=this.value.replace(/[^0-9-]+/,'');}).call(this)" onblur="this.v();"
+                   ng-model="carrierDnSegParams.phone" class="form-control  input-sm" aria-describedby="basic-addon" maxlength="4">
+        </div>
+        <div class="form-group">
+            <button type="button" class="btn btn_search" ng-click="searchCarrierDnSeg()">查询</button>
+        </div>
+    </div>
+    </div>
+</form>
+<div class="table_t1 mar_t10">
+    <div class="fixed-table-container">
+    <div class="loading" ng-show="carrierDnSegTable.settings().$loading"></div>
+    <table ng-table="carrierDnSegTable" class="table table-hover" template-pagination="custom/pager">
+        <tbody>
+            <tr ng-repeat="carrierDnSeg in $data">
+                <td width="20%" data-title="'运营商'" align="center">
+                    </a>{{carrierDnSeg.carrier.name}}</td>
+                <td width="50%" data-title="'号码段'" align="center">
+                    </a>{{carrierDnSeg.phone}}</td>
+            </tr>
+            <tr ng-show="$data==0" align="center">
+                <td colspan="9"><div class="bootstrapTable_noData"><div></div><p>没有找到相关数据！</p></div></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+</div>

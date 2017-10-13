@@ -1,0 +1,152 @@
+<!--tab切换-->
+<ul class="nav nav-tabs nav_tabs_t1" role="tabList" id="tab">
+    <li ng-if="hasPermission(urlPerMap.SMSMGR_SENDTRACKING_LOADBATCHS)" role="sendRecord" class="active">
+        <a data-toggle="tab" ng-click="showSendRecord()">发送记录</a>
+    </li>
+    <li ng-if="hasPermission(urlPerMap.SMSMGR_SENDTRACKING_BATCHHISTORY)" role="sendDetail">
+        <a data-toggle="tab" ng-click="showSendDetail()">发送详情</a>
+    </li>
+    <li ng-if="hasPermission(urlPerMap.SMSMGR_INBOX_INDEX)" role="receiveRecord">
+        <a data-toggle="tab" ng-click="showReceiveRecord()">接收记录</a>
+    </li>
+</ul>
+<!--tab切换 end-->
+<div class="tab-content mar_t10">
+    <!--发送记录-->
+    <div role="tabpanel" class="tab-pane in active" id="sendRecord">
+        <div>
+            <!--搜索栏-->
+            <form class="form-inline table-toolbar ng-scope ng-valid ng-dirty">
+                <div class="search_box">
+                    <div class="pull-left">
+                        <div class="form-group">
+                            <auto-complete-user id="smsRecordUser"
+                                                complete-user="completeUser">
+                            </auto-complete-user>
+                        </div>
+                        <div class="form-group">
+                            <select-one-day query-term="queryTerm"/>
+                        </div>
+                        <div class="form-group">
+                            <label class="label">批次状态</label>
+                            <select name="" ng-model="stParams.packState"
+                                    class="form-control input-sm">
+                                <option value="-1">请选择</option>
+                                <option value="0">待发送</option>
+                                <option value="1">待审批</option>
+                                <option value="3">取消</option>
+                                <option value="4">待后台审核</option>
+                                <option value="8">发送中</option>
+                                <option value="9">完成</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group more-btn">
+                            <button ng-init="moreFlag = false;" href="javascript:;" type="button" class="btn btn_more more_spacing" ng-click="moreFlag = !moreFlag;">
+                                更多
+                            </button>
+                            <button type="button" class="btn btn_search" ng-click="searchBatchRecord()">查询</button>
+                        </div>
+
+                        <div class="more-search" ng-show="moreFlag">
+                            <div class="pull-left">
+                                <div class="form-group">
+                                    <auto-complete-dept id="smsRecordDept"
+                                                        complete-dept="completeDept">
+                                    </auto-complete-dept>
+                                </div>
+                                <div class="form-group">
+                                    <div class="checkbox checkbox-info">
+                                        <input type="checkbox" id="subDept" name="subDept" ng-model="stParams.subDept" class="ng-pristine ng-valid">
+                                        <label><span>包括子部门</span></label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="label">批次名称</label>
+                                    <input type="text" ng-model="stParams.batchName" class="form-control input-sm ng-pristine ng-valid">
+                                </div>
+                                <div class="form-group">
+                                    <label class="label">失败号码数</label>
+                                    <select name="failSMSNum" ng-model="stParams.failSMSNum"
+                                            class="form-control input-sm">
+                                        <option value="-1">请选择</option>
+                                        <option value="1">有</option>
+                                        <option value="0">无</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="pull-left" style="margin: 10px 0;">
+                    <button  class="btn btn_t1 icon_import mar_r10" ng-show="hasPermission(urlPerMap.SMSMGR_SENDTRACKING_CLICKSMSEXPORTWEB)" ng-click="exportSmsPack();">导出</button>
+                    <button  class="btn btn_t1 icon_refresh mar_r10" ng-show="hasPermission(urlPerMap.SMSMGR_SENDTRACKING_RESEND)" ng-click="failResend();">失败重发</button>
+                </div>
+            </form>
+            <div class="table_t1">
+                <div class="fixed-table-container loading-container">
+                    <div class="loading" ng-show="smsRecordTable.settings().$loading"></div>
+                    <table ng-table="smsRecordTable"
+                           class="table table-hover" template-pagination="custom/withoutPageNumber">
+                        <tbody>
+                        <tr ng-repeat="msgPack in $data">
+                            <td data-title="&nbsp;" header="'ng-table/headers/checkbox.html'" align="center">
+                                <div class="checkbox checkbox-info">
+                                    <input name="id" value="{{msgPack.id}}" ng-checked="msgPack.$checked" ng-click="checkOne(msgPack);" type="checkbox">
+                                    <label></label>
+                                </div>
+                            </td>
+                            <td data-title="'批次名称'" align="center">
+                                <a ng-click="showRecordPack(msgPack)">{{msgPack.batchName}}</a>
+                            </td>
+                            <td data-title="'提交时间'" align="center">
+                                </a>{{msgPack.postTime|date:'yyyy-MM-dd HH:mm:ss'}}
+                            </td>
+                            <td data-title="'完成时间'" align="center">
+                                {{msgPack.doneTime|date:'yyyy-MM-dd HH:mm:ss'}}
+                            </td>
+                            <td data-title="'发送用户'" align="center">
+                                {{msgPack.sendUserName}}
+                            </td>
+                            <td data-title="'批次状态'" align="center">
+                                {{msgPack.packState}}
+                            </td>
+                            <td data-title="'提交号码数'" align="center">
+                                {{msgPack.totalTickets}}
+                            </td>
+                            <td data-title="'被过滤号码数'" align="center">
+                                {{msgPack.filterTickets}}
+                            </td>
+                            <td data-title="'已发送号码数'" align="center">
+                                {{msgPack.sendedTickets}}
+                            </td>
+                            <td data-title="'失败号码数'" align="center">
+                                {{msgPack.failedTickets}}
+                            </td>
+                            <td data-title="'操作'" align="center">
+                                <a href="javascript:;" ng-if="'待审批'!=msgPack.packState&&'待后台审核'!=msgPack.packState&&'待发送'!=msgPack.packState&&'取消'!=msgPack.packState&&hasPermission(urlPerMap.SMSMGR_SENDTRACKING_BATCHHISTORY)"
+                                   ng-click="checkSmsDetail(msgPack)">
+                                    发送详情
+                                </a>
+                                <a href="javascript:;"
+                                   ng-if="('待发送'==msgPack.packState || '发送中'==msgPack.packState)  && hasPermission(urlPerMap.SMSMGR_SENDTRACKING_CANCLEBATCH)"
+                                   ng-click="cancelSend(msgPack)">
+                                    取消
+                                </a>
+                                <a href="javascript:;" ng-click="checkPackDetail(msgPack)">
+                                    检核详情
+                                </a>
+                            </td>
+                        </tr>
+
+						<tr ng-show="$data==0" align="center">
+							<td colspan="11"><div class="bootstrapTable_noData"><div></div><p>没有找到相关数据！</p></div></td>
+						</tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

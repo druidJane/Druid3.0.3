@@ -1,0 +1,81 @@
+<form class="form-horizontal w5c-form" name="form" w5c-form-validate="vm" novalidate="" role="form">
+    <table class="batch_detail">
+        <tr class="bor_btm">
+            <td class="tit">
+                <span class="red">*</span>账户名称
+            </td>
+            <td>
+                <input class="form-control" name="capitalAccountName" type="text" ng-model="capitalAccount.accountName" style="width: 50%;" ng-maxlength="50" required/>
+            </td>
+        </tr>
+        <tr class="bor_btm">
+            <td class="tit">
+                <span class="red">*</span>付费方式
+            </td>
+            <td>
+                <div class="radio_set">
+                    <label class="mar_r10">
+                        <input name="payingWay" ng-model="capitalAccount.payingWay" ng-checked="payingWay==0" value="0" type="radio" id="radio-01" class="regular-radio ng-pristine ng-valid ng-valid-required"/>
+                        <label for="radio-01"></label>
+                        <label>预付费</label>
+                    </label>
+                    <label ng-if="accountInfo.payingWay.index == 1">
+                        <input name="payingWay" ng-model="capitalAccount.payingWay" ng-checked="payingWay==1" value="1" type="radio" id="radio-02" class="regular-radio ng-pristine ng-valid">
+                        <label for="radio-02"></label>
+                        <label>后付费</label>
+                    </label>
+                </div>
+            </td>
+        </tr>
+        <tr class="bor_btm">
+            <td class="tit">
+                <span class="red">*</span>充值方式
+            </td>
+            <td>
+                <div class="radio_set">
+                    <label class="mar_r10">
+                        <input name="chargeWay" ng-model="capitalAccount.chargeWay" ng-checked="chargeWay==0" value="0" type="radio" id="chargeWay1" class="regular-radio ng-pristine ng-valid ng-valid-required"/>
+                        <label for="chargeWay1"></label>
+                        <label>手动充值</label>
+                    </label>
+                    <label>
+                        <input name="chargeWay" ng-model="capitalAccount.chargeWay" ng-checked="chargeWay==1" value="1" type="radio" id="chargeWay2" class="regular-radio ng-pristine ng-valid">
+                        <label for="chargeWay2"></label>
+                        <label>每月自动充值</label>
+                    </label>
+                </div>
+            </td>
+        </tr>
+        <tr class="bor_btm ng-hide" ng-show="showAutoChargeMoneyDom">
+            <td class="tit"><span class="red">*</span>自动充值金额</td>
+            <td><input class="form-control" name="autoChargeMoney" type="number" ng-model="capitalAccount.autoChargeMoney" style="width: 50%;" ng-required="showAutoChargeMoneyDom"/></td>
+        </tr>
+        <tr class="bor_btm">
+            <td class="tit">
+                <span class="red">*</span>单价类型
+            </td>
+            <td>
+                <div class="radio_set">
+                    <label class="mar_r10">
+                        <input name="deductType" ng-model="capitalAccount.deductType" ng-checked="deductType==1" value="1" ng-checked="1" id="deductType1" type="radio" class="regular-radio ng-pristine ng-valid ng-valid-required"/>
+                        <label for="deductType1"></label>
+                        <label>按企业单价</label>
+                    </label>
+                    <label>
+                        <input name="deductType" ng-model="capitalAccount.deductType" ng-checked="deductType==0" value="0" id="deductType2" type="radio" class="regular-radio ng-pristine ng-valid">
+                        <label for="deductType2"></label>
+                        <label>自定义单价</label>
+                    </label>
+                </div>
+            </td>
+        </tr>
+        <tr class="bor_btm ng-hide" ng-show="showDeductTypeDom">
+            <td class="tit"><span class="red">*</span>短信单价</td>
+            <td><input class="form-control" type="number" name="smsPrice" style="width: 50%;" ng-model="capitalAccount.smsPrice" ng-required="showDeductTypeDom"/></td>
+        </tr>
+        <tr class="ng-hide" ng-show="showDeductTypeDom">
+            <td class="tit"><span class="red">*</span>彩信单价</td>
+            <td><input class="form-control" type="number" name="mmsPrice" style="width: 50%;" ng-model="capitalAccount.mmsPrice" ng-required="showDeductTypeDom"/></td>
+        </tr>
+    </table>
+</form>

@@ -1,0 +1,8 @@
+<div style="overflow: auto; height: 280px;">
+    <ul style="list-style-type:none;">
+        <li  ng-repeat="invalidPhone in params.invalidPhones track by $index"
+            style="display:block;magin-bottom:5px;line-height:18px;font-size:12px;font-weight:100;">
+            <span style="word-break:break-all;word-wrap:normal;table-layout:fixed;"> {{ invalidPhone }}：号码格式不正确</span>
+        </li>
+    </ul>
+</div>

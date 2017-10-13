@@ -1,0 +1,93 @@
+<form class="form-inline table-toolbar">
+    <div class="search_box">
+        <div class="pull-left">
+            <div class="form-group">
+                <button ng-if="hasPermission(urlPerMap.SYSTEMMGR_ROLEMGR_ADDROLE);" type="button" class="btn btn_t1 icon_add float_l" ng-click="showAdd()">
+                    新增
+                </button>
+            </div>
+        </div>
+        <div class="pull-right">
+            <div class="form-group">
+                <label class="label">角色名称</label>
+                <input type="text" ng-model="params.name" class="form-control input-sm" maxlength="50" />
+            </div>
+            <div class="form-group">
+                <label class="label">角色类型</label>
+                <select class="form-control input-sm" ng-model="params.industryType">
+                    <option value="0">基础角色</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="label">权限</label>
+                <input type="text" ng-model="params.permissionName" class="form-control input-sm" maxlength="50" />
+            </div>
+            <div class="form-group">
+                <button type="button" class="btn btn_search" ng-click="search()">查询</button>
+            </div>
+        </div>
+        <div style="clear: both;"></div>
+    </div>
+</form>
+<div class="table_t1 mar_t10">
+    <div class="fixed-table-container">
+    <div class="loading" ng-show="rolesTable.settings().$loading"></div>
+    <table ng-table="rolesTable" class="table table-hover" template-pagination="custom/pager">
+        <tbody>
+        <tr ng-repeat="role in $data">
+            <td data-title="'角色名称'" width="15%" align="center">{{role.name}}</td>
+            <td data-title="'角色类型'" width="10%" align="center">基础角色</td>
+            <td data-title="'最后修改人'" width="15%" align="center">{{role.lastModifyUserName}}</td>
+            <td data-title="'最后修改时间'" width="15%" align="center" sortable="'lastModifyDate'">{{role.lastModifyDate|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+            <td data-title="'权限'" width="30%" align="left"><div style="width:450px; overflow:hidden;white-space: nowrap;cursor:pointer;" title="{{role.permissionNames}}">{{role.permissionNames}}</div></td>
+            <td data-title="'操作'" width="15%" align="center">
+                <a ng-if="hasPermission(urlPerMap.SYSTEMMGR_ROLEMGR_INDEX);" ng-click="showDetail(role)">查看</a>
+                <a ng-if="hasPermission(urlPerMap.SYSTEMMGR_ROLEMGR_UPDATEROLE);" ng-hide="role.roleType.name=='INIT_ROLE'||role.roleType.name=='SUPPER_ROLE'" ng-click="editRole(role)">修改</a>
+                <a ng-if="hasPermission(urlPerMap.SYSTEMMGR_ROLEMGR_DELETEROLE);" ng-hide="role.roleType.name=='INIT_ROLE'||role.roleType.name=='SUPPER_ROLE'" ng-click="delete(role)">删除</a>
+            </td>
+        </tr>
+        <tr ng-show="$data==0" align="center">
+            <td colspan="6"><div class="bootstrapTable_noData"><div></div><p>没有找到相关数据！</p></div></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</div>
+<script type="text/ng-template" id="modal/tree.tpl.html">
+    <form class="form-horizontal w5c-form" name="form" w5c-form-validate="vm" novalidate="" role="form">
+        <table class="batch_detail">
+            <tr class="bor_btm">
+                <td class="tit">角色名称：</td>
+                <td><label class="form-control" ng-cloak>{{role.name}}</label></td>
+            </tr>
+            <tr class="bor_btm">
+                <td class="tit">角色类型：</td>
+                <td>
+                    <div class="radio_set">
+                        <label>
+                            <input name="industryType" type="radio" ng-disabled="1" ng-checked="role.industryType.index == 0" id="radio-01" class="regular-radio ng-pristine ng-valid ng-valid-required valid"/>
+                            <label for="radio-01"></label>
+                            <label>基础角色</label>
+                        </label>
+                    </div>
+                </td>
+            </tr>
+            <tr class="bor_btm">
+                <td class="tit">
+                    描述：
+                </td>
+                <td>
+                    <textarea class="form-control" cols="8" rows="6" ng-disabled="1" ng-model="role.remark"></textarea>
+                </td>
+            </tr>
+            <tr class="bor_btm">
+                <td class="tit">
+                    权限：
+                </td>
+                <td>
+                    <div style="width: 500px;" id="verticalTree"></div>
+                </td>
+            </tr>
+        </table>
+    </form>
+</script>

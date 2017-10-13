@@ -1,0 +1,81 @@
+﻿<form class="form-inline table-toolbar" >
+    <div class="search_box">
+    <div class="form-group">
+        <button ng-if="hasPermission(urlPerMap.INFO_WITELISTWEB_ADD)" type="button" class="btn btn_t1 icon_add mar_r10" ng-click="addWhiteList();">新增
+        </button>
+        <button ng-if="hasPermission(urlPerMap.INFO_WITELISTWEB_DEL)" type="button" class="btn btn_t3 icon_delete mar_r10" ng-click="deleteWhiteLists()">删除
+        </button>
+        <button ng-if="hasPermission(urlPerMap.INFO_WITELISTWEB_IMPORT)" type="button" class="btn btn_t1 icon_export" ng-click="importWhiteList()">导入
+        </button>
+    </div>
+    <div class="form-group pull-right">
+        <div class="form-group">
+            <label class="label">手机号码</label>
+            <input type="text" ng-model="params._lk_phone" class="form-control  input-sm" aria-describedby="basic-addon">
+        </div>
+        <div class="form-group">
+            <label class="label">是否导出</label>
+            <select class="form-control input-sm" ng-model="params.isNotice">
+                <option value="">请选择</option>
+                <option value="1">是</option>
+                <option value="0">否</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="label">时间</label>
+            <input type="text" name="_gt_begintime" ng-model="params._gt_begintime" class="form-control input-sm" style="width: 137px" /> 至
+            <input type="text" name="_lt_endtime" ng-model="params._lt_endtime" class="form-control input-sm" style="width: 137px" />
+        </div>
+        <div class="form-group">
+            <button type="button" class="btn btn_search" ng-click="searchWhiteLists()">查询</button>
+        </div>
+    </div>
+    </div>
+</form>
+<div class="table_t1 mar_t10">
+    <div class="fixed-table-container">
+    <div class="loading" ng-show="whitelistsTable.settings().$loading"></div>
+    <table ng-table="whitelistsTable" class="table table-hover" template-pagination="custom/pager">
+        <tbody>
+            <tr ng-repeat="whitelist in $data">
+                <td width="30" data-title="&nbsp;" header="'ng-table/headers/checkbox.html'">
+                    <div class="checkbox checkbox-info">
+                        <input name="id" value="{{whitelist.id}}" ng-checked="whitelist.$checked" ng-click="checkOne(whitelist);" type="checkbox">
+                        <label></label>
+                    </div>
+                </td>
+                <td width="10%" data-title="'手机号码'" align="center" sortable="'phone'">
+                    </a>{{whitelist.telphone}}</td>
+                <td width="10%" data-title="'是否导出'" align="center">
+                    <span ng-if="whitelist.isNotice==0">否</span>
+                    <span ng-if="whitelist.isNotice==1">是</span>
+                </td>
+                <td width="80%" data-title="'录入时间'" align="center">{{whitelist.createTime | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+            </tr>
+
+			<tr ng-show="$data==0" align="center">
+                <td colspan="4"><div class="bootstrapTable_noData"><div></div><p>没有找到相关数据！</p></div></td>
+            </tr>
+        </tbody>
+    </table>
+    </div>
+</div>
+<script type="text/ng-template" id="modal/addWhiteListForm.tpl.html">
+    <form class="form-inline w5c-form" name="form" w5c-form-validate="" novalidate>
+        <div class="panel panel-info">
+            <div class="panel-heading">新增企业白名单</div>
+            <table class="table table-bordered middle">
+                <tbody>
+                <tr>
+                    <td width="30%" class="row_title">
+                        <span class="red">*</span> 手机号码：
+                    </td>
+                    <td width="70%">
+                        <input type="text" class="form-control" name="phone" ng-model="addParams.telphone" ng-pattern="/^(86|\+86)?((0((10[0-9]{7,8})|([2-9]{1}[0-9]{8,10})))|(0?1[3-8]{1}[0-9]{9}))$/" required/>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </form>
+</script>

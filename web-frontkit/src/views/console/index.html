@@ -1,0 +1,95 @@
+<div class="ind_part1">
+    <div class="banner">
+    <div class="company">
+        <dl>
+            <dd class="f18">广州市玄武无线科技股份有限公司</dd>
+            <dd class="f12 mar_t20">欢迎您，{{globalVar.accInfo.linkMan}}</dd>
+            <dd class="f12 mar_r20">上次登录时间 ：{{globalVar.accInfo.lastLoginTime|date:'yyyy-MM-dd HH:mm:ss'}}</dd>
+            <dd class="f12 mar_t5" ng-if="globalVar.accInfo.remindflag == true">您当前企业账号测试到期时间为：{{globalVar.accInfo.testenddate}},到期剩余{{globalVar.accInfo.remindDays}}天，为保证账号的正常使用，请在到期前签约。 </dd>
+			<dd class="f12 mar_t5">
+			<img ng-src="styles/default/images/balance.png" alt="" base="styles/default/images/balance.png" active="styles/default/images/balance.png" class="i_item">&nbsp;&nbsp;&nbsp;账户余额：
+            <span ng-if="globalVar.accInfo.balance<globalVar.accInfo.balanceremind">￥{{globalVar.accInfo.balance|number:4}}&nbsp;您的账户余额不足，为避免因余额不足影响您的短信正常发送，请及时充值。</span>
+            <span ng-if="globalVar.accInfo.balance>=globalVar.accInfo.balanceremind">
+            	￥{{globalVar.accInfo.balance|number:4}}
+            </span></dd>
+        </dl>
+    </div>
+    </div>
+    <div class="notice">
+        <div class="notice_l float_l" >待办事件：待审核短信
+		<span ng-if="hasPermission(urlPerMap.SMSMGR_SENDPENDING_INDEX)">
+		<a href="javascript:;"  ng-href="#{{urlPerMap.SMSMGR_SENDPENDING_INDEX}}" class="f16 h_l">
+        {{unAudit.smsAuditCount}}</a>
+	   </span>
+	   <span ng-if="!hasPermission(urlPerMap.SMSMGR_SENDPENDING_INDEX)">0</span>
+	  
+        个，待审核彩信 
+		<span ng-if="hasPermission(urlPerMap.SEND_MMS_AUDIT_INDEX)">
+		<a href="javascript:;" ng-href="#{{urlPerMap.SEND_MMS_AUDIT_INDEX}}" class="f16 h_l">   
+		{{unAudit.mmsAuditCount}}
+        </a></span>
+		<span ng-if="!hasPermission(urlPerMap.SEND_MMS_AUDIT_INDEX)">0</span>
+		个 	
+		</div>
+        
+        <div class="notice_r float_r" id="noticeScroll">
+            <div class="notice_scroll">
+                <a href="javascript:;" class="up" id="noticeUpBtn">&nbsp;</a>
+                <a href="javascript:;" class="down" id="noticeDownBtn">&nbsp;</a>
+            </div>
+            <ul class="position_r float_l">
+                <li  ng-repeat="notice in unReadNoticeList">
+					<a  class="h_l"  href="javascript:" ng-click="detail(notice)" ng-bind="notice.messageTitle" style="width: 600px;overflow: hidden; white-space: nowrap;  text-overflow: ellipsis; "></a>
+				</li>
+			
+            </ul>
+        </div>
+
+    </div>
+    <div class="statistics" ng-if="hasPermission(urlPerMap.HOME_STATISTICS)">
+        <ul class="stat_tab clearfix">
+            <!--<li class="float_l active"><a href="javascript:void(0);" ng-click="realTime();" class="item">今天</a></li>-->
+            <li class="float_l"><a class="item">近7天</a></li>
+        </ul>
+        <div class="stat_tab_con mar_t10">
+            <div class="first clearfix">
+                <div class="item item1">
+                    <div class="num">{{sendStat.allReceiveSum}}</div>
+                    <div class="detail"><p title="提交到本平台的短彩信量">总提交量<i class="stat_tip"></i></p></div>
+                   
+                    <div class="line"></div>
+                </div>
+                <div class="item item2">
+                    <div class="num">{{sendStat.allSendSum}}</div>
+                    <div class="detail"><p title="系统过滤掉非法号码、黑名单号码、非法关键字后向运营商提交的短彩信量">总发送量<i class="stat_tip"></i></p></div>
+                    <div class="line"></div>
+                </div>
+                <div class="item item3">
+                    <div class="num">{{sendStat.allSuccessSum}}</div>
+                    <div class="detail"><p title="成功发送到用户端的短彩信量">总成功量<i class="stat_tip"></i></p></div>
+                    <div class="line"></div>
+                </div>
+                <div class="item item5">
+                    <div class="float_l"><!--此处是圆环图表--></div>
+                    <div class="num">{{sendStat.succesRate}}</div>
+                    <div class="detail"><p title="成功率=总成功量/总提交量">成功率<i class="stat_tip"></i></p></div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+	
+</div>
+<div class="ind_part2 mar_t20" ng-if="hasPermission(urlPerMap.HOME_STATISTICS)">
+    <div class="volume_app">
+    <ul class="nav nav-tabs volume_title" ng-if="hasApp">
+        <li role="presentation" ng-repeat="stat in stats">
+            <a href="javascript:;" ng-click="toggleStat();">{{stat.name}}</a>
+        </li>
+    </ul>
+    <div class="volume_main">
+        <div id="echart" style="width: 100%;height: 300px">
+        </div>
+    </div>
+</div>
+</div>

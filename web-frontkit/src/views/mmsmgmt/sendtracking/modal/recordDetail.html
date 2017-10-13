@@ -1,0 +1,120 @@
+<table class="batch_detail">
+    <tbody>
+    <tr>
+        <td class="tit">彩信标题：</td>
+        <td class="">
+            <span class="" id="mmsTitle">
+                <a href="javascript:;" class="msg"
+                   ng-click="mmsPreviewByPackId()">{{params.mmsTitle | cutContent:true:30:"......"}}</a>
+            </span>
+        </td>
+    </tr>
+    <tr>
+        <td class="tit">提交时间：</td>
+        <td>{{params.postTime|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+    </tr>
+    <tr>
+        <td class="tit">定时时间：</td>
+        <td>{{params.scheduleTime|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+    </tr>
+    <tr>
+        <td class="tit">完成时间：</td>
+        <td>{{params.doneTime|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+    </tr>
+    <tr>
+        <td class="tit">业务类型：</td>
+        <td>{{params.bizTypeName}}</td>
+    </tr>
+    <tr class="bor_btm">
+        <td class="tit">发送用户：</td>
+        <td>{{params.sendUserName}}</td>
+    </tr>
+    <tr>
+        <td class="tit">批次名称：</td>
+        <td>{{params.batchName}}</td>
+    </tr>
+    <tr>
+        <td class="tit">批次状态：</td>
+        <td>{{params.packState}}</td>
+    </tr>
+    <tr>
+        <td class="tit">批次来源：</td>
+        <td>{{params.commitFrom}}</td>
+    </tr>
+    <tr class="bor_btm">
+        <td class="tit">批次备注：</td>
+        <td>{{params.packRemark}}</td>
+    </tr>
+    <tr>
+        <td class="tit">用户提交号码数：</td>
+        <td>{{params.totalTickets}}</td>
+    </tr>
+    <tr>
+        <td class="tit">过滤后号码数：</td>
+        <td>{{params.validTickets}}</td>
+    </tr>
+    <tr>
+        <td class="tit">已发送号码数：</td>
+        <td><span>{{params.sendedTickets}}</span></td>
+    </tr>
+    <tr>
+        <td class="tit">过滤重复号码数：</td>
+        <td><span class="">{{params.repeatTickets}}</span></td>
+    </tr>
+    <tr>
+        <td class="tit">过滤非法关键字数：</td>
+        <td><span class="">{{params.illegalKeyTickets}}</span></td>
+    </tr>
+    <tr>
+        <td class="tit">过滤非法号码数：</td>
+        <td><span class="">{{params.illegalTickets}}</span></td>
+    </tr>
+    <tr class="bor_btm">
+        <td class="tit">过滤黑名单数：</td>
+        <td><span class="">{{params.blackTickets}}</span></td>
+    </tr>
+    <tr >
+        <td class="tit">审批人：</td>
+        <td>{{params.frontAuditUser}}</td>
+    </tr>
+    <tr >
+        <td class="tit">审批时间：</td>
+        <td>{{params.frontAuditTime|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+    </tr>
+
+    <tr >
+        <td class="tit">审批结果：</td>
+        <td>
+            <span style="font-weight: bold;">{{params.frontAuditStateName}}</span>
+        </td>
+    </tr>
+    <tr >
+        <td class="tit">审批意见：</td>
+        <td>{{params.frontAuditRemark}}</td>
+    </tr>
+
+
+    <tr ng-show="params.backAuditUser!=null">
+        <td class="tit">后台审批人：</td>
+        <td>
+            <span style="font-weight: bold;">{{params.backAuditUser}}</span>
+        </td>
+    </tr>
+    <tr ng-show="params.backAuditUser!=null">
+        <td class="tit">后台审批时间：</td>
+        <td>
+            <span style="font-weight: bold;">{{params.backAuditTime|date:'yyyy-MM-dd HH:mm:ss'}}</span>
+        </td>
+    </tr>
+    <tr ng-show="params.backAuditUser!=null">
+        <td class="tit">审批结果：</td>
+        <td>
+            <span style="font-weight: bold;">{{params.backAuditStateName}}</span>
+        </td>
+    </tr>
+    <tr ng-show="params.backAuditUser!=null">
+        <td class="tit">审批意见：</td>
+        <td>{{params.backAuditRemark}}</td>
+    </tr>
+    </tbody>
+</table>

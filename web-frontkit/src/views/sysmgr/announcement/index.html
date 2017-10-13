@@ -1,0 +1,63 @@
+<form class="form-inline table-toolbar">
+    <div class="search_box">
+    <div class="form-group pull-left">
+        <div class="form-group">
+            <label class="label">公告标题</label>
+            <input type="text" ng-model="announcementParams.title" maxlength="50" class="form-control input-sm" aria-describedby="basic-addon">
+        </div>
+        <div class="form-group">
+            <label class="label">显示设置</label>
+            <select  class="form-control input-sm" ng-model="announcementParams.showState">
+                <option value="-1">请选择</option>
+                <option value="1">显示</option>
+                <option value="0">隐藏</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="label">更新时间</label>
+            <input type="text" name="startTime" ng-model="announcementParams.startTime" class="form-control input-sm" placeholder="开始时间" style="width: 137px" /> 至
+            <input type="text" name="endTime" ng-model="announcementParams.endTime" class="form-control input-sm" placeholder="结束时间" style="width: 137px"/>
+        </div>
+        <div class="form-group">
+            <button type="button" class="btn btn_search" ng-click="searchAnnouncement()">查询</button>
+        </div>
+    </div>
+    </div>
+</form>
+<div class="mar_t10">
+    <button ng-if="hasPermission(urlPerMap.SYSTEMMGR_ANNOUNCEMENTMGR_ADDANNOUNCEMENT)" type="button" class="btn btn_t1 icon_add mar_r10" ng-click="addAnnouncement();">新增
+    </button>
+    <button ng-if="hasPermission(urlPerMap.SYSTEMMGR_ANNOUNCEMENTMGR_MODIFYANNOUNCEMENT)" type="button" class="btn btn_t1 icon_edit mar_r10" ng-click="editAnnouncement()">修改
+    </button>
+    <button ng-if="hasPermission(urlPerMap.SYSTEMMGR_ANNOUNCEMENTMGR_DELANNOUNCEMENT)" type="button" class="btn btn_t3 icon_delete" ng-click="delAccouncement()">删除
+    </button>
+</div>
+<div class="table_t1 mar_t10">
+    <div class="fixed-table-container">
+    <div class="loading" ng-show="announcementTable.settings().$loading"></div>
+    <table ng-table="announcementTable" class="table table-hover" template-pagination="custom/pager">
+        <tbody>
+        <tr ng-repeat="announcement in $data">
+            <td data-title="&nbsp;" header="'ng-table/headers/checkbox.html'">
+                <div class="checkbox checkbox-info">
+                    <input name="id" value="{{announcement.id}}" ng-checked="announcement.$checked" ng-click="checkOne(announcement);" type="checkbox">
+                    <label></label>
+                </div>
+            </td>
+            <td data-title="'公告标题'" width="30%" align="center">{{announcement.title}}</td>
+            <td data-title="'显示设置'" width="30%" align="center">
+                <span ng-if="announcement.showState == 1">显示</span>
+                <span ng-if="announcement.showState == 0">隐藏</span>
+            </td>
+            <td data-title="'更新时间'" width="30%" align="center" sortable="'postTime'">{{announcement.updateTime|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+            <td data-title="'操作'" width="10%" align="center">
+                <a ng-click="detail(announcement);">查看</a>
+            </td>
+        </tr>
+        <tr ng-show="$data==0" align="center">
+            <td colspan="5"><div class="bootstrapTable_noData"><div></div><p>没有找到相关数据！</p></div></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</div>

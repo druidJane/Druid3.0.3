@@ -1,0 +1,389 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<!-- Used by the mto client to fetch the frame -->
+<mapper namespace="com.xuanwu.mos.mapper.ContactMapper">
+    <!-- entity  联系人组信息表(gsms_contact_group)-->
+    <resultMap type="com.xuanwu.mos.domain.entity.ContactGroup" id="contactGroup">
+        <id property="id" column="id" />
+        <result property="parentId" column="group_id"/>
+        <result property="userId" column="user_id"/>
+        <result property="name" column="name"/>
+        <result property="path" column="path"/>
+        <result property="type" column="type"/>
+        <result property="enterpriseId" column="enterprise_id"/>
+    </resultMap>
+
+    <!-- entity  联系人信息表(gsms_contact)-->
+    <resultMap type="com.xuanwu.mos.domain.entity.Contact" id="contact">
+        <id property="id" column="id"/>
+        <result property="groupId" column="group_id"/>
+        <result property="groupName" column="group_name"/>
+        <result property="groupType" column="group_type"/>
+        <result property="name" column="name"/>
+        <result property="phone" column="phone"/>
+        <result property="sex" column="sex"/>
+        <result property="identifier" column="identifier"/>
+        <result property="birthday" column="birthday"/>
+        <result property="vip" column="vip"/>
+        <result property="remark" column="remark"/>
+        <result property="ext1" column="extension1"/>
+        <result property="ext2" column="extension2"/>
+        <result property="ext3" column="extension3"/>
+        <association property="group" column="group_id" select="findContactGroupById"></association>
+    </resultMap>
+    <!-- entity  共享组映射信息表(gsms_contact_group_share_map)-->
+    <resultMap type="com.xuanwu.mos.domain.entity.ContactShareGroup" id="contactShareGroup">
+        <id property="id" column="id"/>
+        <result property="showContactFlag" column="show_contact_flag"/>
+        <result property="shareChildFlag" column="share_child_flag"/>
+        <association property="contactGroup"  javaType="com.xuanwu.mos.domain.entity.ContactGroup" column="group_id">
+            <id property="id" column="id" />
+            <result property="parentId" column="group_id"/>
+            <result property="userId" column="user_id"/>
+            <result property="username" column="username"/>
+            <result property="name" column="name"/>
+            <result property="path" column="path"/>
+            <result property="type" column="type"/>
+            <result property="enterpriseId" column="enterprise_id"/>
+        </association>
+    </resultMap>
+
+    <!-- 根据id查询出联系人所在的组信息 -->
+    <select id="findContactGroupById" resultMap="contactGroup">
+        select * from gsms_contact_group where id = #{id}
+    </select>
+
+    <select id="findContactGroupByName" resultMap="contactGroup">
+        select * from gsms_contact_group where name=#{name} and enterprise_id=#{entId} and user_id=#{userId} and type=#{type}
+    </select>
+
+    <!-- 根据enterprise_id(所属企业id)和 type(组类别)查询联系人所在的组信息-->
+    <select id="findContactGroup" resultMap="contactGroup">
+        select * from gsms_contact_group
+        where type=#{type} and enterprise_id=#{entId}
+        <if test="type==0">and user_id=#{userId}</if>
+    </select>
+    <!-- 企业通讯录页面 树形菜单数据sql-->
+    <select id="findEnterContactGroup" resultMap="contactGroup">
+        SELECT * FROM gsms_contact_group WHERE TYPE=1 AND enterprise_id=#{entId} ORDER BY id DESC
+    </select>
+    <select id="findContactByDrag"  resultMap="contact">
+        select b.phone,b.name,b.identifier,b.sex,b.birthday,b.remark
+        from gsms_contact_group a inner join gsms_contact b on a.id = b.group_id
+        where
+        <choose>
+            <when test="path!=null">a.path like concat(#{path}, '%')</when>
+            <when test="groupId!=null">b.group_id=#{groupId} </when>
+            <otherwise>a.user_id=#{userId}</otherwise>
+        </choose>
+    </select>
+
+    <!-- 查询所有用户共享组 -->
+    <select id="findShareContactGroup" resultMap="contactShareGroup">
+        select a.id,a.user_id,a.name,a.path,a.type,a.enterprise_id
+        <!-- b.group_id,
+        b.show_contact_flag,
+        b.share_child_flag,
+        c.user_name as username -->
+        from gsms_contact_group a
+        <!-- inner join gsms_contact_group_share_map b
+        on b.group_id=a.id
+        inner join gsms_user c on a.user_id=c.id  -->
+        where a.type=0
+        <if test="userIds!=null">
+            and a.user_id in <foreach collection="userIds" item="id" open="(" separator="," close=")">#{id}</foreach>
+
+        </if>
+    </select>
+
+    <!-- 分页查询共享组用户ID -->
+    <select id="findShareGroupUserId" resultType="int">
+        select distinct(a.user_id) from gsms_contact_group a
+        inner join gsms_contact_group_share_map b
+        on b.group_id=a.id where a.type=0
+        and a.enterprise_id=#{entId}
+        order by b.id asc limit #{offset},#{reqNum}
+    </select>
+
+    <select id="findShareContactGroupByGroupId" resultMap="contactShareGroup">
+        select a.*,b.name,b.path,b.user_id from gsms_contact_group_share_map a
+        inner join gsms_contact_group b
+        on a.group_id=b.id
+        where a.group_id =#{groupId}
+    </select>
+    <select id="findShareContactsByGroupIds" resultMap="contact">
+        select c.* from gsms_contact c  inner
+        join gsms_contact_group_share_map b  on  c.group_id =b.group_id
+        where c.group_id in <foreach collection="groupIds" item="id" open="(" separator="," close=")">#{id}</foreach>
+        <if test="name!=null">and c.name like concat('%',#{name},'%')</if>
+        <if test="phone!=null">and c.phone like concat('%',#{phone},'%')</if>
+        <if test="sex!=-1">and c.sex=#{sex}</if>
+        <if test="beginDate!=null">and c.birthday &gt;= #{beginDate}</if>
+        <if test="endDate!=null">and c.birthday &lt;= #{endDate}</if>
+        <if test="vip!=-1">and c.vip=#{vip}</if>
+        <if test="identifier!=null">and c.identifier like concat('%',#{identifier},'%')</if>
+        <if test="reqNum>0">limit #{offset},#{reqNum}</if>
+    </select>
+    <!-- 移除共享组 -->
+    <delete id="removeShareContactGroup">
+        delete from gsms_contact_group_share_map where group_id=#{id}
+    </delete>
+    <!-- 设置共享组 -->
+    <insert id="addShareContactGroup">
+        insert into gsms_contact_group_share_map(group_id,show_contact_flag,share_child_flag)
+        values (#{groupId},#{showContactFlag},#{shareChildFlag})
+    </insert>
+
+    <!-- 根据path(组的层级路径，模糊查询)将gsms_contact_group和gsms_contact两表关联查询，获取符合条件的联系人所在的组的记录条数-->
+    <select id="findGroupChildCount" resultType="int">
+        select count(1) from gsms_contact_group a inner join gsms_contact b on a.id = b.group_id
+        where
+        <choose>
+            <when test="path!=null"> a.path like concat(#{path}, '%')</when>
+            <when test="groupId!=null">b.group_id=#{groupId} </when>
+            <otherwise>a.user_id=#{userId}</otherwise>
+        </choose>
+    </select>
+
+    <!-- 查询第一条记录，便于发送短彩信时预览用 -->
+    <select id="findContactFirstRow"  resultMap="contact">
+        select b.phone,b.name,b.identifier,b.sex,b.birthday,b.remark
+        from gsms_contact_group a inner join gsms_contact b on a.id = b.group_id
+        where
+        <choose>
+            <when test="path!=null">a.path like concat(#{path}, '%')</when>
+            <when test="groupId!=null">b.group_id=#{groupId} </when>
+            <otherwise>a.user_id=#{userId}</otherwise>
+        </choose>
+        limit 0,1
+    </select>
+
+    <!--根据id查询出联系人信息表的(id, name, phone, sex, identifier, birthday, vip, remark)  -->
+    <select id="findContactsByIds" resultMap="contact">
+        select id, name, phone, sex, identifier, birthday, vip, remark from gsms_contact where id in
+        <foreach collection="ids" item="id" open="(" separator="," close=")">#{id}</foreach>
+        <if test="birthMonth!=0 and birthDay!=0">and birth_month=#{birthMonth} and birth_day=#{birthDay}</if>
+    </select>
+
+    <!--根据联系人组查询出联系人信息表的(id, name, phone, sex, identifier, birthday, vip, remark)  -->
+    <select id="findContactsByGroup" resultMap="contact">
+        select b.id, b.name, b.phone, b.sex, b.identifier, b.birthday, b.vip, b.remark
+        from gsms_contact_group a inner join gsms_contact b on a.id = b.group_id
+        <choose>
+            <when test="cg.containChild == true">where a.path like concat(#{cg.path}, '%')</when>
+            <otherwise>where a.path = #{cg.path}</otherwise>
+        </choose>
+        <if test="dynParam != null"><!-- params.param.ext 为Contact对象，param.ext1 生日开始时间，param.ext2 生日结束时间 -->
+            <if test="dynParam.ext.name != null">and b.name like concat('%',#{dynParam.ext.name},'%')</if>
+            <if test="dynParam.ext.phone != null">and b.phone like concat('%',#{dynParam.ext.phone},'%')</if>
+            <if test="dynParam.ext.sex != -1">and b.sex = #{dynParam.ext.sex}</if>
+            <if test="dynParam.ext.vipVal != -1">and b.vip = #{dynParam.ext.vipVal}</if>
+            <if test="dynParam.ext.identifier != null">and b.identifier like concat('%',#{dynParam.ext.identifier},'%')</if>
+            <if test="dynParam.ext1 != null">and b.birthday &gt;= #{dynParam.ext1}</if>
+            <if test="dynParam.ext2 != null">and b.birthday &lt;= #{dynParam.ext2}</if>
+        </if>
+        <if test="birthMonth!=0 and birthDay!=0">and birth_month=#{birthMonth} and birth_day=#{birthDay}</if>
+        <if test="cg.userId != null and cg.userId != 0">and a.user_id=#{cg.userId}</if>
+        <if test="cg.type != null and cg.type > -1 ">and a.type=#{cg.type}</if>
+        <if test="cg.userIds!=null ">
+            and user_id in
+            <foreach item="item" index="index" collection="cg.userIds"
+                     open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+    </select>
+
+    <select id="findGroupsByPath" resultMap="contactGroup">
+        select * from gsms_contact_group where path like concat(#{path},'%')
+        <if test="userId>0">and user_id=#{userId}</if>
+        <if test="entId>0">and enterprise_id=#{entId}</if>
+    </select>
+    <select id="findGroupsByParentId" resultMap="contactGroup">
+        select * from gsms_contact_group where group_id=#{parentId}
+        <if test="userId>0">and user_id=#{userId}</if>
+        <if test="entId>0">and enterprise_id=#{entId}</if>
+    </select>
+
+    <select id="findContactsCountByGroupIds" resultType="int">
+        select count(c.id) from gsms_contact c
+        where c.group_id in <foreach collection="groupIds" item="id" open="(" separator="," close=")">#{id}</foreach>
+        <if test="name!=null">and c.name like concat('%',#{name},'%')</if>
+        <if test="phone!=null">and c.phone like concat('%',#{phone},'%')</if>
+        <if test="sex!= null and sex!=-1">and c.sex=#{sex}</if>
+        <if test="beginDate!=null">and c.birthday &gt;= #{beginDate}</if>
+        <if test="endDate!=null">and c.birthday &lt;= #{endDate}</if>
+        <if test="vip!= null and vip!=-1">and c.vip=#{vip}</if>
+        <if test="identifier!=null">and c.identifier like concat('%',#{identifier},'%')</if>
+    </select>
+
+    <select id="findContactsByGroupIds" resultMap="contact">
+        select c.* from gsms_contact c
+        where c.group_id in <foreach collection="groupIds" item="id" open="(" separator="," close=")">#{id}</foreach>
+        <if test="name!=null">and c.name like concat('%',#{name},'%')</if>
+        <if test="phone!=null">and c.phone like concat('%',#{phone},'%')</if>
+        <if test="sex!=null and sex!=-1">and c.sex=#{sex}</if>
+        <if test="beginDate!=null">and c.birthday &gt;= #{beginDate}</if>
+        <if test="endDate!=null">and c.birthday &lt;= #{endDate}</if>
+        <if test="vip!=null and vip!=-1">and c.vip=#{vip}</if>
+        <if test="identifier!=null">and c.identifier like concat('%',#{identifier},'%')</if>
+        <!-- <if test="birthMonth!=0 and birthDay!=0">and birth_month=#{birthMonth} and birth_day=#{birthDay}</if> -->
+        <if test="reqNum>0">limit #{offset},#{reqNum}</if>
+    </select>
+
+    <select id="findContactsCount" resultType="int">
+        select count(c.id) from gsms_contact c
+        inner join gsms_contact_group g on c.group_id=g.id
+        where g.type=#{type}
+        <choose>
+            <when test="showChild">
+                <if test="type==0">
+                    <choose>
+                        <when test="groupId==1">and g.user_id=#{userId}</when>
+                        <otherwise>and g.path like concat(#{path},'%')</otherwise>
+                    </choose>
+                </if>
+            </when>
+            <otherwise>and c.group_id=#{groupId}</otherwise>
+        </choose>
+        <if test="name!=null">and c.name like concat('%',#{name},'%')</if>
+        <if test="phone!=null">and c.phone like concat('%',#{phone},'%')</if>
+        <if test="sex!=null and sex!=-1">and c.sex=#{sex}</if>
+        <if test="beginDate!=null">and c.birthday &gt;= #{beginDate}</if>
+        <if test="endDate!=null">and c.birthday &lt;= #{endDate}</if>
+        <if test="params.vip!=null and vip!=-1">and c.vip=#{vip}</if>
+        <if test="identifier!=null">and c.identifier like concat('%',#{identifier},'%')</if>
+    </select>
+
+    <select id="findContacts" resultMap="contact">
+        select c.* from gsms_contact c
+        inner join gsms_contact_group g on c.group_id=g.id
+        where g.type=#{type}
+        <choose>
+            <when test="showChild">
+                <if test="type==1">
+                    <choose>
+                        <when test="groupId==2">and g.enterprise_id=#{userId}</when>
+                        <otherwise>and g.path like concat(#{path},'%')</otherwise>
+                    </choose>
+                </if>
+                <if test="type==0">
+                    <choose>
+                        <when test="groupId==1">and g.user_id=#{userId}</when>
+                        <otherwise>and g.path like concat(#{path},'%')</otherwise>
+                    </choose>
+                </if>
+            </when>
+            <otherwise>and c.group_id=#{groupId}</otherwise>
+        </choose>
+        <if test="name!=null">and c.name like concat('%',#{name},'%')</if>
+        <if test="phone!=null">and c.phone like concat('%',#{phone},'%')</if>
+        <if test="sex!=-1">and c.sex=#{sex}</if>
+        <if test="beginDate!=null">and c.birthday &gt;= #{beginDate}</if>
+        <if test="endDate!=null">and c.birthday &lt;= #{endDate}</if>
+        <if test="vip!=-1">and c.vip=#{vip}</if>
+        <if test="identifier!=null">and c.identifier like concat('%',#{identifier},'%')</if>
+        <!-- <if test="birthMonth!=0 and birthDay!=0">and birth_month=#{birthMonth} and birth_day=#{birthDay}</if> -->
+        <if test="reqNum>0">limit #{offset},#{reqNum}</if>
+    </select>
+    <sql id="Where_Clause">
+        <where>
+        <choose>
+            <when test="params.showChild">
+                    <choose>
+                        <when test="params.groupId==1">and g.user_id=#{params.userId}</when>
+                        <otherwise>and g.path like concat(#{params.path},'%')</otherwise>
+                    </choose>
+            </when>
+            <otherwise>and c.group_id=#{params.groupId}</otherwise>
+        </choose>
+        <if test="params._lk_name!=null and ''!=params._lk_name">and c.name like concat('%',#{params._lk_name},'%')</if>
+        <if test="params._lk_phone!=null and ''!=params._lk_phone">and c.phone like concat('%',#{params._lk_phone},'%')</if>
+        <if test="params.sex!=null and params.sex!=-1" >and c.sex=#{params.sex}</if>
+        <if test="params._gt_beginDate!=null">
+            <![CDATA[ and birthday >= #{params._gt_beginDate}]]>
+        </if>
+        <if test="params._lt_endDate!=null">
+            <![CDATA[ and birthday <= #{params._lt_endDate} ]]>
+        </if>
+        <if test="params.vip!=null and params.vip!=-1">and c.vip=#{params.vip}</if>
+        <if test="params._lk_identifier!=null and ''!=params._lk_identifier">and c.identifier like concat('%',#{params._lk_identifier},'%')</if>
+            <if test="params.userIds!=null ">
+                and g.user_id in
+                <foreach item="item" index="index" collection="params.userIds"
+                         open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+        <!-- <if test="birthMonth!=0 and birthDay!=0">and birth_month=#{birthMonth} and birth_day=#{birthDay}</if> -->
+        </where>
+    </sql>
+    <select id="findResultCount" resultType="int">
+        select count(c.id) from gsms_contact c
+        inner join gsms_contact_group g on c.group_id=g.id
+        <include refid="Where_Clause"/>
+    </select>
+    <select id="findResults" resultMap="contact">
+        select c.* from gsms_contact c
+        inner join gsms_contact_group g on c.group_id=g.id
+        <include refid="Where_Clause"/>
+        <if test="page!=null">limit #{page.from}, #{page.size}</if>
+    </select>
+
+    <insert id="insertContactList">
+        insert into gsms_contact(name,phone,sex,identifier,birthday,vip,remark,extension1,extension2,extension3,group_id)
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.name},#{item.phone},#{item.sex},#{item.identifier},#{item.birthday},
+            #{item.vip},#{item.remark},#{item.ext1},#{item.ext2},#{item.ext3},#{item.groupId}
+            )
+        </foreach>
+    </insert>
+
+    <update id="removeCh">
+        update gsms_contact_group set share_flag=false,show_contact_flag=false where group_id=#{id}
+    </update>
+
+    <update id="updateContactGroup">
+        update gsms_contact_group set name=#{name} where id=#{id}
+    </update>
+    <update id="updateContactGroupPath">
+        update gsms_contact_group set path=#{path} where id=#{id}
+    </update>
+
+    <delete id="deleteContactGroupsByPath">
+        delete from gsms_contact_group where path like concat(#{path},'%')
+    </delete>
+    <delete id="deleteContactsByPath">
+        delete from gsms_contact where group_id in(select id from gsms_contact_group where path like concat(#{path},'%'))
+    </delete>
+
+    <select id="findContactById" resultMap="contact">
+        select * from gsms_contact where id=#{id}
+    </select>
+    <select id="checkContactExist" resultType="int">
+        select count(id) from gsms_contact where phone=#{phone} and group_id=#{groupId}
+    </select>
+    <insert id="insertContact">
+        insert into gsms_contact(name,phone,sex,identifier,birthday,vip,remark,extension1,extension2,extension3,group_id)
+        values(#{name},#{phone},#{sex},#{identifier},#{birthday},#{vip},#{remark},#{ext1},#{ext2},#{ext3},#{groupId})
+    </insert>
+    <update id="updateContact">
+        update gsms_contact set name=#{name},phone=#{phone},sex=#{sex},
+        identifier=#{identifier},birthday=#{birthday},vip=#{vip},remark=#{remark},
+        extension1=#{ext1},extension2=#{ext2},extension3=#{ext3},group_id=#{groupId}
+        <!-- ,birth_month=#{birthMonth},birth_day=#{birthDay} -->
+        where id=#{id}
+    </update>
+    <delete id="deleteContact">
+        delete from gsms_contact
+        <where>
+            <if test="params.ids"> id in <foreach collection="params.ids" item="id" open="(" separator="," close=")">#{id}</foreach></if>
+            <if test="params.groupIds"> group_id in <foreach collection="params.groupIds" item="groupId" open="(" separator="," close=")">#{groupId}</foreach></if>
+        </where>
+    </delete>
+
+    <select id="findLastInsertId" resultType="int">
+        select last_insert_id()
+    </select>
+</mapper>

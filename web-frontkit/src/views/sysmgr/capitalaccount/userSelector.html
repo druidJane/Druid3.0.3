@@ -1,0 +1,90 @@
+<div class="tab_con_type1 mar_t10">
+    <div class="first">
+        <!--左边树-->
+        <div class="con_left" style="overflow: auto;">
+            <div class="comm_sel_l_l">
+                <ul class="nav nav-tabs nav_tabs_t1" id="tab" data-toggle="buttons">
+                    <li class="active contain_li">
+                        <a data-toggle="tab" value="1" ng-click="included();">已包含</a>
+                    </li>
+                    <li class="contain_li">
+                        <a data-toggle="tab" value="0" ng-click="unIncluded();">未包含</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="tab-content" style="margin-top:10px;">
+                <div class="tab-pane in active" id="personContact">
+                    <treecontrol class="tree-classic" tree-model="dataForTheTree" options="treeOptions" on-selection="showSelected(node)" expanded-nodes="expandedNodes">
+                        <span class="deptico"></span>{{node.deptName|limitTo:20}}
+                    </treecontrol>
+                </div>
+            </div>
+        </div>
+        <!--右边内容-->
+        <div class="con_right">
+            <form class="form-inline table-toolbar">
+                <div class="search_box">
+                    <div class="pull-left">
+                        <div class="form-group">
+                            <label class="label">用户账号</label>
+                            <input type="text" class="form-control input-sm" ng-model="userParams.userName"/>
+                        </div>
+                        <div class="form-group">
+                            <label class="label">用户名称</label>
+                            <input type="text" class="form-control input-sm" ng-model="userParams.linkMan"/>
+                        </div>
+                        <div class="form-group">
+                            <label class="label">角色</label>
+                            <select ng-model="userParams.roleId" ng-options="item.id as item.name for item in roleSelectModel" class="form-control form-control-small input-sm">
+                                <option value="">请选择</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="label">扩展码</label>
+                            <input type="text" class="form-control input-sm" ng-model="userParams.identify"/>
+                        </div>
+                        <div class="form-group">
+                            <div class="checkbox checkbox-info">
+                                <input type="checkbox" ng-model="userParams.showAllChild" checked/>
+                                <label>包含下级</label>
+                            </div>
+                        </div>
+                        <div class="form-group" style="padding-right: 20px; padding-left: 5px;">
+                            <button type="button" class="btn btn_search" ng-click="search();">查询</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div class="table_t1 mar_t10">
+                <div class="fixed-table-container">
+                    <div class="loading" ng-show="usersTable.settings().$loading"></div>
+                    <table ng-table="usersTable" class="table table-hover" template-pagination="custom/pager">
+                        <tbody>
+                        <tr ng-repeat="user in $data">
+                            <td data-title="&nbsp;" header="'ng-table/headers/checkbox.html'">
+                                <div class="checkbox checkbox-info">
+                                    <input name="id" value="{{user.id}}" ng-checked="user.$checked" ng-click="checkOne(user);" type="checkbox">
+                                    <label></label>
+                                </div>
+                            </td>
+                            <td data-title="'用户账号'" width="18%" align="center" >{{user.username}} </td>
+                            <td data-title="'用户名称'" width="18%" align="center" >{{user.linkMan}} </td>
+                            <td data-title="'所属部门'" width="18%" align="center" >{{user.deptName}} </td>
+                            <td data-title="'联系电话'" width="18%" align="center" >{{user.phone}} </td>
+                            <td data-title="'状态'" width="10%" align="center" >{{user.showState}} </td>
+                            <td data-title="'所属计费账号'" width="18%" align="center" >{{user.capitalAccountName}} </td>
+                        </tr>
+                        <tr ng-show="$data==0" align="center">
+                            <td colspan="7"><div class="bootstrapTable_noData"><div></div><p>没有找到相关数据！</p></div></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="panel-footer" align="center" style="margin-top: 15px;">
+    <button type="button" class="btn btn_2x_t1" ng-click="doSelector();" ng-bind="doSubmitStr"></button>&nbsp;
+    <button type="button" class="btn btn_2x_cancel" onclick="window.history.back();">返回</button>
+</div>

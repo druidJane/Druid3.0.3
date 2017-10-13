@@ -1,0 +1,41 @@
+<form class="form-inline table-toolbar">
+    <div class="search_box">
+        <div class="form-group pull-left">
+            <div class="form-group">
+                <label class="query_label">模板名称</label>
+                <input type="text" class="form-control input-sm w140" ng-model="mmsTemplateListParams.templateName" aria-describedby="basic-addon">
+            </div>
+            <div class="form-group" style="margin: 0;vertical-align: top;">
+                <button type="button" class="btn btn_search" ng-click="searchMmsTemplate()">
+                    查询
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="table_t1 mar_t10">
+        <div class="fixed-table-container loading-container">
+        <div class="loading" ng-show="mmsTemplateTable.settings().$loading"></div>
+        <table ng-table="mmsTemplateTable" class="table table-hover" template-pagination="custom/pager">
+            <tbody>
+            <tr ng-repeat="templateVo in $data">
+                <td width="30" data-title="&nbsp;" header="'ng-table/headers/checkbox.html'" align="center">
+                    <div class="checkbox checkbox-info">
+                        <input name="id" value="{{templateVo.id}}" ng-checked="templateVo.$checked" ng-click="checkOne(templateVo);" type="checkbox">
+                        <label></label>
+                    </div>
+                </td>
+                <td data-title="'模板名称'" align="center">
+                    </a>{{templateVo.title}}
+                </td>
+                <td data-title="'更新时间'" align="center">
+                    {{templateVo.lastUpdateTime|date:'yyyy-MM-dd HH:mm:ss'}}
+                </td>
+                <td data-title="'操作'" align="center">
+                    <a href="javascript:;" ng-click="quoteTemplateById(templateVo.id)">引用</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        </div>
+    </div>
+</form>

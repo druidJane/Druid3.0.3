@@ -1,0 +1,150 @@
+<div class="tab_con_type1 mar_t10">
+    <div class="first">
+        <div class="con_right" style="margin-left:0px">
+            <div class="sms_edit">
+                <div class="f16">彩信模板</div>
+                <!--<form role="form" class="form_hz mar_t30">-->
+                <form class="form_hz mar_t30 w5c-form" name="mmsTemplateModifyForm"
+                      w5c-form-validate="vm"
+                      novalidate="" role="form">
+                    <div class="form-group mar_t10">
+                        <label class="font_red12">*</label>
+                        <label>模板名称：</label>
+                        <input id="txt_subject" type="text" name="phraseTitle" ng-maxlength="20"
+                               class="form-control inp_type1 w200" placeholder="请输入模板名称"
+                               ng-model="templateName" required>
+                    </div>
+                    <br>
+                    <br>
+
+                <spqn ng-hidden="true" ng-model="currentFrame.index"></spqn>
+                <div class="mar_t10 mms_i_list clearfix">
+                    <div ui-sortable="sortableOptions" ng-model="frames">
+                        <div class="item" ng-class="{'active':item.id==currentFrame.idValue}" ng-repeat="item in frames">
+                            <div class="edit" ng-click="editFrame($index)">
+                                <div>
+                                    <img class="showPic" ngf-src="item.file"/>
+                                </div>
+                                <span class="num">{{$index+1}}</span>
+                                <span class="del_img" ng-hide="0===$index"
+                                      ng-click="deleteFrame($index)"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="add align_c" ng-click="addFrame()">
+                        <div style="font-size: 30px">+</div>
+                        <div>添加帧</div>
+                        <div>(拖动改变顺序)</div>
+                    </div>
+                    <div class="mms_detail">
+                        <!--添加图片-->
+                        <div>
+                            <span class="mar_l10"><span class="f_b">本帧图片：</span><span>{{currentFrame.imgAdder}}</span></span>
+                            <a type="file" class="file change_img h_l mar_l10"
+                               ngf-select="uploadMediaFile(currentFrame.index,$file, $invalidFile,'{{mediaType[0]}}')"
+                               ngf-pattern={{uploadConf.img.type}}
+                               ngf-max-total-size={{uploadConf.img.size}}>
+                                添加图片
+                            </a> &nbsp;
+                            <a ng-click="deleteMediaFile(currentFrame.index,mediaType[0]);"
+                               class="delete h_l mar_l10">
+                                删除图片</a>
+                        </div>
+                        <!--添加音频-->
+                        <div class="mar_t10">
+                            <span class="mar_l10"><span class="f_b">本帧音频：</span><span>{{currentFrame.audioAdder}}</span></span>
+                            <a type="file" class="file change_img h_l mar_l10"
+                               ngf-select="uploadMediaFile(currentFrame.index,$file, $invalidFile, '{{mediaType[1]}}')"
+                               ngf-pattern={{uploadConf.audio.type}}
+                               ngf-max-total-size={{uploadConf.audio.size}}>
+                                添加音频
+                            </a>
+                            <span class="mar_l10">播放音频时长：
+                                <select ng-model="audioDuration" ng-change="setAudioDuration(currentFrame.index)"
+                                        ng-options="audioDuration for audioDuration in audioDurations"></select>
+                            </span>
+                            <a href="javascript:;" ng-show="audioFile!=null"
+                               ng-click='audioFile.paused? playAudio(currentFrame.index) :pauseAudio(currentFrame.index)'
+                               class="play h_l mar_l10">{{audioFile.paused?"试听":"暂停"}}</a>
+                            <a ng-click="deleteMediaFile(currentFrame.index,mediaType[1]);"
+                               class="delete h_l mar_l10">删除音频</a>
+                        </div>
+                        <!--添加视频-->
+                        <div class="mar_t10">
+                            <span class="mar_l10"><span class="f_b">本帧视频：</span><span>{{currentFrame.videoAdder}}</span></span>
+                            <a type="file" class="file change_img h_l mar_l10"
+                               ngf-select="uploadMediaFile(currentFrame.index,$file,$invalidFile,mediaType[2])"
+                               ngf-pattern={{uploadConf.video.type}}
+                               ngf-max-total-size={{uploadConf.video.size}}>
+                                添加视频
+                            </a>
+                            <span class="mar_l10">播放视频时长：
+                                <select ng-model="videoDuration" ng-change="setVideoDuration(currentFrame.index)"
+                                        ng-options="duration for duration in videoDurations"></select>
+                            </span>
+                            <a href="javascript:;" ng-click="playVideo(currentFrame.index)"
+                               class="play h_l mar_l10" ng-show="currentFrame.videoFile">播放
+                            </a>
+                            <a ng-click="deleteMediaFile(currentFrame.index,mediaType[2]);"
+                               class="delete h_l mar_l10">删除视频</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="mar_t10">
+                    <div class="zero-clipboard" ng-show="currentFrame.textContent.length>0">
+                        <span class="btn-clipboard glyphicon glyphicon-remove"
+                              ng-click="clearFrameText(currentFrame.index)"></span>
+                    </div>
+                    <textarea ng-model="currentFrame.textContent" ng-keyup="calStringLength(currentFrame.index,currentFrame.textContent)" class="text_inp_type1" placeholder="请输入彩信模板内容"></textarea>
+                </div>
+                <div class="mar_t10 clearfix">
+                    <div class="send_opt_check" style="padding-left:0px;padding-bottom:10px;line-height:0;">
+                        <br>
+                        <label id="span_size_info" class="send_opt_info mar_t10">总大小：<b>{{totalSize
+                            |sizeFormatter:1}}</b>（不能超过<b>{{maxSize |sizeFormatter:0
+                            }}</b>，系统已占<b>{{systemNeedSize |sizeFormatter:0
+                            }}</b>）
+                        </label>
+                    </div>
+                </div>
+                <div class="mar_t10 clearfix">
+                    <div class="send_opt_check" style="padding-left:5px;line-height:2.4;">
+                        <button class="btn btn_2x_t1 float_l" ng-click="saveMmsTemplate();" ng-disabled="mmsTemplateModifyForm.$invalid || mmsTemplateModifyForm.$pristine">保存
+                        </button>
+                        <button type="button" class="btn btn_2x_cancel float_l"
+                                style="margin-left: 15px" ng-click="cancelAddTemplate();">
+                            返回
+                        </button>
+                    </div>
+                </div>
+                </form>
+            </div>
+            <div class="send_preview">
+                <div class="f16">发送预览</div>
+                <div class="send_msg mar_t30">
+                    <div class="send_msg_in">
+                        <ul id="preview_content">
+                            <li>{{templateName}}</li>
+                            <li>
+                                <img class="thumbImage" ngf-src="currentFrame.previewImg"/>
+                            </li>
+                            <li>{{currentFrame.previewText}}</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="page_turn_msg mar_t20 clearfix">
+                    <a ng-click="editFrame(currentFrame.index-1)" class="prev">&nbsp;</a>
+                    <div class="num_list">
+                        <span id="curFrmaePage" class="num f14">{{currentFrame.index+1}}</span>/<span id="frameTotalPage" class="tot">{{frames.length}}</span>
+                    </div>
+                    <a ng-click="editFrame(currentFrame.index+1)" class="next">&nbsp;</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/ng-template" id="modal/bindPhone.tpl.html">
+    <div>
+        <h3>修改已验证手机成功！</h3></div>
+    </div>
+</script>

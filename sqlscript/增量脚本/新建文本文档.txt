@@ -1,0 +1,47 @@
+# -----2017/6/27 网关写死发送权限，新mos对应修改相关权限start-------
+
+update gsms_permission set share_flag=1 where id in (11100,11110,11111,11120,11121,11122,11130,11131,11132,11140,11141,11142);
+
+# 新增发送普通短信与发送变量短信相关权限
+INSERT INTO `gsms_permission` (`id`, `display_name`, `operation_obj`, `area_name`, `controller_name`, `action_name`, `form_method`, `parent_id`, `is_menu`, `menu_image_path`, `menu_display_name`, `menu_display_order`, `menu_has_hyperlink`, `is_display`, `remark`, `type`, `data_scopes`, `level`, `is_quick_link`, `url`, `operationstr`, `platform_id`, `industry_type`, `share_flag`) VALUES ('11700', '发送短信', '短信管理', 'SmsMgr', 'SendSms', 'DoSendSms', '1', '11000', '', '', '发送短信', '11100', '', '\0', NULL, '0', '3', '0', '\0', '~/SmsMgr/SendSms/Index', '', '2', NULL, '2');
+INSERT INTO `gsms_permission` (`id`, `display_name`, `operation_obj`, `area_name`, `controller_name`, `action_name`, `form_method`, `parent_id`, `is_menu`, `menu_image_path`, `menu_display_name`, `menu_display_order`, `menu_has_hyperlink`, `is_display`, `remark`, `type`, `data_scopes`, `level`, `is_quick_link`, `url`, `operationstr`, `platform_id`, `industry_type`, `share_flag`) VALUES ('11730', '发送普通短信', '短信发送', 'SmsMgr', 'SendSms', 'CommonSms', '1', '11700', '\0', '', '发送普通短信', '11130', '', '', NULL, '0', '9', '2', '', '~/SmsMgr/SendSms/CommonSms', '', '2', NULL, '2');
+INSERT INTO `gsms_permission` (`id`, `display_name`, `operation_obj`, `area_name`, `controller_name`, `action_name`, `form_method`, `parent_id`, `is_menu`, `menu_image_path`, `menu_display_name`, `menu_display_order`, `menu_has_hyperlink`, `is_display`, `remark`, `type`, `data_scopes`, `level`, `is_quick_link`, `url`, `operationstr`, `platform_id`, `industry_type`, `share_flag`) VALUES ('11731', '发送', '发送普通短信', 'SmsMgr', 'SendSms', 'CommonSmsSend', '1', '11730', '\0', '', '发送', '11131', '', '', '', '0', '9', '3', '\0', '~/SmsMgr/SendSms/CommonSmsSend', '', '2', NULL, '2');
+INSERT INTO `gsms_permission` (`id`, `display_name`, `operation_obj`, `area_name`, `controller_name`, `action_name`, `form_method`, `parent_id`, `is_menu`, `menu_image_path`, `menu_display_name`, `menu_display_order`, `menu_has_hyperlink`, `is_display`, `remark`, `type`, `data_scopes`, `level`, `is_quick_link`, `url`, `operationstr`, `platform_id`, `industry_type`, `share_flag`) VALUES ('11732', '发送免审', '发送普通短信', 'SmsMgr', 'SendSms', 'DoSendMms', '1', '11730', '\0', '', '发送免审', '11132', '', '', '', '1', '9', '3', '\0', '~/SmsMgr/SendSms/CommonSmsSendFreeAudit', '', '2', NULL, '2');
+INSERT INTO `gsms_permission` (`id`, `display_name`, `operation_obj`, `area_name`, `controller_name`, `action_name`, `form_method`, `parent_id`, `is_menu`, `menu_image_path`, `menu_display_name`, `menu_display_order`, `menu_has_hyperlink`, `is_display`, `remark`, `type`, `data_scopes`, `level`, `is_quick_link`, `url`, `operationstr`, `platform_id`, `industry_type`, `share_flag`) VALUES ('11740', '发送变量短信', '短信发送', 'SmsMgr', 'SendSms', 'VariantSms', '1', '11700', '\0', '', '发送变量短信', '11140', '', '', NULL, '0', '9', '2', '', '~/SmsMgr/SendSms/VariantSms', '', '2', NULL, '2');
+INSERT INTO `gsms_permission` (`id`, `display_name`, `operation_obj`, `area_name`, `controller_name`, `action_name`, `form_method`, `parent_id`, `is_menu`, `menu_image_path`, `menu_display_name`, `menu_display_order`, `menu_has_hyperlink`, `is_display`, `remark`, `type`, `data_scopes`, `level`, `is_quick_link`, `url`, `operationstr`, `platform_id`, `industry_type`, `share_flag`) VALUES ('11741', '发送', '发送变量短信', 'SmsMgr', 'SendSms', 'VariantSmsSend', '1', '11740', '\0', '', '发送', '11141', '', '', '', '0', '9', '3', '\0', '~/SmsMgr/SendSms/VariantSmsSend', '', '2', NULL, '2');
+INSERT INTO `gsms_permission` (`id`, `display_name`, `operation_obj`, `area_name`, `controller_name`, `action_name`, `form_method`, `parent_id`, `is_menu`, `menu_image_path`, `menu_display_name`, `menu_display_order`, `menu_has_hyperlink`, `is_display`, `remark`, `type`, `data_scopes`, `level`, `is_quick_link`, `url`, `operationstr`, `platform_id`, `industry_type`, `share_flag`) VALUES ('11742', '发送免审', '发送变量短信', 'SmsMgr', 'SendSms', 'DoSendMms', '1', '11740', '\0', '', '发送免审', '11142', '', '', '', '1', '9', '3', '\0', '~/SmsMgr/SendSms/VariantSmsSendFreeAudit', '', '2', NULL, '2');
+
+# 发送普通短信与发送变量短信初始化角色权限绑定
+INSERT INTO `gsms_role_permission` (`role_id`, `permission_id`, `data_scope`) VALUES ('228', '11700', '3');
+INSERT INTO `gsms_role_permission` (`role_id`, `permission_id`, `data_scope`) VALUES ('228', '11730', '3');
+INSERT INTO `gsms_role_permission` (`role_id`, `permission_id`, `data_scope`) VALUES ('228', '11732', '3');
+INSERT INTO `gsms_role_permission` (`role_id`, `permission_id`, `data_scope`) VALUES ('228', '11740', '3');
+INSERT INTO `gsms_role_permission` (`role_id`, `permission_id`, `data_scope`) VALUES ('228', '11742', '3');
+
+INSERT INTO `gsms_role_permission` (`role_id`, `permission_id`, `data_scope`) VALUES ('229', '11700', '3');
+INSERT INTO `gsms_role_permission` (`role_id`, `permission_id`, `data_scope`) VALUES ('229', '11730', '3');
+INSERT INTO `gsms_role_permission` (`role_id`, `permission_id`, `data_scope`) VALUES ('229', '11731', '3');
+INSERT INTO `gsms_role_permission` (`role_id`, `permission_id`, `data_scope`) VALUES ('229', '11740', '3');
+INSERT INTO `gsms_role_permission` (`role_id`, `permission_id`, `data_scope`) VALUES ('229', '11741', '3');
+
+INSERT INTO `gsms_role_permission` (`role_id`, `permission_id`, `data_scope`) VALUES ('230', '11700', '3');
+INSERT INTO `gsms_role_permission` (`role_id`, `permission_id`, `data_scope`) VALUES ('230', '11730', '3');
+INSERT INTO `gsms_role_permission` (`role_id`, `permission_id`, `data_scope`) VALUES ('230', '11731', '3');
+INSERT INTO `gsms_role_permission` (`role_id`, `permission_id`, `data_scope`) VALUES ('230', '11740', '3');
+INSERT INTO `gsms_role_permission` (`role_id`, `permission_id`, `data_scope`) VALUES ('230', '11741', '3');
+
+INSERT INTO `gsms_role_permission` (`role_id`, `permission_id`, `data_scope`) VALUES ('167', '11700', '3');
+INSERT INTO `gsms_role_permission` (`role_id`, `permission_id`, `data_scope`) VALUES ('167', '11730', '3');
+INSERT INTO `gsms_role_permission` (`role_id`, `permission_id`, `data_scope`) VALUES ('167', '11731', '3');
+INSERT INTO `gsms_role_permission` (`role_id`, `permission_id`, `data_scope`) VALUES ('167', '11732', '3');
+INSERT INTO `gsms_role_permission` (`role_id`, `permission_id`, `data_scope`) VALUES ('167', '11740', '3');
+INSERT INTO `gsms_role_permission` (`role_id`, `permission_id`, `data_scope`) VALUES ('167', '11741', '3');
+INSERT INTO `gsms_role_permission` (`role_id`, `permission_id`, `data_scope`) VALUES ('167', '11742', '3');
+
+# 删除无用的发送普通短信与发送变量短信相关权限
+delete from gsms_permission where id in (11130,11131,11132,11140,11141,11142);
+
+delete from gsms_role_permission where permission_id in (11130,11131,11132,11140,11141,11142);
+
+
+# -----2017/6/27 end-------

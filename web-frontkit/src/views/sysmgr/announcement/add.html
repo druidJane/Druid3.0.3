@@ -1,0 +1,31 @@
+<form class="form-horizontal w5c-form" name="form" w5c-form-validate="" novalidate>
+    <table class="batch_detail">
+        <tr class="bor_btm">
+            <td class="tit"><span class="red">*</span>公告标题</td>
+            <td><input class="form-control" type="text" name="title" ng-model="announcement.title" ng-maxlength="50" required/></td>
+        </tr>
+        <tr class="bor_btm">
+            <td class="tit"><span class="red">*</span>公告内容</td>
+            <td>
+                <textarea class="form-control" ng-model="announcement.content" ng-maxlength="1000" rows="6" required></textarea>
+            </td>
+        </tr>
+        <tr class="bor_btm">
+            <td class="tit"><span class="red">*</span>显示设置</td>
+            <td>
+                <div class="radio_set">
+                    <label class="mar_r10">
+                        <input name="isShow" ng-model="announcement.showState" value="1" ng-checked="1" id="deductType1" type="radio" class="regular-radio ng-pristine ng-valid ng-valid-required valid"/>
+                        <label for="deductType1"></label>
+                        <label>显示</label>
+                    </label>
+                    <label>
+                        <input name="isShow" ng-model="announcement.showState" value="0" id="deductType2" type="radio" class="regular-radio ng-pristine ng-valid">
+                        <label for="deductType2"></label>
+                        <label>隐藏</label>
+                    </label>
+                </div>
+            </td>
+        </tr>
+    </table>
+</form>

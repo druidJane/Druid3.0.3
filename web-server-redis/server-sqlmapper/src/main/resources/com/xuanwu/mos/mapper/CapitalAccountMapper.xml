@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.xuanwu.mos.mapper.CapitalAccountMapper">
+
+    <resultMap id="capitalAccountMap" type="CapitalAccount">
+        <id property="id" column="id"/>
+        <result property="accountName" column="name"/>
+        <result property="payingWay" column="type"/>
+        <result property="balance" column="balance"/>
+        <result property="chargeWay" column="charge_type"/>
+        <result property="autoChargeMoney" column="auto_charge_amount"/>
+        <result property="deductType" column="deduct_type"/>
+        <result property="parentId" column="parent_id"/>
+        <result property="userId" column="user_id"/>
+        <result property="enterpriseId" column="enterprise_id"/>
+        <result property="smsPrice" column="sms_price"/>
+        <result property="mmsPrice" column="mms_price"/>
+        <result property="chargeRatio" column="charge_ratio"/>
+        <result property="differenceBalance" column="difference_balance"/>
+        <result property="childBalance" column="child_balance"/>
+        <result property="chargeDay" column="rechargedate"/>
+        <result property="monthlyStatStart" column="monthly_stat_start"/>
+        <result property="remark" column="remark"/>
+        <result property="chargeTime" column="charge_time"/>
+        <result property="state" column="state"/>
+        <result property="autoChargeFlag" column="auto_charge_flag"/>
+    </resultMap>
+
+    <select id="getDifferenceByEnterpriseId" resultMap="capitalAccountMap">
+        select a.type, a.charge_type,
+        a.charge_ratio, a.balance, u.monthly_stat_start,
+        sum(ifnull(b.balance,0)) as child_balance,
+        case when a.type=0 and a.charge_ratio>0 then (a.balance*a.charge_ratio)-sum(ifnull(b.balance,0)) else 0 end as difference_balance,
+        a.id
+        from gsms_capital_account a
+        left join gsms_capital_account b on a.id=b.parent_id and b.state=0
+        left join gsms_user u on b.enterprise_id = u.id
+        where a.parent_id is null
+        and a.enterprise_id=#{enterpriseId}
+    </select>
+
+    <sql id="resultSql">
+        <if test="params.accountName != null and params.accountName != ''">and a.name like concat('%',#{params.accountName},'%')</if>
+        <if test="params.payingWay != null">and a.type=#{params.payingWay}</if>
+        <if test="params.chargeWay != null">and a.charge_type=#{params.chargeWay}</if>
+    </sql>
+
+    <select id="findResultCount" resultType="int" parameterType="map">
+        select count(1) from gsms_capital_account a
+        where a.state=0 and a.parent_id is not null
+        and a.enterprise_id=#{params.entId}
+        <include refid="resultSql"/>
+    </select>
+
+    <select id="findResults" resultMap="capitalAccountMap" parameterType="map">
+        select a.id, a.name, a.type, a.balance, a.charge_type, a.auto_charge_amount,a.deduct_type,a.charge_ratio,
+        convert(ifnull(g.auto_charge_flag,1),char) as auto_charge_flag,g.charge_time,a.enterprise_id,
+        g.capital_account_id, g.charge_amount, g.remark as remark, g.charge_account_id
+        from gsms_capital_account a
+        left join gsms_capital_account d on a.parent_id=d.id
+        left join (
+        select id as charge_account_id, capital_account_id, charge_amount, remark, charge_time,min(auto_charge_flag) as auto_charge_flag
+        from gsms_charge_record
+        where charge_time>date_add(now(),interval -1 month)
+        group by capital_account_id
+        ) g on a.id=g.capital_account_id
+        where a.state=0 and a.parent_id is not null
+        and a.enterprise_id=#{params.entId}
+        <include refid="resultSql"/>
+        group by a.id
+        order by a.date_time desc
+        limit #{page.from}, #{page.size}
+    </select>
+
+    <select id="findMsgPriceWithCapitalId" resultType="decimal">
+        select ifnull(max(price),0) from gsms_account_carrier_price
+        where msg_type=#{msgType.index}
+        and capital_account_id = #{capitalId}
+    </select>
+
+    <select id="findMsgPriceWithEnterpriseId" resultType="decimal">
+        select ifnull(max(price),0) from gsms_account_carrier_price where capital_account_id is null and
+        msg_type=#{msgType.index} and enterprise_id = #{enterpriseId}
+    </select>
+
+    <select id="findParentAccountInfo" resultMap="capitalAccountMap">
+        select * from gsms_capital_account where 1=1
+        <if test="userState!=null">
+            and state=#{userState.index}
+        </if>
+        and parent_id is null and enterprise_id= #{enterpriseId} limit 1;
+    </select>
+
+    <select id="isExistAccountName" resultType="int">
+        select count(1) from gsms_capital_account where state=0
+        and enterprise_id=#{enterpriseId} and name = #{accountName}
+        <if test="id > 0">and id != #{id}</if>
+    </select>
+
+    <insert id="addCapitalAccount" useGeneratedKeys="true" keyProperty="id">
+        insert into gsms_capital_account
+        <trim suffixOverrides=",">
+            <set>
+                balance = #{balance}, type = #{payingWay.index}, enterprise_id = #{enterpriseId},
+                name = #{accountName}, parent_id = #{parentId}, charge_type = #{chargeWay.index},
+                user_id = #{userId}, date_time = now(), deduct_type = #{deductType.index}, rechargedate = 0,
+                auto_charge_amount = #{autoChargeMoney}
+            </set>
+        </trim>
+    </insert>
+
+    <insert id="addAccountCarrierPrice">
+        insert into gsms_account_carrier_price
+        (price,enterprise_id,msg_type,capital_account_id,carrier_id)
+        values
+        <foreach collection="carrierIds" item="carrierId" separator=",">
+            (#{msgPrice},#{enterpriseId},#{msgType.index},#{capitalAccountId},#{carrierId})
+        </foreach>
+    </insert>
+
+    <select id="findChildAccountForCharging" resultMap="capitalAccountMap">
+        select * from gsms_capital_account where state=0
+        and parent_id=#{parentAccountId} and enterprise_id=#{enterpriseId};
+    </select>
+
+    <update id="updateBalanceForCharging" parameterType="CapitalAccount">
+        update gsms_capital_account set balance=#{balance} where id=#{id};
+    </update>
+
+    <insert id="addChargingRecordForCharging" parameterType="CapitalAccount">
+        insert into gsms_charge_record
+        (capital_account_id,charge_amount,gift_amount,charge_time,
+        balance,efr,operator_id,auto_charge_flag,remark)values(#{id},
+        #{chargeMoney}, 0, #{chargeTime}, #{balance}, 0, #{userId},
+        #{autoChargeFlag}, #{remark});
+    </insert>
+
+    <select id="getById" resultMap="capitalAccountMap">
+        select a.*,
+        max(case when a.deduct_type=0 then b.price else e.price end)  as sms_price,
+        max(case when a.deduct_type=0 then c.price else f.price end)  as mms_price
+        from gsms_capital_account a
+        left join gsms_account_carrier_price b on a.id=b.capital_account_id and b.msg_type=1
+        left join gsms_account_carrier_price c on a.id=c.capital_account_id and c.msg_type=2
+        left join gsms_capital_account d on a.parent_id=d.id
+        left join gsms_account_carrier_price e on d.enterprise_id=e.enterprise_id and e.capital_account_id is null and e.msg_type=1
+        left join gsms_account_carrier_price f on d.enterprise_id=f.enterprise_id and f.capital_account_id is null and f.msg_type=2
+        where a.parent_id is not null and a.enterprise_id= #{enterpriseId} and a.id = #{id}
+    </select>
+
+    <delete id="deleteUserAccountBind">
+        delete from gsms_user_account_bind where user_id in
+        <foreach collection="userIds" item="userId" open="(" separator="," close=")">#{userId}</foreach>
+    </delete>
+
+    <insert id="insertUserAccountBind" parameterType="map">
+        insert into gsms_user_account_bind(user_id,capital_account_id) values
+        <foreach collection="userIds" item="userId" separator=",">(#{userId},#{capitalAccountId})</foreach>
+    </insert>
+
+    <update id="cancelUserAccount" parameterType="map">
+        update gsms_user_account_bind set capital_account_id=#{capitalAccountId} where user_id in
+        <foreach collection="userIds" item="userId" open="(" separator="," close=")">#{userId}</foreach>
+    </update>
+
+    <update id="updateCapitalAccount" parameterType="CapitalAccount">
+        update gsms_capital_account
+        <trim prefix="set" suffixOverrides=",">
+            type = #{payingWay.index}, name = #{accountName}, charge_type = #{chargeWay.index},
+            user_id = #{userId}, date_time = now(), deduct_type = #{deductType.index}, rechargedate = #{chargeDay},
+            auto_charge_amount = #{autoChargeMoney}
+        </trim>
+        where parent_id is not null and enterprise_id=#{enterpriseId} and id =#{id}
+    </update>
+
+    <update id="updateCarrierPrice" parameterType="map">
+        update gsms_account_carrier_price set price=#{msgPrice} where enterprise_id=#{enterpriseId}
+        and capital_account_id =#{capitalAccountId} and msg_type=#{msgType.index} and carrier_id=#{carrierId}
+    </update>
+
+    <update id="updateAccountBind" parameterType="map">
+        update gsms_user_account_bind set capital_account_id=#{parentAccountId}
+        where capital_account_id=#{capitalAccountId}
+    </update>
+
+    <update id="delCapitalAccount" parameterType="map">
+        update gsms_capital_account set state=1, name=concat(name,'【已删除】') where id=#{capitalAccountId}
+        and enterprise_id=#{enterpriseId}
+    </update>
+
+    <select id="findCapitalAccountByEntId1" resultMap="capitalAccountMap">
+        select id, name from gsms_capital_account
+        where enterprise_id=#{enterpriseId} and state=0 and parent_id!=''
+    </select>
+
+    <select id="findCapitalAccountByEntId2" resultMap="capitalAccountMap">
+        select b.id, b.name from gsms_user_account_bind  as a
+        inner join gsms_capital_account as b on a.capital_account_id=b.id
+        where a.user_id=#{enterpriseId} and b.state=0 and b.parent_id!=''
+    </select>
+
+    <select id="findBindCapitalAccounts" parameterType="int" resultMap="capitalAccountMap">
+        select capital_account_id as id from gsms_user_account_bind where user_id=#{userId}
+    </select>
+    
+    <select id="findCapitalAccountsSimpleNotDel" resultMap="capitalAccountMap">
+        select id,name,state,parent_id from gsms_capital_account where enterprise_id=#{params.entId}
+       
+        <if test="params.name!=null">and name like concat('%',#{params.name}, '%')</if>
+        
+    </select>
+
+    <select id="findCurrentAccountByEntId" parameterType="int" resultMap="capitalAccountMap">
+        select
+          *
+        from
+          gsms_capital_account gca
+        where gca.parent_id is null
+          and gca.enterprise_id =#{enterpriseId}
+    </select>
+
+    <insert id="bindEntAccount" parameterType="map">
+        insert into gsms_user_account_bind(user_id,capital_account_id) values (#{userId}, #{entAccountInfoId})
+    </insert>
+
+    <select id="getDelAccountName" resultType="string">
+        select group_concat(name) from gsms_capital_account where id in
+        <foreach collection="array" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </select>
+</mapper>

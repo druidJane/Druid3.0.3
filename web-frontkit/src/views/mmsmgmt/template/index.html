@@ -1,0 +1,66 @@
+<form class="form-inline table-toolbar">
+    <div class="search_box">
+        <div class="form-group">
+            <button ng-if="hasPermission(urlPerMap.INFO_TEMPLATE_CREATE)" type="button" class="btn btn_t1 icon_add mar_r10" ng-click="addMmsTemplate();">
+                新增
+            </button>
+            <button ng-if="hasPermission(urlPerMap.INFO_TEMPLATE_MODIFY)" type="button" class="btn btn_t1 icon_edit mar_r10" ng-click="modifyMmsTemplate()">
+                修改
+            </button>
+            <button ng-if="hasPermission(urlPerMap.INFO_TEMPLATE_DELETE)" type="button" class="btn btn_t3 icon_delete mar_r10" ng-click="deleteMmsTemplate()">
+                删除
+            </button>
+        </div>
+        <div class="form-group pull-right">
+            <div class="form-group" ng-hide="true">
+                <label class="query_label">模板编号：</label>
+                <input type="text" class="form-control  input-sm"
+                       ng-model="mmsTemplateListParams.templateId"
+                       aria-describedby="basic-addon">
+            </div>
+            <div class="form-group">
+                <label class="query_label">模板名称：</label>
+                <input type="text" class="form-control  input-sm"
+                       ng-model="mmsTemplateListParams.templateName"
+                       aria-describedby="basic-addon">
+            </div>
+            <div class="form-group">
+                <button type="button" class="btn btn_search" ng-click="searchMmsTemplate()">
+                    查询
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="table_t1 mar_t10">
+    <div class="fixed-table-container loading-container">
+        <div class="loading" ng-show="mmsTemplateTable.settings().$loading"></div>
+        <table ng-table="mmsTemplateTable" class="table table-hover" template-pagination="custom/pager">
+            <tbody>
+            <tr ng-repeat="templateVo in $data">
+                <td width="10%" data-title="&nbsp;" header="'ng-table/headers/checkbox.html'"
+                    align="center">
+                    <div class="checkbox checkbox-info">
+                        <input name="id" value="{{templateVo.id}}" ng-checked="templateVo.$checked" ng-click="checkOne(templateVo);" type="checkbox">
+                        <label></label>
+                    </div>
+                </td>
+
+                <td width="30%" data-title="'模板名称'" align="center">
+                    <a ng-click="findTemplateById(templateVo.id)">{{templateVo.title}}</a>
+                </td>
+                <td width="30%" data-title="'更新时间'" align="center">
+                    {{templateVo.lastUpdateTime|date:'yyyy-MM-dd HH:mm:ss'}}
+                </td>
+                <td width="30%" data-title="'操作'" width="20%" align="center">
+                    <a href="javascript:;" ng-click="findTemplateById(templateVo.id)">查看</a>
+                </td>
+            </tr>
+
+			<tr ng-show="$data==0" align="center">
+                <td colspan="5"><div class="bootstrapTable_noData"><div></div><p>没有找到相关数据！</p></div></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    </div>
+</form>

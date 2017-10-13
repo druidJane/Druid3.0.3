@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.xuanwu.mos.mapper.ConfigMapper">
+
+	<resultMap id="configRecordMap" type="configRecord">
+		<result property="id" column="id" />
+		<result property="key" column="config_key" />
+		<result property="value" column="config_value" />
+		<result property="type" column="config_type" />
+		<result property="platformId" column="platform_id" />
+	</resultMap>
+
+	<!-- 查找出所有的系统配置 -->
+	<select id="findAllConfigs" resultMap="configRecordMap">
+		select config_key,
+		config_value, config_type, platform_id from gsms_sys_config
+		<if test="platformId != null and platformId > -1">
+			where platform_id = #{platformId} or config_key= 'Expirareminderdays'
+		</if>
+	</select>
+	
+	<!-- 查找出所有的系统配置 -->
+	<select id="findAllConfigsForMap" resultMap="configRecordMap">
+		select config_key,
+		config_value, config_type, platform_id from gsms_sys_config
+		<if test="platformId != null and paltformId > 0">
+			where platform_id = #{platformId} or config_key= 'Expirareminderdays'
+		</if>
+	</select>
+
+	<!-- 更新系统配置 -->
+	<update id="update">
+		update gsms_sys_config set config_value=#{value} where
+		config_key=#{key}
+		<if test="platformId!=0">
+			and platform_id=#{platformId}
+		</if>
+	</update>
+
+	<!-- 查找出版本信息 -->
+	<select id="findGsmsSyncVersion" resultType="int">
+		select version from
+		gsms_sync_version where type = #{type.index}
+	</select>
+
+</mapper>

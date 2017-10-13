@@ -1,0 +1,64 @@
+<div class="panel panel-default">
+    <div class="panel-heading">查看模板</div>
+    <table class="table table-bordered middle">
+        <tbody>
+        <tr>
+            <td width="30%" class="row_title">
+                模板编号：
+            </td>
+            <td width="70%">
+                {{info.identify}}
+            </td>
+        </tr>
+        <tr>
+            <td width="30%" class="row_title">
+                模板名称：
+            </td>
+            <td width="70%">
+                {{info.title}}
+            </td>
+        </tr>
+        <tr>
+            <td class="row_title">
+                模板内容：
+            </td>
+            <td>
+                <textarea class="form-control" ng-disabled="true">{{info.contentStr}}</textarea>
+            </td>
+        </tr>
+        <tr>
+            <td width="30%" class="row_title">
+                发送免审：
+            </td>
+            <td width="70%">
+                <span ng-if="info.templateType == 0">否</span>
+                <span ng-if="info.templateType == 1">是</span>
+            </td>
+        </tr>
+        <tr>
+            <td width="30%" class="row_title">
+                更新时间：
+            </td>
+            <td width="70%">
+                {{info.lastUpdateTime|date:'yyyy-MM-dd HH:mm:ss'}}
+            </td>
+        </tr>
+        <tr ng-show="info.isShowAuditState">
+            <td width="30%" class="row_title">
+                审核结果：
+            </td>
+            <td width="70%">
+                <span ng-if="info.auditState == 0">待审核</span>
+                <span ng-if="info.auditState == 1">通过</span>
+                <span ng-if="info.auditState == 2">不通过</span>
+            </td>
+        </tr>
+        <tr ng-show="info.isShowRemark">
+            <td width="30%" class="row_title">
+                审核意见：
+            </td>
+            <td width="70%" class="word-wrap">{{info.remark}}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,159 @@
+<div class="tab_con_type1 mar_t10">
+    <div class="first">
+        <div class="con_left" style="overflow: auto;">
+            <div class="hd">
+                <div class="f16">部门列表</div>
+                <div class="clearfix mar_t20 user_opt">
+                    <a ng-if="hasPermission(urlPerMap.SYSTEMMGR_ACCOUNTMGR_GETDEPTS)" class="search mar_r20" ng-click="searchDept();"></a>
+                    <a ng-if="hasPermission(urlPerMap.SYSTEMMGR_ACCOUNTMGR_ADDDEPARTMENT)" class="add mar_r20" ng-click="addDept();"></a>
+                    <a ng-if="hasPermission(urlPerMap.SYSTEMMGR_ACCOUNTMGR_UPDATEDEPARTMENT)" class="edit mar_r20" ng-click="editDept();"></a>
+                    <a ng-if="hasPermission(urlPerMap.SYSTEMMGR_ACCOUNTMGR_DELDEPARTMENT)" class="del" ng-click="deleteDept();"></a>
+                </div>
+            </div>
+            <div class="left_tree" style="top:90px;padding:10px 0;">
+                <treecontrol class="tree-classic" tree-model="dataForTheTree" options="treeOptions" on-selection="showSelected(node)" expanded-nodes="expandedNodes">
+                    <span class="deptico"></span>{{node.deptName|limitTo:20}}
+                </treecontrol>
+            </div>
+        </div>
+        <div class="con_right">
+            <span ng-if="hasPermission(urlPerMap.SYSTEMMGR_ACCOUNTMGR_GETUSERLIST)">
+                <form class="form-inline table-toolbar">
+                    <div class="search_box">
+                        <div class="pull-left">
+                            <div class="form-group">
+                                <label class="label">用户账号</label>
+                                <div style="display: inline-block;">
+                                <angucomplete-alt id="completeUserName"
+                                                  selected-object="watchUserName"
+                                                  input-changed="watchUserName"
+                                                  maxlength="50"
+                                                  pause="100"
+                                                  remote-url="{{acompleteUserNameUrl}}"
+                                                  title-field="name"
+                                                  minlength="1"
+                                                  input-class="form-control input-sm"
+                                                  search-fields="name"
+                                                  matchclass="highlight"
+                                                  remote-url-data-field="data"
+                                                  required=""
+                                                  text-no-results="查不到相关记录"
+                                                  class="angucomplete-holder" ng-model="completeUserName"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="label">用户名称</label>
+                                <input type="text" ng-model="userParams.linkMan" class="form-control input-sm w120" maxlength="50"/>
+                            </div>
+                            <div class="form-group">
+                                <label class="label">用户签名</label>
+                                <input type="text" ng-model="userParams.signature" class="form-control input-sm w120"/>
+                            </div>
+                            <div class="form-group">
+                                <label class="label">用户扩展码</label>
+                                <input type="text" ng-model="userParams.identify" class="form-control input-sm w120" maxlength="10"/>
+                            </div>
+                            <div class="form-group">
+                                <div class="checkbox checkbox-info">
+                                    <input type="checkbox" id="subDept" name="subDept" ng-model="userParams.showAllChild" checked>
+                                    <label>包含下级</label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <button ng-init="moreFlag = false;" href="javascript:;" type="button" class="btn btn_more" ng-click="moreFlag = !moreFlag;">更多</button>
+                            </div>
+                            <div class="form-group">
+                                <button type="button" class="btn btn_search" ng-click="searchUser();">查询</button>
+                            </div>
+                            <div class="more-search" ng-show="moreFlag">
+                                <div class="form-group">
+                                    <label class="label">自定义签名</label>
+                                    <select ng-model="userParams.customerSignature" class="form-control input-sm">
+                                        <option value="">请选择</option>
+                                        <option value="1">是</option>
+                                        <option value="0">否</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="label">账号类型</label>
+                                    <select ng-model="userParams.accountType" class="form-control input-sm">
+                                        <option value="">请选择</option>
+                                        <option value="1">web</option>
+                                        <option value="2">接口</option>
+                                        <option value="3">透传</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="label">协议类型</label>
+                                    <select ng-model="userParams.protocolType" class="form-control input-sm">
+                                        <option value="">请选择</option>
+                                        <option value="1">cmpp2.0</option>
+                                        <option value="2">cmpp3.0</option>
+                                        <option value="3">sgip1.2</option>
+                                        <option value="4">smgp3.0</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="label">源端口</label>
+                                    <input type="text" ng-model="userParams.srcPort" class="form-control input-sm w100"/>
+                                </div>
+                                <div class="form-group">
+                                    <label class="label">业务类型</label>
+                                    <select ng-model="userParams.bizTypeId" ng-options="item.id as item.name for item in bizTypeSelectModel" class="form-control form-control-small input-sm w100">
+                                        <option value="">请选择</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="label">角色</label>
+                                    <select ng-model="userParams.roleId" ng-options="item.id as item.name for item in roleSelectModel" class="form-control form-control-small input-sm w100">
+                                        <option value="">请选择</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="margin: 10px 0;">
+                        <button ng-if="hasPermission(urlPerMap.SYSTEMMGR_ACCOUNTMGR_ADDACCOUNT)" type="button" class="btn btn_t1 icon_add mar_r10" ng-click="addUser();">新增</button>
+                        <button ng-if="hasPermission(urlPerMap.SYSTEMMGR_ACCOUNTMGR_UPDATEACCOUNT)" type="button" class="btn btn_t1 icon_edit mar_r10" ng-click="editUser();">修改</button>
+                        <button ng-if="hasPermission(urlPerMap.SYSTEMMGR_ACCOUNTMGR_DELETEUSER)" type="button" class="btn btn_t3 icon_delete mar_r10" ng-click="delUser();">删除</button>
+                        <button ng-if="hasPermission(urlPerMap.SYSTEMMGR_ACCOUNTMGR_USERIMPORTING)" type="button" class="btn btn_t1 icon_export mar_r10" ng-click="importUser();">导入</button>
+                        <button ng-if="hasPermission(urlPerMap.SYSTEMMGR_ACCOUNTMGR_USEREXPORT)" type="button" class="btn btn_t1 icon_import" ng-click="exportUser();">导出</button>
+                    </div>
+                </form>
+            </span>
+            <div class="table_t1 mar_t10">
+                <div class="fixed-table-container">
+                    <div class="loading" ng-show="userTable.settings().$loading"></div>
+                    <table ng-table="userTable" class="table table-hover" template-pagination="custom/pager">
+                        <tbody>
+                        <tr ng-repeat="user in $data">
+                            <td width="30" data-title="&nbsp;" header="'ng-table/headers/checkbox.html'">
+                                <div class="checkbox checkbox-info">
+                                    <input name="id" value="{{user.id}}" ng-checked="user.$checked" ng-click="checkOne(user);" type="checkbox">
+                                    <label></label>
+                                </div>
+                            </td>
+                            <td style="width:120px;" data-title="'用户账号'" align="center"><a style="cursor: pointer;color: green" ng-click="showUserDetail(user);">{{user.userName}}</a></td>
+                            <td data-title="'用户名称'" align="center">{{user.linkMan}}</td>
+                            <td data-title="'用户签名'" align="center">{{user.signature}}</td>
+                            <td data-title="'所属部门'" align="center">{{user.enterpriseName}}</td>
+                            <td data-title="'用户扩展码'" align="center">{{user.identify}}</td>
+                            <td data-title="'账号类型'" align="center">{{user.showAccountType}}</td>
+                            <td data-title="'协议类型'" align="center">{{user.showProtocolType}}</td>
+                            <td data-title="'源端口'" align="center">{{user.srcPort}}</td>
+                            <td data-title="'自定义签名'" align="center">{{user.customerSignature == 0 ? '否' : '是'}}</td>
+                            <td style="width:120px;" data-title="'拥有角色'" align="left"><div style="width:100px; overflow:hidden;white-space: nowrap;cursor:pointer;" title="{{user.roleNames}}">{{user.roleNames}}</div></td>
+                            <td style="width:120px;" data-title="'业务类型'" align="center">{{user.bizNames}}</td>
+                            <td data-title="'状态'" align="center">{{user.showState}}</td>
+                        </tr>
+                        <tr ng-show="$data==0" align="center">
+                            <td colspan="13"><div class="bootstrapTable_noData"><div></div><p>没有找到相关数据！</p></div></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

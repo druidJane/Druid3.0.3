@@ -1,0 +1,103 @@
+<div class="form-inline">
+    <ul class="nav nav-tabs nav_tabs_t1">
+        <li ng-if="hasPermission(urlPerMap.SYSTEMMGR_CHARGINGACCOUNTMGR_ACCOUNTLIST)" class="active">
+            <a data-toggle="tab" style="cursor:pointer;">计费账户</a>
+        </li>
+        <li ng-if="hasPermission(urlPerMap.SYSTEMMGR_CHARGINGACCOUNTMGR_CHARGINGRECORD)">
+            <a data-toggle="tab" ng-click="showChargeRecord();" style="cursor:pointer;">充值记录</a>
+        </li>
+    </ul>
+    <div class="form-group pull-right" style="position:absolute; top:30px;right:10px;">
+        <label class="label" ng-if="accountInfo.chargeRatio != 0">
+            总账户余额：{{accountInfo.balance | number:4}}元；子账户余额：{{accountInfo.childBalance | number:4}}元；剩余信用额度：{{accountInfo.differenceBalance | number:4}}元
+        </label>
+        <label class="label" ng-if="accountInfo.chargeRatio == 0">
+            总账户余额：{{accountInfo.balance | number:4}}元；子账户余额：{{accountInfo.childBalance | number:4}}元；剩余信用额度：无限制
+        </label>
+    </div>
+</div>
+
+<div class="tab-content" style="margin-top:10px;">
+    <div class="tab-pane in active" id="capitalAccount">
+        <form class="form-inline table-toolbar">
+            <div class="search_box">
+            <div class="pull-left">
+                <div class="form-group">
+                    <button ng-click="showAdd();" ng-if="hasPermission(urlPerMap.SYSTEMMGR_CHARGINGACCOUNTMGR_ADDACCOUNT);" type="button" class="btn btn_t1 icon_add mar_r10">
+                        新增
+                    </button>
+                    <button ng-click="showEdit();" ng-if="hasPermission(urlPerMap.SYSTEMMGR_CHARGINGACCOUNTMGR_UPDATEACCOUNT);" type="button" class="btn btn_t1 icon_edit mar_r10">
+                        修改
+                    </button>
+                    <button ng-click="delAccount();" ng-if="hasPermission(urlPerMap.SYSTEMMGR_CHARGINGACCOUNTMGR_DELETEACCOUNT);" type="button" class="btn btn_t3 icon_delete mar_r10">
+                        删除
+                    </button>
+                    <button ng-click="importCharging();" ng-if="hasPermission(urlPerMap.SYSTEMMGR_CHARGINGACCOUNTMGR_IMPORTINGCHARGING);" type="button" class="btn btn_t1 icon_export">
+                        导入充值
+                    </button>
+                </div>
+            </div>
+            <div class="form-search">
+                <div class="pull-right">
+                    <div class="form-group">
+                        <label class="label">账户名称</label>
+                        <input type="text" ng-model="accountParams.accountName" class="form-control input-sm" maxlength="50"/>
+                    </div>
+                    <div class="form-group">
+                        <label class="label">付费方式</label>
+                        <select ng-model="accountParams.payingWay" class="form-control input-sm">
+                            <option value="">请选择</option>
+                            <option value="0">预付费</option>
+                            <option value="1">后付费</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="label">充值方式</label>
+                        <select ng-model="accountParams.chargeWay" class="form-control input-sm">
+                            <option value="">请选择</option>
+                            <option value="1">自动充值</option>
+                            <option value="0">手动充值</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <button type="button" class="btn btn_search" ng-click="searchCapitalAccounts();">查询</button>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </form>
+        <div class="table_t1 mar_t10">
+            <div class="fixed-table-container">
+            <div class="loading" ng-show="capitalAccountTable.settings().$loading"></div>
+            <table ng-table="capitalAccountTable" class="table table-hover" template-pagination="custom/pager">
+                <tbody>
+                <tr ng-repeat="capitalAccount in $data">
+                    <td width="30" data-title="&nbsp;" header="'ng-table/headers/checkbox.html'">
+                        <div class="checkbox checkbox-info">
+                            <input name="id" value="{{capitalAccount.id}}" ng-checked="capitalAccount.$checked" ng-click="checkOne(capitalAccount);" type="checkbox">
+                            <label></label>
+                        </div>
+                    </td>
+                    <td data-title="'账户名称'" width="15%" align="center">{{capitalAccount.accountName}} </td>
+                    <td data-title="'付费方式'" width="10%" align="center">{{capitalAccount.showPayingWay}} </td>
+                    <td data-title="'账户余额'" width="10%" align="center">{{capitalAccount.balance|number:4}} </td>
+                    <td data-title="'充值方式'" width="10%" align="center">{{capitalAccount.showChargeWay}} </td>
+                    <td data-title="'自动充值金额'" width="10%" align="center">{{capitalAccount.autoChargeMoney|number:4}} </td>
+                    <td data-title="'短信单价'" width="7%" align="center">{{capitalAccount.smsPrice|number:4}} </td>
+                    <td data-title="'彩信单价'" width="7%" align="center">{{capitalAccount.mmsPrice|number:4}} </td>
+                    <td data-title="'备注'" width="16%" align="center">{{capitalAccount.remark}} </td>
+                    <td data-title="'操作'" width="25%" align="center">
+                        <a ng-if="hasPermission(urlPerMap.SYSTEMMGR_CHARGINGACCOUNTMGR_DETAIL)" ng-click="showDetail(capitalAccount.id)">查看</a>
+                        <a ng-if="hasPermission(urlPerMap.SYSTEMMGR_CHARGINGACCOUNTMGR_CHARGING) && capitalAccount.chargeWay.index == 0" ng-click="charging(capitalAccount)">充值</a>
+                        <a ng-if="hasPermission(urlPerMap.SYSTEMMGR_CHARGINGACCOUNTMGR_USERSELECTOR)" ng-click="userSelector(capitalAccount.id)">包含用户</a>
+                    </td>
+                </tr>
+                <tr ng-show="$data==0" align="center">
+                    <td colspan="9"><div class="bootstrapTable_noData"><div></div><p>没有找到相关数据！</p></div></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        </div>
+    </div>
+</div>

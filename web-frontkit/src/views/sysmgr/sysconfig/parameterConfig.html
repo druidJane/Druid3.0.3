@@ -1,0 +1,103 @@
+<ul class="nav nav-tabs nav_tabs_t1" role="tabList" id="tab">
+    <li ng-if="hasPermission(urlPerMap.SYSTEMMGR_SYSCONFIG_ENTERPRISE)">
+        <a data-toggle="tab" ng-click="showEnterpriseInfo();" style="cursor:pointer;">企业信息</a>
+    </li>
+    <li ng-if="hasPermission(urlPerMap.SYSTEMMGR_SYSCONFIG_PARAMTER_CONFIG)" class="active">
+        <a data-toggle="tab" style="cursor:pointer;">参数设置</a>
+    </li>
+</ul>
+
+<div class="tab-content" style="margin-top:20px;">
+    <div class="tab-pane in active">
+        <form class="form-horizontal w5c-form" name="form" w5c-form-validate="vm" novalidate="" role="form">
+            <div class="form-group">
+                <label class="col-sm-2 control-label text-muted"><span class="red">*</span>默认接收上行短信账号</label>
+                <div class="col-sm-3">
+                    <angucomplete-alt id="completeUserName"
+                                      selected-object="completeUser"
+                                      input-changed="watchUserName"
+                                      maxlength="50"
+                                      pause="100"
+                                      remote-url="{{acompleteUserNameUrl}}"
+                                      title-field="name"
+                                      minlength="1"
+                                      input-class="form-control input-sm"
+                                      matchclass="highlight"
+                                      remote-url-data-field="data"
+                                      field-required="true"
+                                      text-no-results="查不到相关记录"
+                                      class="angucomplete-holder" ng-model="completeUserName"/>
+                    <p class="w5c-error" ng-show="userNameError">{{userNameErrorMsg}}</p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label text-muted"><span class="red">*</span>部门编号前缀</label>
+                <div class="col-sm-3">
+                    <input type="text" ng-maxlength="20" class="form-control" name="deptNoPrefix" ng-pattern="/^[A-Za-z0-9]+$/" ng-model="entConfig.deptNoPrefix" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label text-muted">企业签名</label>
+                <div class="col-sm-3">
+                    <input type="text" ng-disabled="1" class="form-control" name="signature" ng-model="entConfig.signature">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label text-muted">签名位置</label>
+                <div class="col-sm-8 mar_t10" style="line-height: 28px;">
+                    <label class="mar_r10">
+                        <input name="sigLocation" ng-model="entConfig.sigLocation" value="1" ng-checked="entConfig.sigLocation==1" type="radio" id="radio-03" class="regular-radio ng-pristine ng-valid ng-valid-required"/>
+                        <label for="radio-03"></label>
+                        <label>前置</label>
+                    </label>
+                    <label>
+                        <input name="sigLocation" ng-model="entConfig.sigLocation" value="0" ng-checked="entConfig.sigLocation==0" type="radio" id="radio-04" class="regular-radio ng-pristine ng-valid"/>
+                        <label for="radio-04"></label>
+                        <label>后置</label>
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label text-muted" style="line-height: 35px;">短信审批</label>
+                <div class="col-sm-8">
+                    <div class="checkbox checkbox-info">
+                        <input type="checkbox" name="auditingFlag" ng-model="entConfig.auditingFlag" ng-checked="entConfig.auditingFlag"/>
+                        <label>启用短信审批机制</label>&nbsp;
+                        <input class="form-control w160" style="display:inline-block;" type="number" name="auditingNum" ng-model="entConfig.auditingNum" min="1" max="99999999" ng-disabled="!(entConfig.auditingFlag)"/>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label text-muted" style="line-height: 35px;">彩信审批</label>
+                <div class="col-sm-8">
+                    <div class="checkbox checkbox-info">
+                        <input type="checkbox" name="auditingMmsFlag" ng-model="entConfig.auditingMmsFlag" ng-checked="entConfig.auditingMmsFlag"/>
+                        <label>启用彩信审批机制</label>&nbsp;
+                        <input class="form-control w160" style="display:inline-block;" type="number" name="auditingMmsNum" ng-model="entConfig.auditingMmsNum" min="1" max="99999999" ng-disabled="!(entConfig.auditingMmsFlag)"/>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label text-muted"><span class="red">*</span>余额提醒阈值（元）</label>
+                <div class="col-sm-3">
+                    <div class="input-group">
+                        <input type="number" class="form-control" name="balanceRemind" ng-model="entConfig.balanceRemind" required ng-pattern="/^[0-99999999]{1,8}$/">
+                        <span class="input-group-addon">元</span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label text-muted"><span class="red">*</span>计费账户自动充值日期</label>
+                <div class="col-sm-3">
+                    <div class="input-group">
+                        <input type="number" name="chargeDay" class="form-control" required ng-model="entConfig.chargeDay" min="1" max="28" value="1">
+                        <span class="input-group-addon">月/日</span>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div class="text-center">
+            <button type="button" class="btn btn_2x_t1" ng-click="save();" ng-disabled="form.$invalid || form.$pristine">保存</button>
+        </div>
+    </div>
+</div>

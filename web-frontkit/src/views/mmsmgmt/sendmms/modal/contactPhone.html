@@ -1,0 +1,200 @@
+<div style="overflow: auto; height: auto;">
+    <div class="contesdnt clearfix" style="overflow:hidden;">
+        <div class="comm_sel clearfix">
+            <div class="comm_sel_l">
+                <div class="comm_sel_l_l">
+                    <ul class="nav nav-tabs nav_tabs_t1" role="tabList" id="tab" >
+                        <li role="personContact" ng-class="checkState.type == 0?'active':''" >
+                            <a data-toggle="tab" href="#personContact"
+                               ng-click="loadPersonTable()">个人通讯录</a>
+                        </li>
+                        <li role="shareContact" ng-class="checkState.type == 1?'active':''" >
+                            <a data-toggle="tab" href="#shareContact"
+                               ng-click="loadShareTable()">共享通讯录</a>
+                        </li>
+                    </ul>
+                    <!---->
+                    <div class="tab-content" style="margin-top:10px;">
+                        <div ng-class="checkState.type == 0?'tab-pane in active':'tab-pane'" id="personContact">
+                            <treecontrol class="tree-boot" tree-model="dataForThePersonTree" options="personTreeOptions" on-selection="showPersonSelected(node)" expanded-nodes="expandedPersonNodes">
+                                {{node.name|limitTo:20}}
+                            </treecontrol>
+                        </div>
+                        <div ng-class="checkState.type == 1?'tab-pane in active':'tab-pane'" id="shareContact">
+                            <treecontrol class="tree-boot" tree-model="dataForTheShareTree" options="shareTreeOptions"
+                                         on-selection="showPersonSelected(node)" expanded-nodes="expandedShareNodes">
+                                {{node.name|limitTo:20}}
+                            </treecontrol>
+                        </div>
+                    </div>
+                </div>
+                <!--通讯录列表-->
+                <div class="comm_sel_l_r" style="width: 594px;overflow-x: auto;overflow-y: hidden;">
+                    <div class="search_box" style="padding: 0;">
+                        <form class="form-inline nav_tabs_con_t1" role="form" id="search_form1">
+                            <div style="padding:10px 10px 0 10px;">
+                                <div class="form-group mar_r10">
+                                    <label>姓名：</label>
+                                    <input type="text" class="form-control w100 inp_type1" ng-model="personParams._lk_name" maxlength="20">
+                                </div>
+                                <div class="form-group">
+                                    <label>手机号码：</label>
+                                    <input type="text" name="phone" maxlength="14" ng-model="personParams._lk_phone" class="form-control w100 inp_type1">
+                                </div>
+                                <div class="form-group mar_l10">
+                                    <!--<label>包括下级：</label>-->
+                                    <!--<input ng-model="personParams.showChild" type="checkbox" name="showChildren" onclick="listContact();" checked="checked">-->
+                                    <div class="checkbox checkbox-info">
+                                        <input ng-model="personParams.showChild" type="checkbox" name="showChildren" onclick="listContact();" checked="checked">
+                                        <label>包含下级</label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <a type="button" class="btn btn_more" data-toggle="collapse" href="#collapsePerson">更多</a>
+                                </div>
+                                <div class="form-group mar_l10">
+                                    <button type="button" class="btn btn_search" ng-click="search();">
+                                        查询
+                                    </button>
+                                </div>
+                                <!--点击更多出现这个-->
+                                <div class="mar_t20 collapse" id="collapsePerson">
+                                    <!--性别-->
+                                    <div class="form-group mar_r10">
+                                        <lable>性别：</lable>
+                                        <select class="form-control sel_type1" name="sex" ng-model="personParams.sex" ng-init="personParams.sex='-1'">
+                                            <option value="-1">请选择</option>
+                                            <option value="0">女士</option>
+                                            <option value="1">先生</option>
+                                        </select>
+                                    </div>
+                                    <!--出生日期-->
+                                    <div class="form-group mar_r10">
+                                        <label>出生日期：</label>
+                                        <!--<input type="text" ng-model="personParams._gt_beginDate" name="personBeginDate" readonly="readonly" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',autoPickDate:true});"-->
+                                        <!--class="Wdate w120" style="height: 34px;">-->
+                                        <input type="text" class="form-control input-sm" ng-new-date ng-model="personParams._gt_beginDate" date-format="YYYY-MM-DD" style="width:100px;height: 34px;" />
+                                    </div>
+                                    <div class="form-group mar_r10">
+                                        <label>至：</label>
+                                        <input type="text" class="form-control input-sm" ng-new-date ng-model="personParams._lt_endDate" date-format="YYYY-MM-DD" style="width:100px;height: 34px;" />
+
+                                        <!--<input type="text" name="personEndDate" readonly="readonly"-->
+                                        <!--onclick="WdatePicker({dateFmt:'yyyy-MM-dd',autoPickDate:true});" ng-model="personParams._lt_endDate" class="Wdate w120" style="height: 34px;">-->
+                                    </div>
+                                    <div class="mar_t20">
+                                        <div class="form-group mar_r10">
+                                            <label>编号：</label>
+                                            <input ng-model="personParams._lk_identifier" type="text" name="identifier" class="form-control w80" maxlength="20">
+                                        </div>
+                                        <div class="form-group mar_r10">
+                                            <label>VIP：</label>
+                                            <select class="form-control sel_type1" name="vip" ng-model="personParams.vip">
+                                                <option value="-1">请选择</option>
+                                                <option value="0">否</option>
+                                                <option value="1">是</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--显示真实的数据-->
+                            <div class="bootstrap-table" style="width:100%;overflow-x:auto;white-space: nowrap;overflow-y:hidden;">
+                                <div class="fixed-table-toolbar"></div>
+                                <div class="fixed-table-container" style="border:none;">
+                                    <div class="fixed-table-body">
+                                        <div class="fixed-table-loading" style="top: 37px; display: none;">
+                                            正在努力地加载数据中，请稍候……
+                                        </div>
+                                        <div class="loading" ng-show="contactPersonTable.settings().$loading"></div>
+                                        <table ng-table="contactPersonTable" class="table table-hover" template-pagination="custom/pager" style="border-top:solid 1px #ddd;">
+                                            <tbody>
+                                            <tr ng-repeat="personContacts in $data" class="no-records-found">
+                                                <td width="30" data-title="&nbsp;" header="'ng-table/headers/checkbox.html'">
+                                                    <div class="checkbox checkbox-info">
+                                                        <input name="id" value="{{personContacts.id}}" ng-checked="personContacts.$checked" ng-click="checkPersonOne(personContacts);" type="checkbox">
+                                                        <label></label>
+                                                    </div>
+                                                </td>
+                                                <td width="10%" data-title="personCols[0].title" ng-if="personCols[0].show" align="center">
+                                                    {{personContacts.name}}
+                                                </td>
+                                                <td width="15%" data-title="personCols[1].title" ng-if="personCols[1].show" align="center">
+                                                    {{personContacts.phone}}
+                                                </td>
+                                                <td width="10%" data-title="personCols[2].title" ng-if="personCols[2].show" align="center">
+                                                    {{personContacts.group.name}}
+                                                </td>
+                                                <td width="10%" data-title="personCols[3].title" ng-if="personCols[3].show" align="center" ng-switch="personContacts.sex">
+                                                    <span ng-switch-when="1">先生</span>
+                                                    <span ng-switch-when="0">女士</span>
+                                                </td>
+                                                <td width="15%" data-title="personCols[4].title" ng-if="personCols[4].show" align="center">
+                                                    {{personContacts.birthday|date:'yyyy-MM-dd'}}
+                                                </td>
+                                                <td width="10%" data-title="personCols[5].title" ng-if="personCols[5].show" align="center">
+                                                    {{personContacts.identifier}}
+                                                </td>
+                                                <td width="5%" data-title="personCols[6].title" ng-if="personCols[6].show" align="center" ng-switch="personContacts.vip">
+                                                    <span ng-switch-when="true">是</span>
+                                                    <span ng-switch-when="false">否</span>
+                                                </td>
+                                                <td width="15%" data-title="personCols[7].title" ng-if="personCols[7].show" align="center">
+                                                    {{personContacts.remark}}
+                                                </td>
+                                            </tr>
+                                            <tr ng-show="$data==0" align="center">
+                                                <td colspan="9"><div class="bootstrapTable_noData"><div></div><p>没有找到相关数据！</p></div></td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="fixed-table-pagination clearfix" style="display: none;"></div>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                    <div class="clearfix"></div>
+                </div >
+            </div>
+
+            <!--中间的选项栏-->
+            <div class="comm_sel_m">
+                <div class="text-center">
+                    <button type="button" class="btn btn_search w_auto"
+                            ng-click="addAllQueryResult();">
+                        添加全部
+                    </button>
+                </div>
+                <div class="mar_t10 text-center">
+                    <button type="button" class="btn btn_search w_auto" ng-click="addQueryResult();">
+                        添加已选
+                    </button>
+                </div>
+            </div>
+
+            <!--右侧显示个人列表-->
+            <div class="comm_sel_r">
+                <div class="hd">
+                    <div class="f16">
+                        已选联系人<i ng-click="clearNewListTree();" class="icon icon_del float_r"></i>
+                    </div>
+                </div>
+                <div class="mms_table ">
+                    <div class="loading" ng-show="showRightItemListTable.settings().$loading"></div>
+                    <table ng-table="showRightItemListTable" class="con user_import_list user-mail-list">
+                        <tbody>
+                        <tr ng-repeat="item in $data track by $index ">
+                            <td class="item type1 active">
+                                {{item.text}}<i class="i_r" href="javascript:;" ng-click="deleteCurItem($index,params)"></i>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

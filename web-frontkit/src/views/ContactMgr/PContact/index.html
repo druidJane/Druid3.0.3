@@ -1,0 +1,306 @@
+<div class="tab_con_type1 mar_t10">
+    <div class="first">
+        <!--左边树-->
+        <div class="con_left" style="overflow: auto;">
+            <div class="hd">
+                <div class="f16">个人通讯录</div>
+                <div class="clearfix mar_t20 user_opt">
+                    <a ng-if="hasPermission(urlPerMap.CONTACTMGR_PCONTACT_ADDCONTACTGROUP)" class="add mar_r20" ng-click="addGroup()"></a>
+                    <a ng-if="hasPermission(urlPerMap.CONTACTMGR_PCONTACT_UPDATECONTACTGROUP)" class="edit mar_r20" ng-click="editGroup();"></a>
+                    <a ng-if="hasPermission(urlPerMap.CONTACTMGR_PCONTACT_DELETECONTACTGROUP)" class="del" ng-click="deleteGroup();"></a>
+                </div>
+            </div>
+            <div class="left_tree" style="top:90px;padding:10px 0;">
+                <treecontrol class="tree-classic" tree-model="dataForTheTree" options="treeOptions" on-selection="showSelected(node)" expanded-nodes="expandedNodes">
+                    {{node.name}}
+                </treecontrol>
+            </div>
+        </div>
+        <!--右边内容-->
+        <div class="con_right">
+            <form class="form-inline table-toolbar">
+                <div class="search_box">
+                    <div class="pull-left">
+                        <div class="form-group">
+                            <label class="label">姓名：</label>
+                            <input type="text" ng-model="params._lk_name" class="form-control  input-sm" aria-describedby="basic-addon" maxlength="50" >
+                        </div>
+                        <div class="form-group">
+                            <label class="label">手机号码：</label>
+                            <input type="text" ng-model="params._lk_phone" class="form-control  input-sm" aria-describedby="basic-addon" maxlength="11">
+                        </div>
+                        <div class="form-group">
+                            <label class="label">性别：</label>
+                            <select class="form-control input-sm" ng-model="params.sex">
+                                <option value="-1">请选择</option>
+                                <option value="1">先生</option>
+                                <option value="0">女士</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <div class="checkbox checkbox-info">
+                                <input type="checkbox" id="subDept" name="subDept" ng-model="params.showChild">
+                                <label>包含下级</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <button ng-init="moreFlag = false;" href="javascript:;" type="button" class="btn btn_more more_spacing" ng-click="moreFlag = !moreFlag;">更多</button>
+                            <button type="button" class="btn btn_search" ng-click="search();">查询</button>
+                            <!--<button type="button" class="btn btn-sm btn-default" ng-click="reset();"><i class="fa fa-refresh"></i> 重置</button>-->
+                        </div>
+
+                        <div class="more-search" ng-show="moreFlag">
+                            <div class="form-group">
+                                <label class="label">出生日期：</label>
+                                <input type="text" name="_gt_beginDate" ng-model="params._gt_beginDate" class="form-control input-sm" style="width: 137px" /> 至
+                                <input type="text" name="_lt_endDate" ng-model="params._lt_endDate" class="form-control input-sm" style="width: 137px" />
+                            </div>
+                            <div class="form-group">
+                                <label class="label">编号：</label>
+                                <input type="text" ng-model="params._lk_identifier" class="form-control  input-sm" aria-describedby="basic-addon">
+                            </div>
+                            <div class="form-group">
+                                <label class="label">VIP：</label>
+                                <select class="form-control input-sm" ng-model="params.vip">
+                                    <option value="-1">请选择</option>
+                                    <option value="1">是</option>
+                                    <option value="0">否</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div style="margin: 10px 0;">
+                    <button ng-if="hasPermission(urlPerMap.CONTACTMGR_PCONTACT_ADDCONTACT)" type="button" class="btn btn_t1 icon_add mar_r10" ng-click="addContact();">新增</button>
+                    <button ng-if="hasPermission(urlPerMap.CONTACTMGR_PCONTACT_UPDATECONTACT)" type="button" class="btn btn_t1 icon_edit mar_r10" ng-click="editContact();">修改</button>
+                    <button ng-if="hasPermission(urlPerMap.CONTACTMGR_PCONTACT_IMPORTCONTACTS)" type="button" class="btn btn_t1 icon_export mar_r10" ng-click="importContact();">导入</button>
+                    <button ng-if="hasPermission(urlPerMap.CONTACTMGR_PCONTACT_EXPORTCONTACTS)" type="button" class="btn btn_t1 icon_import mar_r10" ng-click="exportContact();">导出</button>
+                    <button ng-if="hasPermission(urlPerMap.CONTACTMGR_PCONTACT_DELETECONTACT)" type="button" class="btn btn_t3 icon_delete mar_r10" ng-click="deleteContact();">删除</button>
+                </div>
+            </form>
+            <div class="table_t1 mar_t10">
+                <div class="fixed-table-container">
+                    <div class="loading" ng-show="contactTable.settings().$loading"></div>
+                    <table ng-table="contactTable" class="table table-hover"  template-pagination="custom/pager">
+                        <tbody>
+                        <tr ng-repeat="contact in $data">
+                            <td width="30" data-title="&nbsp;" header="'ng-table/headers/checkbox.html'">
+                                <div class="checkbox checkbox-info">
+                                    <input name="id" value="{{contact.id}}" ng-checked="contact.$checked" ng-click="checkOne(contact);" type="checkbox">
+                                    <label></label>
+                                </div>
+                            </td>
+                            <td data-title="cols[0].title" ng-if="cols[0].show" align="center">
+                                {{contact.name}}
+                            </td>
+                            <td data-title="cols[1].title" ng-if="cols[1].show" align="center">{{contact.phone}}</td>
+                            <td data-title="cols[2].title" ng-if="cols[2].show" align="center" >
+                                {{contact.group.name}}
+                            </td>
+                            <td data-title="cols[3].title" ng-if="cols[3].show" align="center" ng-switch="contact.sex">
+                                <span ng-switch-when="1">先生</span>
+                                <span ng-switch-when="0">女士</span>
+                            </td>
+                            <td data-title="cols[4].title" ng-if="cols[4].show" align="center">
+                                {{contact.birthday|date:'yyyy-MM-dd'}}
+                            </td>
+                            <td data-title="cols[5].title" ng-if="cols[5].show" align="center">
+                                {{contact.identifier}}
+                            </td>
+                            <td data-title="cols[6].title" ng-if="cols[6].show" align="center" ng-switch="contact.vip">
+                                <span ng-switch-when="true">是</span>
+                                <span ng-switch-when="false">否</span>
+                            </td>
+                            <td data-title="cols[7].title" ng-if="cols[7].show" align="center" width="15%">
+                                {{contact.remark}}
+                            </td>
+                        </tr>
+                        <tr ng-show="$data==0" align="center">
+                            <td colspan="9"><div class="bootstrapTable_noData"><div></div><p>没有找到相关数据！</p></div></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/ng-template" id="modal/addGroupForm.tpl.html">
+    <form class="form-inline w5c-form" name="form" w5c-form-validate="" novalidate>
+        <table class="table table-bordered middle">
+            <tbody>
+            <tr>
+                <td width="25%" class="row_title"><span class="red">*</span> 群组名称：</td>
+                <td>
+                    <input type="text" id="contactName" name="contactName" ng-model="group.name" ng-pattern="/^[\u4e00-\u9fa5\w-()]+$/" required class="form-control input-sm" ng-maxlength="50" />
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </form>
+</script>
+<script type="text/ng-template" id="modal/addContactForm.tpl.html">
+    <form class="form-inline w5c-form" name="form" w5c-form-validate="" novalidate>
+        <table class="table table-bordered middle">
+            <tbody>
+            <tr>
+                <td width="25%" class="row_title"><span class="red">*</span> 姓名：</td>
+                <td>
+                    <input type="text" id="addContactName" name="name" ng-model="addContact.name" ng-pattern="/^[\u4e00-\u9fa5\w-\(\)\[\]【】\（\）]+$/" required class="form-control input-sm" ng-maxlength="50" />
+                </td>
+            </tr>
+            <tr>
+                <td class="row_title"><span class="red">*</span> 手机号码：</td>
+                <td>
+                    <input type="text" id="phone" ng-pattern="/^[0-9]{10,12}$/" name="phone" ng-model="addContact.phone" required class="form-control input-sm" ng-maxlength="12" />
+                </td>
+            </tr>
+            <tr>
+                <td class="row_title">所属组：</td>
+                <td>
+                    <span ng-bind="addContact.group.name"></span>
+                </td>
+            </tr>
+            <tr>
+                <td class="row_title">编号：</td>
+                <td>
+                    <input type="text" id="identifier" name="identifier" ng-model="addContact.identifier" class="form-control input-sm" ng-maxlength="50" number />
+                </td>
+            </tr>
+            <tr>
+                <td class="row_title">VIP：</td>
+                <td>
+                    <select class="form-control input-sm"  ng-model="addContact.vip">
+                        <option value="true" ng-selected="addContact.vip===true" >是</option>
+                        <option value="false" ng-selected="addContact.vip===false">否</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td class="row_title">性别：</td>
+                <td>
+                    <div class="radio_set">
+                        <input ng-model="addContact.sex" value="1"  type="radio" id="radio-1" name="sex" class="regular-radio" /><label for="radio-1"></label><label>先生</label>&nbsp;
+                        <input ng-model="addContact.sex" value="0" type="radio" id="radio-2" name="sex" class="regular-radio" /><label for="radio-2"></label><label>女士</label>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="row_title">出生日期：</td>
+                <td>
+                    <input type="text" id="birthday" name="birthday" ng-model="addContact.birthday" class="form-control input-sm" />
+                </td>
+            </tr>
+            <tr>
+                <td class="row_title">备注：</td>
+                <td>
+                    <textarea name="remark" ng-model="addContact.remark" class="form-control" rows="3" style="width:100%;" ng-maxlength="200"></textarea>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </form>
+</script>
+<script type="text/ng-template" id="modal/exportContactForm.tpl.html">
+    <form class="form-horizontal w5c-form" name="form" w5c-form-validate="vm" novalidate>
+        <div class="panel panel-info">
+            <div class="panel-heading">请选择导出类型</div>
+            <br>
+            <div class="container-fluid">
+                <div class="row-fluid">
+                    <div class="span12">
+                        <label><span class="red">*</span> 文件类型：
+                            <label class="radio-inline">
+                                <input type="radio" ng-model="params.fileType" value="excel"> Excel文件
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" ng-model="params.fileType" value="txt" /> Txt文件
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" ng-model="params.fileType" value="csv" /> Csv文件
+                            </label>
+                        </label>
+                    </div>
+                    <div class="span12" ng-if="params.fileType == 'txt'">
+                        <br>
+                        <label><span class="red">*</span> 分隔符：
+                            <label class="radio-inline">
+                                <input type="radio" ng-model="params.delimiter" value="," /> 逗号
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" ng-model="params.delimiter" value="\|" /> |
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" ng-model="params.delimiter" value=" " /> 空格
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" ng-model="params.delimiter" value="\t" /> Tab
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" ng-model="params.delimiter" value="otherDelimiter" /> 其他
+                                <input type="text" ng-model="params.otherDelimiter" maxlength="1" size="3" ng-disabled="params.delimiter !='otherDelimiter'" style="width:30px;" />
+                            </label>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</script>
+<script type="text/ng-template" id="modal/importForm.tpl.html">
+    <form class="form-inline table-toolbar">
+        <div>
+            <label>文件类型：
+                <input type="radio" ng-model="importParams.fileType" value="excel">
+                <label>Excel文件</label>&nbsp;
+                <input type="radio" ng-model="importParams.fileType" value="txt" />
+                <label>Txt文件</label>&nbsp;
+                <input type="radio" ng-model="importParams.fileType" value="csv" />
+                <label>Csv文件 </label>
+            </label>
+        </div>
+        <div ng-show="importParams.fileType == 'txt'">
+            <label>分隔符：
+                <input type="radio" ng-model="importParams.delimiter" value="," />
+                <label>逗号</label>&nbsp;
+                <input type="radio" ng-model="importParams.delimiter" value="\|" />
+                <label>&nbsp;|&nbsp;</label>&nbsp;
+                <input type="radio" ng-model="importParams.delimiter" value=" " />
+                <label>空格</label>&nbsp;
+                <input type="radio" ng-model="importParams.delimiter" value="\t" />
+                <label>Tab</label>&nbsp;
+                <input type="radio" ng-model="importParams.delimiter" value="otherDelimiter" />
+                <label>其他</label>
+                <input type="text" ng-model="importParams.otherDelimiter" maxlength="1" size="3" ng-disabled="importParams.delimiter !='otherDelimiter'" style="width:30px;" />
+            </label>
+        </div>
+        <div>
+            <input type="hidden" ng-model="params.groupId"/>
+            <input type="text" ng-model="uploadData.file.name" class="form-control" ng-maxlength="50" disabled="disabled" />
+            <button type="button" class="btn btn-default" ngf-select ngf-pattern="" ng-model="uploadData.file" accept="" ngf-max-size="10MB" ngf-multiple="false">
+                选择附件
+            </button>
+            <button class="btn btn-primary" ng-click="uploadFile();" ng-show="uploadData.file">开始上传
+            </button>
+        </div>
+        <div>
+            <table class="table table-striped table-bordered table-hover">
+                <tbody>
+                <tr>
+                    <td align="center">系统列</td>
+                    <td align="center">文件列</td>
+                </tr>
+                <tr ng-repeat="headDMapToF in headDMapToFList">
+                    <td data-title="'系统列'" align="center">{{headDMapToF.dataHeadInfo.name}}
+                    </td>
+                    <td data-title="'文件列'" align="center">
+                        <select ng-show="progress.file == 100" class="form-control" ng-model="headDMapToF.fileHeadInfo" ng-options="x.name for x in fileHeads">
+                            <option value="">-- 请选择</option>
+                        </select>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </form>
+</script>

@@ -1,0 +1,203 @@
+<form class="form-horizontal w5c-form" name="userAddForm" w5c-form-validate="vm" novalidate="" role="form">
+    <div class="panel panel-info">
+        <!--<div class="panel-heading">修改用户</div>-->
+        <table class="table table-bordered middle">
+            <tbody>
+            <tr>
+                <td class="row_title" align="right"> 账号类型：</td>
+                <td>
+                    <select style="width: 20%;" ng-disabled="accountTypeDis" class="form-control input-sm" ng-click="notInitLoad();" ng-model="user.accountType" ng-checked="user.accountType" ng-options="item.id as item.name for item in accountTypes"></select>
+                </td>
+            </tr>
+            <tr>
+                <td width="15%" class="row_title" align="right"><span class="red">*</span> 用户账号：</td>
+                <td>
+                    <div style="width: 100%;display:block;">
+                            <span class="form-inline">
+                                <input type="text" id="userName" style="width: 20%;"
+                                       ng-model="user.userName"
+                                       ng-blur="checkUserName();"
+                                       required class="form-control input-sm" ng-maxlength="{{userNameLength}}"/>
+                                <span>{{showDomain}}</span>
+                            </span>
+                    </div>
+                    <p class="w5c-error">{{userNameErrorMsg}}</p>
+
+                    <!--<span class="form-inline">
+                        <input type="text" style="width: 20%;" name="userMgr_userName"
+                               ng-model="user.userName" ng-pattern="/^[0-9A-Za-z_]*$/"
+                               ng-blur="userNameBlur();"
+                               required class="form-control input-sm" ng-maxlength="{{userNameLength}}"/>{{showDomain}}
+                    </span>
+                    <p class="w5c-error" ng-show="userNameError">{{userNameErrorMsg}}</p>-->
+                </td>
+            </tr>
+            <tr>
+                <td width="15%" class="row_title" align="right"><span class="red">*</span> 用户名称：</td>
+                <td>
+                    <input type="text" style="width: 20%;" name="linkMan" ng-model="user.linkMan" required class="form-control input-sm" ng-maxlength="50"/>
+                </td>
+            </tr>
+            <tr>
+                <td width="15%" class="row_title" align="right"> 密码重置：</td>
+                <td>
+                    <button type="button" class="form-control btn btn-info" style="width: 10%;" ng-click="resetSendPwd();" ng-bind="pwdSendName"></button>
+                    <button type="button" class="form-control btn btn-info" style="width: 10%;" ng-click="resetLoginPwd();">重置登录密码</button>
+                </td>
+            </tr>
+            <tr>
+                <td width="15%" class="row_title" align="right"><span class="red">*</span> 状态：</td>
+                <td>
+                    <label class="mar_r10">
+                        <input name="state" ng-model="user.state" value="0" ng-disabled="userStateDisable" type="radio" id="radio-01" class="regular-radio ng-pristine ng-valid ng-valid-required"/>
+                        <label for="radio-01"></label>
+                        <label>启用</label>
+                    </label>
+                    <label>
+                        <input name="state" ng-model="user.state" value="1" ng-disabled="userStateDisable" type="radio" id="radio-02" class="regular-radio ng-pristine ng-valid"/>
+                        <label for="radio-02"></label>
+                        <label>停用</label>
+                    </label>
+                </td>
+            </tr>
+            <tr>
+                <td class="row_title" align="right"><span class="red">*</span> 业务类型：</td>
+                <td>
+                    <ul class="ul-li-list">
+                        <li ng-repeat="bizType in user.bizTypes">
+                            <div class="checkbox checkbox-info">
+                                <input type="checkbox" name="bizTypes" id="{{bizType.id}}" ng-model="bizType.bound" ng-checked="bizType.bound" ng-change="putCommonBizType(this.user);"/>
+                                <label>{{bizType.name}}</label>
+                            </div>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td class="row_title" align="right"><span class="red">*</span> 常用业务类型：</td>
+                <td>
+                    <select style="width: 20%" name="commonBizTypeId" required ng-model="user.commonBizTypeId" ng-options="item.id as item.name for item in commonBizTypes" class="form-control form-control-small input-sm">
+                        <option value="">请选择</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td class="row_title" align="right"><span class="red">*</span> 角色：</td>
+                <td>
+                    <ul class="ul-li-list">
+                        <li ng-repeat="role in user.roles">
+                            <div class="checkbox checkbox-info">
+                                <input type="checkbox" name="roles" id="{{role.id}}" ng-model="role.checked" ng-disabled="role.default" ng-checked="role.checked||role.default"/>
+                                <label>{{role.name}}</label>
+                            </div>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td width="15%" class="row_title" align="right"><span class="red">*</span> 部门名称：</td>
+                <td>
+                    <p ng-bind="deptName"></p>
+                </td>
+            </tr>
+            <tr>
+                <td width="15%" class="row_title" align="right"><span class="red">*</span> 手机号：</td>
+                <td>
+                    <!--<input type="text" style="width: 20%;" name="phone" ng-model="user.phone" required class="form-control input-sm" ng-pattern="/^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1}))+\d{8})$/"/>-->
+                    <input type="text" style="width: 20%;" name="phone" ng-model="user.phone" required class="form-control input-sm" ng-pattern="/^[0-9]{10,12}$/"/>
+                </td>
+            </tr>
+            <tr>
+                <td width="15%" class="row_title" align="right"> 用户扩展码：</td>
+                <td>
+                    <input type="text" name="identify" style="width: 20%;" ng-model="user.identify" ng-pattern="/^[0-9]*$/" class="form-control input-sm"/>
+                </td>
+            </tr>
+            <tr>
+                <td width="15%" class="row_title" align="right"> 用户签名：</td>
+                <td>
+                    <input type="text" style="width: 20%;" name="signature" ng-disabled="1" ng-maxlength="30" ng-model="user.signature" class="form-control input-sm"/>
+                </td>
+            </tr>
+            <tr>
+                <td width="15%" class="row_title" align="right"> 签名位置：</td>
+                <td>
+                    <label class="mar_r10">
+                        <input name="sigLocation" ng-model="user.sigLocation" value="1" type="radio" id="radio-03" class="regular-radio ng-pristine ng-valid ng-valid-required"/>
+                        <label for="radio-03"></label>
+                        <label>前置</label>
+                    </label>
+                    <label>
+                        <input name="sigLocation" ng-model="user.sigLocation" value="0" type="radio" id="radio-04" class="regular-radio ng-pristine ng-valid"/>
+                        <label for="radio-04"></label>
+                        <label>后置</label>
+                    </label>
+                </td>
+            </tr>
+            <tr ng-if="user.accountType == 3">
+                <td class="row_title" align="right"><span class="red">*</span> 协议类型：</td>
+                <td>
+                    <select style="width: 20%;" name="protocolType" required class="form-control input-sm" ng-model="user.protocolType">
+                        <option value="1">cmpp2.0</option>
+                        <option value="2">cmpp3.0</option>
+                        <option value="3">sgip1.2</option>
+                        <option value="4">smgp3.0</option>
+                    </select>
+                </td>
+            </tr>
+            <tr class="ng-hide" ng-show="showSrcPortDom">
+                <td width="15%" class="row_title" align="right"><span class="red">*</span> 源端口：</td>
+                <td>
+                    <input type="text" name="srcPort" style="width: 20%;" maxlength="20" ng-pattern="/^[0-9]*$/" ng-model="user.srcPort" ng-required="showSrcPortDom" class="form-control input-sm"/>
+                </td>
+            </tr>
+            <tr class="ng-hide" ng-show="showCallbackAddressDom">
+                <td width="15%" class="row_title" align="right"><span class="red">*</span> 回调地址：</td>
+                <td>
+                    <input type="text" name="callbackAddress" style="width: 20%;" ng-blur="callbackAddressBlur();" ng-model="user.callbackAddress" ng-required="showCallbackAddressDom" class="form-control input-sm" />
+                    <p style="color: red" ng-show="callbackAddressError">回调地址格式为：ip:端口（端口为1-999999之间的正整数）</p>
+                </td>
+            </tr>
+            <tr>
+                <td width="15%" class="row_title" align="right"><span class="red">*</span> 自定义签名：</td>
+                <td>
+                    <label class="mar_r10">
+                        <input name="customerSignature" ng-disabled="customerSignatureDis" ng-model="user.customerSignature" value="1" type="radio" id="radio-05" class="regular-radio ng-pristine ng-valid ng-valid-required"/>
+                        <label for="radio-05"></label>
+                        <label>是</label>
+                    </label>
+                    <label>
+                        <input name="customerSignature" ng-disabled="customerSignatureDis" ng-model="user.customerSignature" value="0" type="radio" id="radio-06" class="regular-radio ng-pristine ng-valid"/>
+                        <label for="radio-06"></label>
+                        <label>否</label>
+                    </label>
+                </td>
+            </tr>
+            <tr class="ng-hide" ng-show="showSendSpeedDom">
+                <td width="15%" class="row_title" align="right"><span class="red">*</span> 发送速度：</td>
+                <td>
+                    <span class="form-inline">
+                        <input type="text" name="sendSpeed" style="width: 20%;" ng-model="user.sendSpeed" ng-pattern="/^[0-9999]{1,4}$/" ng-required="showSendSpeedDom" class="form-control input-sm"/> 条/秒
+                    </span>
+                </td>
+            </tr>
+            <tr class="ng-hide" ng-show="showLinkNumDom">
+                <td width="15%" class="row_title" align="right"><span class="red">*</span> 链接数：</td>
+                <td>
+                    <input type="text" name="linkNum" style="width: 20%;" ng-model="user.linkNum" ng-required="showLinkNumDom" ng-pattern="/^[0-9]{1,2}$/" class="form-control input-sm"/>
+                </td>
+            </tr>
+            <tr>
+                <td width="15%" class="row_title" align="right"> 描述：</td>
+                <td>
+                    <textarea name="remark" ng-model="user.remark" class="form-control" rows="3" style="width:60%;" ng-maxlength="200"></textarea>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="panel-footer" align="center">
+        <button type="button" class="btn btn_2x_t1" ng-click="save();" ng-disabled="userAddForm.$invalid || userAddForm.$pristine || isRightUserName">保存</button>
+        <button type="button" class="btn btn_2x_cancel" onclick="window.history.back();">返回</button>
+    </div>
+</form>

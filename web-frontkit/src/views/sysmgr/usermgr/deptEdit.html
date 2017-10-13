@@ -1,0 +1,61 @@
+<form class="form-horizontal w5c-form" name="form" w5c-form-validate="vm" novalidate="" role="form">
+    <div class="panel panel-info">
+        <div class="panel-heading">修改部门</div>
+        <table class="table table-bordered middle">
+            <tbody>
+            <tr>
+                <td width="15%" class="row_title" align="right"><span class="red">*</span> 部门名称：</td>
+                <td>
+                    <input type="text" id="userName" style="width: 20%;" name="userName" ng-model="dept.deptName" ng-pattern="/^[\u4e00-\u9fa5\w【】\[\]]+$/" required class="form-control input-sm" ng-maxlength="20"/>
+                </td>
+            </tr>
+            <tr>
+                <td class="row_title" align="right"> 部门编号：</td>
+                <td>
+                    <p ng-cloak>{{dept.identify}}</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="row_title" align="right">上级部门：</td>
+                <td>{{parentDeptName}}</td>
+            </tr>
+            <tr>
+                <td class="row_title" align="right"><span class="red">*</span> 业务类型：</td>
+                <td>
+                    <ul class="ul-li-list">
+                        <li ng-repeat="bizType in dept.bizTypes">
+                            <div class="checkbox checkbox-info">
+                                <input type="checkbox" name="bizTypes" id="{{bizType.id}}" ng-model="bizType.bound" ng-checked="bizType.bound" ng-change="checkConfirm(dept, bizType, null, '业务类型');"/>
+                                <label>{{bizType.name}}</label>
+                            </div>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td class="row_title" align="right"><span class="red">*</span> 角色：</td>
+                <td>
+                    <ul class="ul-li-list">
+                        <li ng-repeat="role in dept.roles">
+                            <div class="checkbox checkbox-info">
+                                <input type="checkbox" name="roles" id="{{role.id}}" ng-model="role.checked" ng-disabled="role.default" ng-checked="role.checked||role.default" ng-change="checkConfirm(dept, null, role,'角色');"/>
+                                <label>{{role.name}}</label>
+                            </div>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td class="row_title" align="right">描述：</td>
+                <td>
+                    <textarea name="remark" ng-model="dept.remark" class="form-control" rows="3" style="width:60%;" ng-maxlength="200"></textarea>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="panel-footer" align="center">
+        <button type="button" class="btn btn_2x_t1" ng-click="save();" ng-disabled="form.$invalid || form.$pristine">保存</button>
+        <button type="button" class="btn btn_2x_cancel" onclick="window.history.back();">返回</button>
+    </div>
+</form>

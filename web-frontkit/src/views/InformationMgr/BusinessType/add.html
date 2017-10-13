@@ -1,0 +1,133 @@
+<form id="dataForm" class="form-inline w5c-form" name="bizTypeForm" w5c-form-validate="" novalidate>
+    <div class="panel panel-info" >
+        <div class="panel-heading" ng-show="mode=='edit'">更新业务类型</div>
+        <div class="panel-heading" ng-show="mode=='add'">新增业务类型</div>
+        <div class="panel-heading" ng-show="mode=='detail'">查看业务类型</div>
+        <table class="table table-bordered middle" >
+            <tbody >
+            <tr ng-show="mode=='detail'">
+                <td width="15%" class="row_title">
+                    编号：
+                </td>
+                <td width="85%">
+                    <input ng-disabled="mode=='detail'" type="text" class="form-control" name="id" ng-model="bizType.id"/>
+                </td>
+            </tr>
+                <tr>
+                    <td width="15%" class="row_title">
+                        <span class="red">*</span> 业务类型名称：
+                    </td>
+                    <td width="85%">
+                        <input ng-disabled="mode=='detail'" type="text" class="form-control input-sm ng-valid-maxlength" name="name" ng-model="bizType.name" ng-maxlength="20" required/>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="row_title">
+                        <span class="red">*</span> 发送时间段：
+                    </td>
+                    <td>
+                        <!--<input ng-disabled="mode=='detail'"type="text" name="startTime" ng-init="bizType.startTime='00:00:00'" ng-model="bizType.startTime" class="form-control input-sm" style="width: 137px" /> 至
+                        <input ng-disabled="mode=='detail'" type="text" name="endTime" ng-init="bizType.endTime='23:59:59'" ng-model="bizType.endTime" class="form-control input-sm" style="width: 137px" />-->
+                        <input sy-timepicker-popup="HH:mm:ss" ng-model="bizType.startTime" show-meridian="false" first-value="00:00:00"
+                               class="form-control input-sm" style="height: 30px;width: 100px;"/> 至
+                        <input sy-timepicker-popup="HH:mm:ss" ng-model="bizType.endTime" first-value="23:59:59"
+                               show-meridian="false" class="form-control input-sm" style="height: 30px;width: 100px;"/>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="row_title">
+                        <span class="red">*</span> 优先级：
+                    </td>
+                    <td>
+                        <select ng-disabled="mode=='detail'" class="form-control input-sm" ng-model="bizType.priority"
+                                ng-init="bizType.priority=4" ng-options="o.id as o.name for o in priority">
+                        </select>
+                 </td>
+                </tr>
+                <tr>
+                    <td class="row_title">
+                        <span class="red">*</span> 带用户扩展码：
+                    </td>
+                    <td>
+                        <select ng-disabled="mode=='detail'" class="form-control input-sm" ng-model="bizType.extendFlag" ng-init="bizType.extendFlag=true">
+                            <option value="true"ng-selected="bizType.extendFlag==true">是</option>
+                            <option value="false"ng-selected="bizType.extendFlag==false">否</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="row_title">
+                        <span class="red">*</span> 发送速度：
+                    </td>
+                    <td>
+                        <div style="width: 100%;display:block;">
+                            <input ng-disabled="mode=='detail'"  class="form-control w80"  ng-model="bizType.speed"  ng-blur="checkSpeed();"/>&nbsp;&nbsp;
+                            <select ng-disabled="mode=='detail'" class="form-control input-sm" ng-model="bizType.speedMode">
+                                <option value="1"ng-selected = "1">条/秒</option>
+                                <option value="2">条/分</option>
+                            </select>
+                            <span class="red">（注:当业务类型限速大于通道处理速度时,以通道处理速度为准）</span>
+                        </div>
+                        <span class="red">{{speedErrorMsg}}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="row_title">
+                        <span class="red">*</span> 请选择通道：
+                    </td>
+                    <td>
+                        <div class="table_t1 mar_t10">
+                            <div class="fixed-table-container">
+                            <table id="channelTable" ng-table="channelTable" class="table table-hover">
+                                <tbody>
+                                    <tr ng-repeat="channel in $data">
+                                        <td width="30" data-title="&nbsp;" header="'ng-table/headers/checkbox.html'" >
+                                            <div class="checkbox checkbox-info">
+                                                <input id="channel_{{channel.id}}" ng-disabled="mode=='detail'" type="checkbox" name="channelId"  value="{{channel.id}}"
+                                                       ng-checked="isChannelSelected(this)" ng-click="selectChannel($event,this)"/>
+                                                <label></label>
+                                            </div>
+                                        </td>
+                                        <td width="30%" data-title="'运营商'" align="center" >
+                                            {{channel.basicNumber}}({{channel.name}})<br>
+                                            <div ng-repeat="carrier in channel.canSendCarrier" class="mar_r10 mar_t5" style="display:inline-block;">
+                                                <div class="checkbox checkbox-info">
+                                                    <input id="channel_{{channel.id}}_{{carrier.id}}"ng-disabled="mode=='detail'"  type="checkbox" name="carrierId" value="{{carrier.id}}" channelid="{{channel.id}}"spec_bind_id="{{channel.paras}}"ng-model="carrier.carrierId"
+                                                           ng-checked="isCarrierSelected(this)" price="{{channel.price | number : 2}}" msgType="{{channel.msgType}}">
+                                                    <label></label>
+                                                </div>
+                                                {{carrier.name}}
+                                            </div>
+                                        </td>
+                                        <td width="40%" data-title="'信息类型'" align="center" >
+                                            </a>{{channel.msgTypeStr }}</td>
+                                        <td width="30%" data-title="'单价'" align="center">
+                                            </a>{{channel.price | number : 2}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="row_title">
+                        描述：
+                    </td>
+                    <td>
+                        <textarea style="width: 600px;height:80px;" ng-disabled="mode=='detail'" type="text" class="form-control" name="remark" ng-model="bizType.remark" ng-maxlength="200"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <div class="text-center">
+                            <button id="submit"type="button" class="btn btn_2x_t1" ng-disabled="bizTypeForm.$invalid" ng-click="submitForm();">保存</button>
+                            <button type="button" class="btn btn_2x_cancel" onclick="window.history.back();">返回</button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</form>

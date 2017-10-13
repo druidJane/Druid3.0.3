@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+		"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.xuanwu.mos.mapper.SpecsvsNumMapper">
+	<!--entity 企业白名单表(gsms_temp_whitephone)-->
+	<resultMap type="SpecsvsNumVo" id="SpecsvsNumVo">
+		<result property="id" column="Id"/>
+		<result property="basicNumber" column="BasicNumber"/>
+		<result property="extendSize" column="ExtendSize"/>
+		<result property="sendCarrier" column="SendCarrier"/>
+		<result property="price" column="price"/>
+		<result property="msgType" column="MessageType"/>
+	</resultMap>
+	<sql id="queryWhere" >
+		<if test="params.msgType!=null and params.msgType>-1">
+			and b.msg_type = #{params.msgType}
+		</if>
+		<if test="params.basicNumber!=null and params.basicNumber!=''">
+			and p.basic_number like  concat('%',#{params.basicNumber} ,'%')
+		</if>
+	</sql>
+	<sql id="queryHaving">
+		<if test="params.sendCarrier!=null and params.sendCarrier!=-1">
+			having SendCarrierId like concat('%',#{params.sendCarrier} ,'%')
+		</if>
+	</sql>
+	<!-- -get the counts of black_phone  by the given params  
+    	根据所给参数查找出企业白名单号码的条数
+    -->
+    <select id="findSpecsvsNumCount" resultType="Integer">
+		SELECT count(*)FROM(SELECT
+			c.id AS AccrountId,
+			group_concat(
+				cc.carrier_id
+				ORDER BY
+					cc.carrier_id ASC
+			) AS SendCarrierId,
+			b.price,
+			b.msg_type,
+			u.domain AS Domain,
+			u.enterprise_name AS EnterpriseName,
+			u.identify AS Identify,
+			b.id AS Id,
+			p.assign_type AS AssignType,
+			p.channel_id AS ChannelId,
+			p.extend_size AS ExtendSize,
+			p.number AS Number,
+			p.basic_number AS BasicNumber,
+			p.parameters AS Parameters,
+			c.channel_num AS ChannelNum,
+			c. NAME AS ChannelName,
+			c.sms AS SMS,
+			c.mms AS MMS,
+			c.long_sms AS LongSMS,
+			c.wappush AS Wappush,
+			r. NAME AS CarrierName,
+			group_concat(r2. NAME SEPARATOR ',') AS SendCarrier,
+			c.extend_num_length AS ChannelExtendSize,
+			c.is_white_channel AS is_white_channel,
+			b.msg_type AS MessageType
+		FROM
+			gsms_specsvs_num AS p
+		INNER JOIN gsms_enterprise_specnum_bind AS b ON p.id = b.specnum_id
+		INNER JOIN gsms_user AS u ON b.enterprise_id = u.id
+		INNER JOIN gsms_carrier_channel AS c ON c.id = p.channel_id
+		INNER JOIN gsms_region_carrier AS t ON c.region_carrier_id = t.id
+		LEFT JOIN gsms_carrier AS r ON t.carrier_id = r.id
+		LEFT JOIN gsms_region_code AS d ON t.region_id = d.id
+		INNER JOIN gsms_channel_carrier_map AS cc ON c.id = cc.channel_id
+		INNER JOIN gsms_carrier AS r2 ON r2.id = cc.carrier_id
+		WHERE
+			c.is_remove = 0
+		AND p.is_remove = 0
+		AND b.enterprise_id=#{params.enterpriseId}
+		<include refid="queryWhere" />
+		GROUP BY
+			c.id
+		<include refid="queryHaving"/>	
+		)count
+    </select>
+    <select id="findSpecsvsNumLists" resultMap="SpecsvsNumVo">
+		SELECT
+			c.id AS AccrountId,
+			group_concat(
+				cc.carrier_id
+				ORDER BY
+					cc.carrier_id ASC
+			) AS SendCarrierId,
+			b.price,
+			b.msg_type,
+			u.domain AS Domain,
+			u.enterprise_name AS EnterpriseName,
+			u.identify AS Identify,
+			b.id AS Id,
+			p.assign_type AS AssignType,
+			p.channel_id AS ChannelId,
+			p.extend_size AS ExtendSize,
+			p.number AS Number,
+			p.basic_number AS BasicNumber,
+			p.parameters AS Parameters,
+			c.channel_num AS ChannelNum,
+			c. NAME AS ChannelName,
+			c.sms AS SMS,
+			c.mms AS MMS,
+			c.long_sms AS LongSMS,
+			c.wappush AS Wappush,
+			r. NAME AS CarrierName,
+			group_concat(r2. NAME SEPARATOR ',') AS SendCarrier,
+			c.extend_num_length AS ChannelExtendSize,
+			c.is_white_channel AS is_white_channel,
+			b.msg_type AS MessageType
+		FROM
+			gsms_specsvs_num AS p
+		INNER JOIN gsms_enterprise_specnum_bind AS b ON p.id = b.specnum_id
+		INNER JOIN gsms_user AS u ON b.enterprise_id = u.id
+		INNER JOIN gsms_carrier_channel AS c ON c.id = p.channel_id
+		INNER JOIN gsms_region_carrier AS t ON c.region_carrier_id = t.id
+		LEFT JOIN gsms_carrier AS r ON t.carrier_id = r.id
+		LEFT JOIN gsms_region_code AS d ON t.region_id = d.id
+		INNER JOIN gsms_channel_carrier_map AS cc ON c.id = cc.channel_id
+		INNER JOIN gsms_carrier AS r2 ON r2.id = cc.carrier_id
+		WHERE
+			c.is_remove = 0
+		AND p.is_remove = 0
+		AND b.enterprise_id=#{params.enterpriseId}
+		<include refid="queryWhere" />
+		GROUP BY
+			c.id
+      	<include refid="queryHaving" />
+    </select>
+</mapper>

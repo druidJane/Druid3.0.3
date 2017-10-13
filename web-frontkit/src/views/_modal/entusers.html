@@ -1,0 +1,42 @@
+<form>
+    <div class="form-group ">
+        企业账号：
+        <input type="text" ng-model="params.entAcc" /> 企业名称：
+        <input type="text" ng-model="params.entName" /> 三网合一：
+        <select ng-model="params.isSameNum">
+            <option value="">请选择</option>
+            <option value="0">否</option>
+            <option value="1">是</option>
+        </select>
+        固定端口：
+        <select ng-model="params.isSpecific">
+            <option value="">请选择</option>
+            <option value="0">否</option>
+            <option value="1">是</option>
+        </select>
+        <button type="button" ng-click="search();" class="btn btn-primary btn-sm"><i class="fa fa-search"></i> 查询</button>
+        <button type="button" class="btn btn-sm btn-default" ng-click="resetSearch()"><i class="fa fa-refresh"></i> 重置</button>
+    </div>
+</form>
+<div class="loading-container">
+    <div class="loading" ng-show="portTable.settings().$loading"></div>
+    <table ng-table="entUsersTable" class="table table-striped table-bordered table-hover">
+        <tbody>
+            <tr ng-repeat="item in $data">
+                <td data-title="'企业名称'" align="center">{{item.enterpriseName}}</td>
+                <td data-title="'企业账号'" align="center">{{item.domain}}</td>
+                <td data-title="'企业标识号'" align="center">{{item.identify}}</td>
+                <td data-title="'所属区域'" align="center">{{item.entRegion}}</td>
+                <td data-title="'业务能力'" align="center">{{item.entBizTypes}}</td>
+                <td data-title="'三网合一'" align="center">
+                    <span ng-if="item.isSameNum==false">否</span>
+                    <span ng-if="item.isSameNum==true">是</span>
+                </td>
+                <td data-title="'固定端口'" align="center">
+                    <span ng-if="item.isSpecific==false">否</span>
+                    <span ng-if="item.isSpecific==true">是</span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

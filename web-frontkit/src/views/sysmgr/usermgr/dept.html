@@ -1,0 +1,75 @@
+<div class="panel panel-info">
+    <!--<div class="panel-heading">部门查询</div>-->
+        <form class="form-inline table-toolbar">
+            <div class="search_box">
+                <div class="pull-left">
+                    <div class="form-group">
+                        <label class="label">部门名称</label>
+                        <input type="text" ng-model="deptParams.deptName" class="form-control input-sm" maxlength="50" />
+                    </div>
+                    <div class="form-group">
+                        <label class="label">部门编号</label>
+                        <input type="text" ng-model="deptParams.identify" class="form-control input-sm" maxlength="50" />
+                    </div>
+                    <div class="form-group">
+                        <button type="button" class="btn btn_search" ng-click="search();">查询</button>
+                    </div>
+                </div>
+                <div style="clear: both;"></div>
+            </div>
+        </form>
+        <div class="table_t1 mar_t10">
+            <div class="fixed-table-container">
+                <div class="loading" ng-show="deptTable.settings().$loading"></div>
+                <table ng-table="deptTable" class="table table-hover" template-pagination="custom/pager">
+                    <tbody>
+                    <tr ng-repeat="dept in $data">
+                        <td data-title="'部门名称'" width="10%" align="center">
+                            <a style="cursor: pointer; color: green" ng-if="hasPermission(urlPerMap.SYSTEMMGR_ACCOUNTMGR_DEPT_DETAIL)" ng-click="detailDeptInfo(dept);">{{dept.deptName}}</a>
+                            <p ng-if="!hasPermission(urlPerMap.SYSTEMMGR_ACCOUNTMGR_DEPT_DETAIL)" ng-bind="dept.deptName"></p>
+                        </td>
+                        <td data-title="'部门编号'" width="10%" align="center" ng-bind="dept.identify"></td>
+                        <td data-title="'业务类型'" width="40%" align="center" ng-bind="dept.bizNames"></td>
+                        <td data-title="'角色'" width="40%" align="left"><div style="width:500px; overflow:hidden;white-space: nowrap;cursor:pointer;" title="{{dept.roleNames}}">{{dept.roleNames}}</div></td>
+                    </tr>
+                    <tr ng-show="$data==0" align="center">
+                        <td colspan="4"><div class="bootstrapTable_noData"><div></div><p>没有找到相关数据！</p></div></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="panel-footer" align="center">
+        <button type="button" class="btn btn_2x_cancel" onclick="window.history.back();">返回</button>
+    </div>
+<script type="text/ng-template" id="modal/detailDeptInfo.tpl.html">
+    <table class="table table-bordered middle">
+        <tbody>
+        <tr>
+            <td width="20%" class="row_title">部门名称：</td>
+            <td>{{dept.deptName}}</td>
+        </tr>
+        <tr>
+            <td width="20%" class="row_title">部门编号：</td>
+            <td>{{dept.identify}}</td>
+        </tr>
+        <tr>
+            <td width="20%" class="row_title">上级部门：</td>
+            <td>{{dept.parentDeptName}}</td>
+        </tr>
+        <tr>
+            <td width="20%" class="row_title">业务类型：</td>
+            <td>{{dept.bizNames}}</td>
+        </tr>
+        <tr>
+            <td width="20%" class="row_title">角色：</td>
+            <td>{{dept.roleNames}}</td>
+        </tr>
+        <tr>
+            <td width="12%" class="row_title">描述：</td>
+            <td>{{dept.remark}}</td>
+        </tr>
+        </tbody>
+    </table>
+</script>

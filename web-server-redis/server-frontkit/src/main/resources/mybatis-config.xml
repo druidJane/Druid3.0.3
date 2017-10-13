@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <settings>
+        <!--<setting name="cacheEnabled" value="false"/>-->
+        <setting name="logImpl" value="STDOUT_LOGGING"/>
+    </settings>
+    <typeAliases>
+        <package name="com.xuanwu.mos.domain.entity"/>
+    </typeAliases>
+
+    <typeHandlers>
+        <typeHandler handler="com.xuanwu.mos.domain.handler.HasIndexValueEnumHandler"
+                     jdbcType="INTEGER" javaType="com.xuanwu.mos.domain.enums.UserState"/>
+        <typeHandler handler="com.xuanwu.mos.domain.handler.HasIndexValueEnumHandler"
+                     jdbcType="INTEGER" javaType="com.xuanwu.mos.domain.enums.UserType"/>
+        <typeHandler handler="com.xuanwu.mos.domain.handler.HasIndexValueEnumHandler"
+                     jdbcType="INTEGER" javaType="com.xuanwu.mos.domain.enums.RoleType"/>
+        <typeHandler handler="com.xuanwu.mos.domain.handler.HasIndexValueEnumHandler"
+                     jdbcType="INTEGER" javaType="com.xuanwu.mos.domain.enums.IndustryType"/>
+        <typeHandler handler="com.xuanwu.mos.domain.handler.HasIndexValueEnumHandler"
+                     jdbcType="INTEGER" javaType="com.xuanwu.mos.domain.enums.DataScope" />
+        <typeHandler handler="com.xuanwu.mos.domain.handler.HasIndexValueEnumHandler"
+                     jdbcType="INTEGER" javaType="com.xuanwu.mos.domain.enums.ChargeWay"/>
+        <typeHandler handler="com.xuanwu.mos.domain.handler.HasIndexValueEnumHandler"
+                     jdbcType="INTEGER" javaType="com.xuanwu.mos.domain.enums.PayingWay"/>
+        <typeHandler handler="com.xuanwu.mos.domain.handler.HasIndexValueEnumHandler"
+                     jdbcType="INTEGER" javaType="com.xuanwu.mos.domain.enums.DeductType"/>
+        <typeHandler handler="com.xuanwu.mos.domain.handler.HasIndexValueEnumHandler"
+                     jdbcType="INTEGER" javaType="com.xuanwu.mos.domain.enums.NoticeState"/>
+		<typeHandler handler="com.xuanwu.mos.domain.handler.HasIndexValueEnumHandler"
+                     jdbcType="INTEGER" javaType="com.xuanwu.mos.domain.enums.OperationType"/>
+        <typeHandler handler="com.xuanwu.mos.domain.handler.HasIndexValueEnumHandler"
+                     jdbcType="INTEGER" javaType="com.xuanwu.mos.domain.enums.UserAccountType"/>
+		<typeHandler handler="com.xuanwu.mos.domain.handler.HasIndexValueEnumHandler"
+                     jdbcType="INTEGER" javaType="com.xuanwu.mos.domain.enums.UserProtocolType"/>
+        <typeHandler handler="com.xuanwu.mos.domain.handler.HasIndexValueEnumHandler"
+                     jdbcType="INTEGER" javaType="com.xuanwu.mos.domain.enums.NoticeMsgType"/>
+        <typeHandler handler="com.xuanwu.mos.domain.handler.HasIndexValueEnumHandler"
+                     jdbcType="INTEGER" javaType="com.xuanwu.mos.domain.enums.NoticeScope"/>
+        <typeHandler handler="com.xuanwu.mos.domain.handler.HasIndexValueEnumHandler"
+                     jdbcType="INTEGER" javaType="com.xuanwu.mos.domain.enums.BizFormEnum"/>
+        <typeHandler handler="com.xuanwu.mos.domain.handler.HasIndexValueEnumHandler"
+                     jdbcType="INTEGER" javaType="com.xuanwu.mos.domain.enums.FrameStateEnum"/>
+        <typeHandler handler="com.xuanwu.mos.domain.handler.HasIndexValueEnumHandler"
+                     jdbcType="INTEGER" javaType="com.xuanwu.mos.domain.enums.PackStateEnum"/>
+        <typeHandler handler="com.xuanwu.mos.domain.handler.HasIndexValueEnumHandler"
+                     jdbcType="INTEGER" javaType="com.xuanwu.mos.domain.enums.MsgTypeEnum"/>
+        <typeHandler handler="com.xuanwu.mos.domain.handler.HasIndexValueEnumHandler"
+                     jdbcType="INTEGER" javaType="com.xuanwu.mos.domain.enums.SendTypeEnum"/>
+        <typeHandler handler="com.xuanwu.mos.domain.handler.HasIndexValueEnumHandler"
+                     jdbcType="INTEGER" javaType="com.xuanwu.mos.domain.enums.TaskType"/>
+        <typeHandler handler="com.xuanwu.mos.domain.handler.HasIndexValueEnumHandler"
+                     jdbcType="INTEGER" javaType="com.xuanwu.mos.domain.enums.AuditStateEnum"/>
+    </typeHandlers>
+
+    <!--添加了shardserver的分表插件-->
+    <plugins>
+        <plugin interceptor="com.xuanwu.msggate.shard.plugin.ShardPlugin">
+            <property name="shardTableStartTime" value="2013-10-29"/>
+        </plugin>
+    </plugins>
+
+    <mappers>
+        <mapper resource="com/xuanwu/mos/mapper/UserMapper.xml"/>
+        <mapper resource="com/xuanwu/mos/mapper/RoleMapper.xml"/>
+        <mapper resource="com/xuanwu/mos/mapper/CarrierMapper.xml"/>
+        <mapper resource="com/xuanwu/mos/mapper/ConfigMapper.xml"/>
+        <mapper resource="com/xuanwu/mos/mapper/CarrierTelesegMapper.xml"/>
+        <mapper resource="com/xuanwu/mos/mapper/BlacklistMapper.xml"/>
+        <mapper resource="com/xuanwu/mos/mapper/BizTypeMapper.xml"/>
+        <mapper resource="com/xuanwu/mos/mapper/MsgPackMapper.xml" />
+        <mapper resource="com/xuanwu/mos/mapper/MsgFrameMapper.xml" />
+        <mapper resource="com/xuanwu/mos/mapper/MsgTicketMapper.xml" />
+        <mapper resource="com/xuanwu/mos/mapper/VerifyMapper.xml" />
+        <mapper resource="com/xuanwu/mos/mapper/FileTaskMapper.xml" />
+        <mapper resource="com/xuanwu/mos/mapper/PhraseMapper.xml" />
+        <mapper resource="com/xuanwu/mos/mapper/SpecsvsNumMapper.xml" />
+        <mapper resource="com/xuanwu/mos/mapper/KeywordMapper.xml" />
+        <mapper resource="com/xuanwu/mos/mapper/SysLogMapper.xml" />
+        <mapper resource="com/xuanwu/mos/mapper/AnnouncementMapper.xml" />
+        <mapper resource="com/xuanwu/mos/mapper/CapitalAccountMapper.xml" />
+        <mapper resource="com/xuanwu/mos/mapper/ChargeRecordMapper.xml" />
+        <mapper resource="com/xuanwu/mos/mapper/UserMgrMapper.xml" />
+        <mapper resource="com/xuanwu/mos/mapper/NoticeMapper.xml" />
+        <mapper resource="com/xuanwu/mos/mapper/WhitePhoneMapper.xml" />
+        <mapper resource="com/xuanwu/mos/mapper/ContactMapper.xml" />
+        <mapper resource="com/xuanwu/mos/mapper/ContactGroupMapper.xml" />
+        <mapper resource="com/xuanwu/mos/mapper/ContactShareGroupMapper.xml" />
+        <mapper resource="com/xuanwu/mos/mapper/StatisticsMapper.xml" />
+        <mapper resource="com/xuanwu/mos/mapper/CarrierChannelMapper.xml" />
+        <mapper resource="com/xuanwu/mos/mapper/UserTaskMapper.xml" />
+        <mapper resource="com/xuanwu/mos/mapper/MoTicketMapper.xml" />
+    </mappers>
+</configuration>

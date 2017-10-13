@@ -1,0 +1,104 @@
+<div class="panel panel-info">
+    <div class="panel-heading">计费账户查看</div>
+        <table class="table table-bordered middle">
+            <tbody>
+            <tr>
+                <td width="12%" class="row_title"> 账户名称：</td>
+                <td width="38%">
+                    <label>{{capitalAccount.accountName}}</label>
+                </td>
+                <td width="12%" class="row_title"> 余额：</td>
+                <td width="38%">
+                    <label>{{capitalAccount.balance|number:4}}</label>
+                </td>
+            </tr>
+            <tr>
+                <td width="12%" class="row_title"> 付费方式：</td>
+                <td width="38%">
+                    <label>{{capitalAccount.showPayingWay}}</label>
+                </td>
+                <td width="12%" class="row_title"> 充值方式：</td>
+                <td width="38%">
+                    <label>{{capitalAccount.showChargeWay}}</label>
+                </td>
+            </tr>
+            <tr>
+                <td width="12%" class="row_title"> 自动充值金额：</td>
+                <td width="38%">
+                    <label ng-if="capitalAccount.chargeWay.index == 1">{{capitalAccount.autoChargeMoney|number:4}}</label>
+                </td>
+                <td width="12%" class="row_title"> 单价类型：</td>
+                <td width="38%">
+                    <label>{{capitalAccount.showDeductType}}</label>
+                </td>
+            </tr>
+            <tr>
+                <td width="12%" class="row_title"> 短信单价：</td>
+                <td width="38%">
+                    <label>{{capitalAccount.smsPrice|number:4}}</label>
+                </td>
+                <td width="12%" class="row_title"> 彩信单价：</td>
+                <td width="38%">
+                    <label>{{capitalAccount.mmsPrice|number:4}}</label>
+                </td>
+            </tr>
+            <tr>
+                <td width="12%" class="row_title"> 包含用户：</td>
+                <td width="38%" colspan="3"></td>
+            </tr>
+            </tbody>
+        </table>
+        <form class="form-inline table-toolbar">
+            <div class="search_box mar_t10">
+                <div class="pull-left">
+                    <div class="form-group">
+                        <label class="label">账号</label>
+                        <input type="text" ng-model="userParams.userName" class="form-control input-sm"/>
+                    </div>
+                    <div class="form-group">
+                        <label class="label">部门</label>
+                        <input type="text" ng-model="userParams.deptName" class="form-control input-sm"/>
+                    </div>
+                    <div class="form-group">
+                        <label class="label">姓名</label>
+                        <input type="text" ng-model="userParams.linkMan" class="form-control input-sm"/>
+                    </div>
+                    <div class="form-group">
+                        <label class="label">角色</label>
+                        <select ng-model="userParams.roleId" ng-options="item.id as item.name for item in roleSelectModel" class="form-control form-control-small input-sm">
+                            <option value="">请选择</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="label">扩展码</label>
+                        <input type="text" ng-model="userParams.identify" class="form-control input-sm"/>
+                    </div>
+                    <div class="form-group">
+                        <button type="button" class="btn btn_search" ng-click="searchDetails();">查询</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    <div class="table_t1 mar_t10">
+        <div class="fixed-table-container">
+            <div class="loading" ng-show="usersTable.settings().$loading"></div>
+            <table ng-table="usersTable" class="table table-hover" template-pagination="custom/pager">
+                <tbody>
+                <tr ng-repeat="user in $data">
+                    <td data-title="'用户账号'" width="15%" align="center">{{user.username}}</td>
+                    <td data-title="'用户名称'" width="15%" align="center">{{user.linkMan}}</td>
+                    <td data-title="'所属部门'" width="15%" align="center">{{user.deptName}}</td>
+                    <td data-title="'联系电话'" width="15%" align="center">{{user.phone}}</td>
+                    <td data-title="'状态'" width="15%" align="center">{{user.showState}}</td>
+                </tr>
+                <tr ng-show="$data==0" align="center">
+                    <td colspan="5"><div class="bootstrapTable_noData"><div></div><p>没有找到相关数据！</p></div></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div align="center" style="padding-top:20px;">
+            <button type="button" class="btn btn_2x_cancel" onclick="window.history.back();">返回</button>
+        </div>
+    </div>
+</div>

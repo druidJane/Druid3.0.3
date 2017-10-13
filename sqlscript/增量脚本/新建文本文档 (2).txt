@@ -1,0 +1,1 @@
+CREATE INDEX ix_handle_from ON gsms_black_phone_list (handle_from,enterprise_id);

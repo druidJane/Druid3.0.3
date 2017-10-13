@@ -1,0 +1,114 @@
+<form class="form-inline w5c-form" name="auditForm" w5c-form-validate="" novalidate>
+    <div class="panel panel-info">
+        <div class="panel-heading">审批详情</div>
+        <table class="table table-bordered middle">
+            <tbody>
+            <tr>
+                <td width="30%" class="row_title">
+                    发送内容：
+                </td>
+                <td width="70%">
+                    {{auditParams.content}}
+                </td>
+            </tr>
+            <tr>
+                <td class="row_title">
+                    <label> 提交时间：</label>
+                </td>
+                <td>
+                    {{auditParams.postTime}}
+                </td>
+            </tr>
+            <tr>
+                <td class="row_title">
+                    <label> 定时时间：</label>
+                </td>
+                <td>
+                    {{auditParams.regularTime}}
+                </td>
+            </tr>
+            <tr>
+                <td class="row_title">
+                    <label> 业务类型：</label>
+                </td>
+                <td>
+                    {{auditParams.bizTypeName}}
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <table class="table table-bordered middle">
+            <tbody>
+            <tr>
+                <td width="30%" class="row_title">
+                    批次来源：
+                </td>
+                <td width="70%">
+                    {{auditParams.source}}
+                </td>
+            </tr>
+            <tr>
+                <td width="30%" class="row_title">
+                    批次名称：
+                </td>
+                <td width="70%">
+                    {{auditParams.batchName}}
+                </td>
+            </tr>
+            <tr>
+                <td width="30%" class="row_title">
+                    批次备注：
+                </td>
+                <td width="70%">
+                    {{auditParams.remark}}
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <table class="table table-bordered middle">
+            <tbody>
+            <tr>
+                <td width="30%" class="row_title">
+                    发送部门：
+                </td>
+                <td width="70%">
+                    {{auditParams.sendDept}}
+                </td>
+            </tr>
+            <tr>
+                <td width="30%" class="row_title">
+                    发送用户：
+                </td>
+                <td width="70%">
+                    {{auditParams.sendUser}}
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <table class="table table-bordered middle">
+            <tbody>
+            <tr>
+                <td width="30%" class="row_title">
+                    审批结果：
+                </td>
+                <td width="70%">
+                    <label class="checkbox-inline">
+                        <input type="radio" name="auditResult" value="pass" ng-model="auditResult" ng-checked="true">通过
+                    </label>
+                    <label class="checkbox-inline">
+                        <input type="radio" name="auditResult" value="noPass" ng-model="auditResult">不通过
+                    </label>
+                </td>
+            </tr>
+            <tr>
+                <td class="row_title">
+                    <span class="red">*</span>审批意见：
+                </td>
+                <td>
+                    <textarea class="form-control" id="auditRemark" name="auditRemark" ng-model="auditParams.auditRemark"></textarea>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</form>

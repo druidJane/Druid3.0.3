@@ -1,0 +1,170 @@
+<!--tab切换-->
+<ul class="nav nav-tabs nav_tabs_t1" role="tabList" id="tab">
+    <li ng-if="hasPermission(urlPerMap.SMSMGR_SENDSMS_COMMONSMS_SEND)" role="normalSMS" ng-class="smsType=='normal'?'active':''">
+        <a data-toggle="tab" ng-click="showNormalSMS();redirect('/SmsMgr/SendSms/CommonSmsSend',true)">发送普通短信</a>
+    </li>
+    <li ng-if="hasPermission(urlPerMap.SMSMGR_SENDSMS_VARIANTSMS_SEND)" role="varSMS" ng-class="smsType=='var'?'active':''">
+        <a data-toggle="tab" ng-click="showVarSMS();redirect('/SmsMgr/SendSms/VariantSmsSend',true);">发送变量短信</a>
+    </li>
+</ul>
+<!--tab切换 end-->
+
+<div class="tab-content mar_t10">
+    <!--发送普通短信-->
+    <div role="tabpanel" class="tab-pane in active" id="normalSMS">
+        <div id="idx_content">
+            <div class="tab_con_type1">
+                <div class="first">
+                    <div class="con_left">
+                        <div class="hd">
+                            <div class="f16">
+                                添加收信人 <span class="f12">(<span id="lbl_sum" class="num">{{sendTotal}}</span>)
+					        </span><i ng-click="clearItemMainList(true)" class="icon icon_del float_r"></i>
+                            </div>
+                            <div ng-if="smsType=='normal'">
+                            <div class="clearfix mar_t20">
+                                <button ng-click="manualAddPhones()" class="btn btn_t1 icon_add float_l">
+                                    手动添加
+                                </button>
+                                <button ng-click="openContact()"
+
+                                        class="btn btn_t1 icon_book w90 float_r">
+                                    通讯录
+                                </button> <!--ng-if="hasPermission(urlPerMap.CONTACTMGR_PCONTACT_INDEX) || hasPermission(urlPerMap.CONTACTMGR_ECONTACT_INDEX)"-->
+                            </div>
+                            <div class="mar_t10">
+                                <button ng-click="importContact()" class="btn btn_t2 icon_import">导入收件人
+                                </button>
+                            </div>
+                            </div>
+                            <div ng-if="smsType=='var'">
+                                <div class="clearfix mar_t20">
+                                    <button ng-click="importContact()" class="btn btn_t1 icon_export float_l">导入收件人
+                                    </button>
+                                    <button
+                                            ng-click="openContact()" class="btn btn_t1 icon_book w90 float_r">
+                                        通讯录
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="loading" ng-show="showItemMainListTable.settings().$loading"></div>
+                            <table ng-table="showItemMainListTable" class="con user_import_list" style="width:100%;">
+                                <tr ng-repeat="item in $data track by $index ">
+                                    <td class="item type1 active">
+                                        <!--<span ng-if="item.value.charAt(0)=='p'||item.value.charAt(0)=='s'||item.value.charAt(0)=='f'">{{item.text| cutContent:true:7:"......"}}</span>
+                                        <span ng-if="item.value.charAt(0)!='p'&&item.value.charAt(0)!='s'&&item.value.charAt(0)!='f'">{{item.text}}</span>-->
+                                        {{item.text}}
+                                        <i href="javascript:;" ng-click="deleteCurItem($index,params)" class="i_r"></i>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="con_right right_border">
+                        <div class="sms_edit">
+                            <div class="f16 edit_title">编辑短信内容<div>账户余额：
+                                <b>￥{{accountInfo.balance}}</b> ， 预计可发送短信：<b>{{accountInfo.restSendNum| number}}</b>条</div></div>
+                            <form role="form" class="form_hz mar_t30 ng-pristine ng-valid">
+                                <div class="form-group mar_t10">
+                                    <label>批次名称：</label>
+                                    <input id="txt_subject" type="text" name="phraseTitle" maxlength="50"
+                                           ng-model="batchName" class="form-control inp_type1 w160"
+                                           placeholder="请输入批次名称"/>
+                                    <span id="_verify_phraseTitle"></span>
+                                </div>
+                                <div class="form-group mar_t10">
+                                    <label>业务类型：</label>
+                                    <select ng-model="selectedBizType" ng-change="toggleSendInfo()"
+                                            ng-options="bizType.name for bizType in bizTypes" class="form-control sel_type1 w160"></select>
+                                    <input type="hidden" id="bizTypeTmp" value="0">
+                                    <span id="span_biz_info" ng-show="selectedBizType!=null">&nbsp;发送时间段：<span
+                                            ng-bind="selectedBizType.startTime"></span>至<span ng-bind="selectedBizType.endTime"></span></span>
+                                </div>
+                                <div ng-if="smsType=='var'" class="form-group mar_t10">
+                                    <label>可选变量：</label>
+                                    <a href="" ng-click="pasteVar(item,$index)" ng-repeat="item in varParamsText track by $index">{{item}}|</a>
+                                </div>
+                            </form>
+                            <div class="mar_t20">
+                                <button class="btn btn_t1 icon_quote mar_r10"
+                                        ng-click="quoteSmsTemplate()" ng-if="hasQueryTemplate">引用模板
+                                </button>
+                                <button class="btn btn_t1 icon_save mar_r10" ng-click="saveSmsTemplate()" ng-if="hasAddTemplate && smsType=='normal'">存为模板
+                                </button>
+                                <button class="btn btn_t1 icon_book mar_r10" ng-click="checkKeyword()" ng-show="accountInfo.enableKeywordFilter">检测非法关键字
+                                </button>
+                                <button class="btn btn_t1 icon_chart mar_r10" ng-click="channelDetail()">通道详情
+                                </button>
+                                <!--<button class="btn btn_t1 icon_remarks mar_r10" ng-click="showRemark()">
+                                    设置备注
+                                </button>-->
+                            </div>
+                            <div class="mar_t10">
+                                <div class="zero-clipboard" ng-show="textContent.length>0">
+                                <span class="btn-clipboard glyphicon glyphicon-remove"
+                                    ng-click="clearTextContent(currentFrame.index)"></span>
+                                </div>
+                                <textarea id="textContent" ng-disabled="(seletedTemplate.phraseType==1 ||seletedTemplate.templateType ==1) && textContent.length>0" ng-model="textContent" ng-init="textContent=''"
+                                          class="text_inp_type1" placeholder="请输入短信内容" maxlength="1000"></textarea>
+                            </div>
+                            <div class="mar_t10 clearfix">
+                                <div class="form-inline">
+                                    <div class="checkbox checkbox-info">
+                                        <input type="checkbox" id="scheduled_time"
+                                               ng-model="isCheck">
+                                        <label for="scheduled_time">定时发送：</label>
+                                    </div>
+                                    <input ng-disabled="!isCheck" type="text" name="scheduledTime"
+                                           ng-model="scheduledTime"
+                                           class="form-control input-sm ng-pristine ng-valid" placeholder="开始时间" style="width: 137px;margin-right:10px;">
+                                    <div class="checkbox checkbox-info" style="margin-right: 10px;">
+                                        <input type="checkbox" id="cbx_clear_sent" ng-model="clearSent">
+                                        <label class="" for="cbx_clear_sent"><span>发送成功清空内容</span></label>
+                                    </div>
+                                    <div class="checkbox checkbox-info">
+                                        <input type="checkbox" id="cbx_distinct_phone" class="" ng-model="distinct">
+                                        <label for="cbx_distinct_phone"><span>过滤重复号码</span></label>
+                                    </div>
+                                    <div class="mar_t10">
+                                        <button class="btn btn_2x_t1 float_l" ng-click="doSendSms()">发送</button>&nbsp;<label class="mar_t10">（含签名）共<b>{{totalSize}}</b>字，预计划分<b>{{frameNum}}</b>段</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="send_preview">
+                            <div class="f16">效果预览</div>
+                            <div class="send_msg mar_t30">
+                                <div class="send_msg_in">
+                                    <ul id="preview_content">
+                                        <li style="font-size: 14px;">{{templateName}}</li>
+                                        <li>
+                                            <img class="thumbImage" ngf-src="currentFrame.previewImg"/>
+                                        </li>
+                                        <li>{{previewText}}</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="page_turn_msg mar_t20 clearfix" ng-if="smsType=='var'">
+                                <a ng-click="editFrame(currentFrame.index-1)" class="prev">&nbsp;</a>
+                                <div class="num_list">
+                                    <span id="curFrmaePage" class="num f14">{{currentFrame.index+1}}</span>/<span id="frameTotalPage" class="tot">{{viewRow.length==0?1:viewRow.length}}</span>
+                                </div>
+                                <a ng-click="editFrame(currentFrame.index+1)" class="next">&nbsp;</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="audioPlayer"></div>
+        </div>
+        <script type="text/ng-template" id="modal/sendSms.tpl.html">
+            <div class="form-group"><p>多个手机号码以空格、回车、逗号（英文）、竖线（|）其中一种方式隔开！</p>
+                <p>当前共<span >0</span>/10000个有效号码</p>
+            </div>
+            <textarea ng-model="content"  placeholder="请输入短信模板内容"></textarea>
+        </script>
+    </div>
+</div>
+

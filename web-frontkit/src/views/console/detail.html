@@ -1,0 +1,8 @@
+<div class="panel panel-default">
+    <ul class="list-group">
+        <li class="list-group-item">公告标题：{{announcement.messageTitle}}</li>
+        <li class="list-group-item">公告内容：{{announcement.content}}</li>
+        <li class="list-group-item" ng-if="announcement.updateTime != null">更新时间：{{announcement.updateTime|date:'yyyy-MM-dd HH:mm:ss'}}</li>
+        <li class="list-group-item" ng-if="announcement.updateTime == null">更新时间：{{announcement.createTime|date:'yyyy-MM-dd HH:mm:ss'}}</li>
+    </ul>
+</div>

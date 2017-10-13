@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<!-- Used by the mto client to fetch the frame -->
+<mapper namespace="com.xuanwu.mos.mapper.MoTicketMapper">
+    <resultMap id="moTicketMap" type="com.xuanwu.mos.vo.MoTicketVo" >
+        <id property="id" column="id" />
+        <result property="userId" column="user_id"/>
+        <result property="msgId" column="msg_id"/>
+        <result property="specNumber" column="spec_number"/>
+        <result property="serviceType" column="service_type"/>
+        <result property="phone" column="phone"/>
+        <result property="content" column="content"/>
+        <result property="smsType" column="sms_type"/>
+        <result property="postTime" column="post_time"/>
+        <result property="isRead" column="is_read"/>
+        <result property="enterpriseId" column="enterprise_id"/>
+        <result property="hasReply" column="has_reply"/>
+        <result property="state" column="state"/>
+        <result property="optionId" column="option_id"/>
+        <result property="handleUserId" column="handle_user_id"/>
+        <result property="lastUserId" column="last_userID"/>
+        <result property="lastModifyDate" column="last_modify_date"/>
+        <result property="userName" column="user_name"/>
+        <result property="contactName" column="contactName"/>
+        <result property="enterpriseName" column="enterprise_name"/>
+    </resultMap>
+
+    <resultMap type="com.xuanwu.mos.vo.MoReplyVo" id="moReply">
+        <id property="id" column="id" />
+        <result property="moTicketId" column="moticket_id" />
+        <result property="replyUserId" column="reply_user_id" />
+        <result property="serviceType" column="service_type" />
+        <result property="replyTime" column="reply_time" />
+        <result property="replyContent" column="reply_content" />
+        <result property="bizType" column="biz_type" />
+        <result property="msgType" column="msg_type" />
+        <result property="batchName" column="batch_name" />
+        <result property="departmentId" column="department_id" />
+        <result property="packId" column="pack_id" />
+        <result property="replyType" column="reply_type" />
+    </resultMap>
+    <sql id="Where_Clause">
+        <where>
+        u.enterprise_id = #{params.enterpriseId}
+        <if test="params.phone != null and params.phone != ''"> and m.phone = #{params.phone} </if>
+        <if test="params.userId != null and params.userId != ''"> and m.user_id =#{params.userId} </if>
+        <if test="params.hasReply > -1">
+            <choose>
+                <when test="params.hasReply == 0">and m.has_reply is false</when>
+                <when test="params.hasReply == 1">and m.has_reply is true</when>
+            </choose>
+        </if>
+        <if test="params._lk_specNumber!= null"> and m.spec_number like concat('%',#{params._lk_specNumber},'%')</if>
+        <if test="params.beginTime!= null"> and m.post_time &gt;= #{params.beginTime}</if>
+        <if test="params.endTime!= null"> and m.post_time &lt;= #{params.endTime}</if>
+        <if test="params.content != null and params.content != ''">and m.content like concat('%',#{params.content},'%')</if>
+        <if test="params.specNumber != null and params.specNumber != ''">and m.spec_number like concat('%',#{params.specNumber},'%')</if>
+        <if test="params.path!=null">and u.path like concat(#{params.path},'%')</if>
+        <if test="params.userIds != null and params.userIds.size>0">
+            and m.user_id in
+            <foreach collection="params.userIds" item="item" open="(" separator=","
+                     close=")">#{item}</foreach>
+        </if>
+        </where>
+    </sql>
+    <!-- 根据所给参数，将上行信息话单表(gsms_moticket)和企业&部门&用户信息表(gsms_user)关联查询,得到符合条件的上行信息话单记录条数 -->
+    <select id="findResultCount" resultType="int">
+        select count(m.id) from gsms_moticket as m inner join gsms_user as u
+        on m.user_id = u.id inner join gsms_user as p on p.id = u.parent_id
+        <include refid="Where_Clause"/>
+    </select>
+
+    <!-- 根据所给参数，将上行信息话单表(gsms_moticket)和企业&部门&用户信息表(gsms_user)关联，批量查询上行信息话单-->
+    <select id="findResults" resultMap="moTicketMap">
+        select m.phone, m.user_id, m.id, m.msg_id, m.spec_number,m.state,
+        m.service_type, m.content, m.post_time, m.is_read, p.enterprise_name, 
+        u.user_name,c.name contactName,m.has_reply
+        from gsms_moticket as m force index (ix_moticket_post_time)
+        inner join gsms_user as u on m.user_id = u.id
+        inner join gsms_user as p on p.id = u.parent_id
+        LEFT JOIN gsms_contact c on m.phone=c.phone
+        LEFT JOIN gsms_contact_group g on c.group_id=g.id
+        <include refid="Where_Clause"/>
+        GROUP BY m.id
+        order by m.post_time desc
+        <if test="page!=null">limit #{page.from}, #{page.size}</if>
+    </select>
+
+    <select id="addMoReply">
+        insert into gsms_moreply (moticket_id,reply_user_id,reply_time,reply_content,biz_type,msg_type,batch_name,department_id,pack_id,reply_type)
+        values(#{moTicketId},#{replyUserId},#{replyTime},#{replyContent},#{bizType},#{msgType},#{batchName},#{departmentId},#{packId},#{replyType})
+    </select>
+
+    <select id="findMoReplyCountByMoTicketId" resultType="int">
+        select count(id) from gsms_moreply where moticket_id = #{params.moTicketId}
+    </select>
+
+    <select id="findMoReplyByMoTicketId" resultMap="moReply">
+        select id,moticket_id,reply_user_id, reply_content,reply_time from gsms_moreply
+        where moticket_id = #{params.moTicketId} order by reply_time desc
+        <if test="page!=null">limit #{page.from}, #{page.size}</if>
+    </select>
+    <select id="getById" resultMap="moTicketMap">
+         select * from gsms_moticket where id = #{id}
+    </select>
+    <update id="update" parameterType="com.xuanwu.mos.vo.MoTicketVo">
+        UPDATE gsms_moticket SET has_reply= #{hasReply} WHERE id=#{id};
+    </update>
+</mapper>

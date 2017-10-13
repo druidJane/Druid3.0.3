@@ -1,0 +1,87 @@
+<ul class="nav nav-tabs nav_tabs_t1" role="tabList" id="tab">
+    <li ng-if="hasPermission(urlPerMap.SYSTEMMGR_SYSCONFIG_ENTERPRISE)" class="active">
+        <a data-toggle="tab" style="cursor:pointer;">企业信息</a>
+    </li>
+    <li ng-if="hasPermission(urlPerMap.SYSTEMMGR_SYSCONFIG_PARAMTER_CONFIG)">
+        <a data-toggle="tab" ng-click="showParameterConfig();" style="cursor:pointer;">参数设置</a>
+    </li>
+</ul>
+
+<div class="tab-content" style="margin-top:20px;">
+    <div class="tab-pane in active" id="enterprise">
+        <table class="table-hover border_none">
+            <tr>
+                <td width="12%" class="row_title">企业域：</td>
+                <td width="88%">
+                    {{options.enterprise.domain}}
+                </td>
+            </tr>
+            <tr>
+                <td class="row_title">企业名称：</td>
+                <td>
+                    {{options.enterprise.enterpriseName}}
+                </td>
+            </tr>
+            <tr>
+                <td class="row_title">企业签名：</td>
+                <td>
+                    {{options.enterprise.signature}}
+                </td>
+            </tr>
+            <tr>
+                <td class="row_title">签名位置：</td>
+                <td ng-if="options.enterprise.sigLocation == 0">
+                    后置
+                </td>
+                <td ng-if="options.enterprise.sigLocation == 1">
+                    前置
+                </td>
+            </tr>
+            <tr>
+                <td class="row_title">付费方式：</td>
+                <td>
+                    {{options.capitalAccount.showPayingWay}}
+                </td>
+            </tr>
+            <tr>
+                <td class="row_title">账户余额：</td>
+                <td>
+                    {{options.capitalAccount.balance | number:4}} 元
+                </td>
+            </tr>
+            <tr>
+                <td class="row_title">短信单价：</td>
+                <td>
+                    {{options.enterprise.smsPrice | number:4}} 元/条
+                </td>
+            </tr>
+            <tr>
+                <td class="row_title">彩信单价：</td>
+                <td>
+                    {{options.enterprise.mmsPrice | number:4}} 元/条
+                </td>
+            </tr>
+            <tr>
+                <td class="row_title">余额信息：</td>
+                <td ng-if="diffAccount.chargeRatio != 0">
+                    总账户余额：{{diffAccount.balance | number:4}}元；子账户余额：{{diffAccount.childBalance | number:4}}元；剩余信用额度：{{diffAccount.differenceBalance | number:4}}元
+                </td>
+                <td ng-if="diffAccount.chargeRatio == 0">
+                    总账户余额：{{diffAccount.balance | number:4}}元；子账户余额：{{diffAccount.childBalance | number:4}}元；剩余信用额度：无限制
+                </td>
+            </tr>
+            <tr>
+                <td class="row_title">联系人：</td>
+                <td>
+                    {{options.enterprise.linkMan}}
+                </td>
+            </tr>
+            <tr>
+                <td class="row_title">联系电话：</td>
+                <td>
+                    {{options.enterprise.phone}}
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>

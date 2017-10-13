@@ -1,0 +1,43 @@
+<form class="form-horizontal w5c-form" name="form" w5c-form-validate="" novalidate>
+    <table class="batch_detail">
+        <tbody><tr class="bor_btm">
+            <td class="tit">
+                <span class="red">*</span>角色名称
+            </td>
+            <td>
+                <input class="form-control" type="text" style="width: 50%;" id="name" name="name" ng-model="role.name" ng-maxlength="50" required/>
+            </td>
+        </tr>
+        <tr class="bor_btm">
+            <td class="tit">
+                <span class="red">*</span>角色类型
+            </td>
+            <td>
+                <div class="radio_set">
+                    <label>
+                        <input name="industryType" type="radio" ng-disabled="1" ng-model="role.industryType" ng-checked="role.industryType.index==0" value="0" id="radio-01" class="regular-radio ng-pristine ng-valid ng-valid-required valid" required>
+                        <label for="radio-01"></label>
+                        <label>基础角色</label>
+                    </label>
+                </div>
+            </td>
+        </tr>
+        <tr class="bor_btm">
+            <td class="tit">
+                <span class="red">*</span>权限
+            </td>
+            <td>
+                <tree-viewer items="perms" map="permMap" selected="selectPerms"></tree-viewer>
+            </td>
+        </tr>
+        <tr class="bor_btm">
+            <td class="tit">
+                描述
+            </td>
+            <td>
+                <textarea class="form-control" cols="5" rows="6" id="remark" name="remark" ng-model="role.remark" ng-maxlength="200"></textarea>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</form>

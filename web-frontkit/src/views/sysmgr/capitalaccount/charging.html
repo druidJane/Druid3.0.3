@@ -1,0 +1,29 @@
+<form class="form-horizontal w5c-form" name="form" w5c-form-validate="vm" novalidate="" role="form">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <table class="table table-bordered middle">
+                <tbody>
+                <tr>
+                    <td width="15%" class="row_title"> 账户名称：</td>
+                    <td width="85%">
+                        <label>{{chargeAccount.accountName}}</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="15%" class="row_title"> 余额：</td>
+                    <td width="85%">
+                        <label>{{chargeAccount.balance|number:4}}</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="20%" class="row_title"> 本次充值金额：</td>
+                    <td width="80%">
+                        <input type="number" class="form-control input-sm" style="width: 50%;" ng-model="chargeAccount.chargeMoney" ng-pattern="/^(-)?\d+(\.\d{1,4})?$/" required/>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        <!-- end panel body -->
+    </div>
+    <!-- end panel -->
+</form>

@@ -1,0 +1,82 @@
+﻿<form class="form-inline table-toolbar">
+    <div class="search_box">
+    <div class="form-group">
+        <button ng-if="hasPermission(urlPerMap.INFO_BLACKLIST_ADD)" type="button" class="btn btn_t1 icon_add mar_r10" ng-click="addBlacklist();">新增
+        </button>
+        <button ng-if="hasPermission(urlPerMap.INFO_BLACKLIST_DEL)" type="button" class="btn btn_t3 icon_delete mar_r10" ng-click="deleteBlacklists()">删除
+        </button>
+        <button ng-if="hasPermission(urlPerMap.INFO_BLACKLIST_IMPORT)" type="button" class="btn btn_t1 icon_export mar_r10" ng-click="importBlacklists()">导入
+        </button>
+        <button ng-if="hasPermission(urlPerMap.INFO_BLACKLIST_EXPORT)" type="button" class="btn btn_t1 icon_import mar_r10" ng-click="exportBlacklists()">导出
+        </button>
+    </div>
+    <div class="form-group pull-right">
+        <div class="form-group">
+            <label class="label">手机号码</label>
+            <input type="text" onkeyup="(this.v=function(){this.value=this.value.replace(/[^0-9-]+/,'');}).call(this)" onblur="this.v();"
+                   ng-model="blacklistParams._lk_phone" class="form-control  input-sm" aria-describedby="basic-addon" maxlength="12">
+        </div>
+        <div class="form-group">
+            <label class="label">黑名单类型</label>
+            <select class="form-control input-sm" ng-model="blacklistParams.type" ng-init="blacklistParams.type=9"ng-change="changeBlacklistType();">
+                <option value="9">请选择</option>
+                <option value="2">企业</option>
+                <option value="0">用户</option>
+                <option value="5">业务类型</option>
+            </select>
+        </div>
+        <div class="form-group" ng-if="blacklistParams.type==2">
+            <label class="label">企业名称</label>
+            <label class="label">
+                {{enterprise.name}}
+            </label>
+        </div>
+        <div class="form-group" ng-if="blacklistParams.type==0">
+            <label class="label">用户账号</label>
+            <label angucomplete-alt id="domain" selected-object="domain.item" field-required="true" pause="100" remote-url="{{EntDomains}}"
+                              title-field="name" input-changed="watchDomain"
+                              minlength="0" input-class="form-control  input-sm" matchclass="highlight"
+                   remote-url-data-field="data" ng-model="domain.item" ></label>
+        </div>
+        <div class="form-group" ng-if=" blacklistParams.type == 5">
+            <label class="label">业务类型名称</label>
+            <label>
+                <angucomplete-alt id="domain" selected-object="domain.item" field-required="true" pause="100" remote-url="{{EntDomains}}"
+                              title-field="name"
+                              minlength="0" input-class="form-control  input-sm" matchclass="highlight"
+                                  remote-url-data-field="data" ng-model="domain.item"></angucomplete-alt>
+            </label>
+        </div>
+        <div class="form-group">
+            <button type="button" class="btn btn_search" ng-click="searchBlacklists()">查询</button>
+        </div>
+    </div>
+    </div>
+</form>
+<div class="table_t1 mar_t10">
+    <div class="fixed-table-container">
+    <div class="loading" ng-show="blacklistsTable.settings().$loading"></div>
+    <table ng-table="blacklistsTable" class="table table-hover" template-pagination="custom/pager">
+        <tbody>
+            <tr ng-id="$data" ng-repeat="blacklist in $data">
+                <td width="30" data-title="&nbsp;" header="'ng-table/headers/checkbox.html'">
+                    <div class="checkbox checkbox-info">
+                        <input name="id" value="{{blacklist.id}}" ng-checked="blacklist.$checked" ng-click="checkOne(blacklist);" type="checkbox">
+                        <label></label>
+                    </div>
+                </td>
+                <td data-title="'手机号码'" align="center">
+                    </a>{{blacklist.phone}}</td>
+                <td data-title="'黑名单类型'" align="center">
+                    </a>{{blacklist.tmpTypeName}}</td>
+                <td data-title="'所属对象'" align="center">{{blacklist.targetName}}</td>
+                <td width="30%" data-title="'备注'" align="center">{{blacklist.remark}}</td>
+            </tr>
+
+			<tr ng-show="$data==0" align="center">
+                <td colspan="5"><div class="bootstrapTable_noData"><div></div><p>没有找到相关数据！</p></div></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+</div>

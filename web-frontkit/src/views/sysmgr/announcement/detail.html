@@ -1,0 +1,41 @@
+<table class="table table-bordered midden">
+    <tbody>
+    <tr>
+        <td class="row_title col-sm-3" align="right">公告标题：</td>
+        <td>
+            <p ng-bind="announcement.title"/>
+        </td>
+    </tr>
+    <tr>
+        <td class="row_title col-sm-3" align="right">公告内容：</td>
+        <td>
+            <textarea cols="30" rows="5" ng-disabled="1" ng-model="announcement.content"></textarea>
+        </td>
+    </tr>
+    <tr>
+        <td class="row_title col-sm-3" align="right">显示设置：</td>
+        <td>
+            <p ng-bind="announcement.showState == 1 ? '显示':'隐藏'"></p>
+        </td>
+    </tr>
+    <tr>
+        <td class="row_title col-sm-3" align="right">创建人：</td>
+        <td>
+            <p ng-bind="announcement.postUserName"></p>
+        </td>
+    </tr>
+    <tr>
+        <td class="row_title col-sm-3" align="right">创建时间：</td>
+        <td>
+            <p ng-bind="announcement.postTime|date:'yyyy-MM-dd HH:mm:ss'"></p>
+        </td>
+    </tr>
+    <tr>
+        <td class="row_title col-sm-3" align="right">更新时间：</td>
+        <td>
+            <p ng-if="announcement.updateTime != null" ng-bind="announcement.updateTime|date:'yyyy-MM-dd HH:mm:ss'"></p>
+            <p ng-if="announcement.updateTime == null" ng-bind="announcement.postTime|date:'yyyy-MM-dd HH:mm:ss'"></p>
+        </td>
+    </tr>
+    </tbody>
+</table>

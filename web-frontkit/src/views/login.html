@@ -1,0 +1,189 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ng="http://angularjs.org" style="height:100%;">
+
+<head>
+    <title>即信·集团短信前台 - 用户登录</title>
+    <meta name="author" content="XuanWu Inc." />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <!-- disable browser cache -->
+    <meta http-equiv="cache-control" content="max-age=0" />
+    <meta http-equiv="cache-control" content="no-cache" />
+    <meta http-equiv="expires" content="0" />
+    <meta http-equiv="expires" content="Tue, 01 Jan 1980 1:00:00 GMT" />
+    <meta http-equiv="pragma" content="no-cache" />
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/json3/3.2.6/json3.min.js"></script>
+    <![endif]-->
+    <!--[if lte IE 8]>
+    <script>
+        document.createElement('ng-include');
+        document.createElement('ng-pluralize');
+        document.createElement('ng-view');
+        document.createElement('ng-table');
+
+        // Optionally these for CSS
+        document.createElement('ng:include');
+        document.createElement('ng:pluralize');
+        document.createElement('ng:view');
+    </script>
+    <![endif]-->
+	<link rel="icon" href="favicon.ico" type="image/x-icon" />
+    <link type="text/css" rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css" />
+    <link type="text/css" rel="stylesheet" href="vendor/angular-w5c-validator/css/style.css" />
+    <link type="text/css" rel="stylesheet" href="vendor/toastr/css/toastr.min.css" />
+    <link type="text/css" rel="stylesheet" href="styles/default/login.css" />
+    <script type="text/javascript" src="vendor/jquery/js/jquery.min.js"></script>
+    <script type="text/javascript" src="vendor/jquery-ui/js/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="vendor/angular/js/angular.min.js"></script>
+    <script type="text/javascript" src="vendor/angular-route/js/angular-route.min.js"></script>
+    <script type="text/javascript" src="vendor/angular-strap/js/angular-strap.min.js"></script>
+    <script type="text/javascript" src="vendor/angular-strap/js/angular-strap.tpl.min.js"></script>
+    <script type="text/javascript" src="vendor/angular-cookies/js/angular-cookies.js"></script>
+    <script type="text/javascript" src="vendor/angular-w5c-validator/js/w5cValidator.min.js"></script>
+    <script type="text/javascript" src="vendor/toastr/js/toastr.min.js"></script>
+    <script type="text/javascript" src="scripts/config.js"></script>
+</head>
+
+<body ng-controller="loginCtrl" style="height:100%;">
+<div class="login_wrap">
+    <div class="login_content" id="login_content" style="display:none;">
+        <div class="l_main">
+            <form name="loginForm" novalidate>
+                <div class="hd"><img src="styles/default/images/logo_mos.png" alt=""/> <span style="color:#FFF;float:right; padding-top:90px;position:absolute;left:325px;">{{webversion}}</span></div>
+                <div class="login_main mar_t20">
+                    <div class="login_inp position_r login_user">
+                        <input tabindex="1" class="inp clear_input" type="text" placeholder="用户名" name="username" id="username" ng-model="loginParams.username" autocomplete="off"
+                               ng-blur="usernameRequire=loginForm.username.$error.required;" ng-focus="showUserNameX=true;showPasswdX=false;showVerifyCodeX=false" required/>
+                        <a  ng-show = "showUserNameX" tabindex="-1" href="javascript:;" class="clear" ng-click="loginParams.username=''">x</a>
+                        <div class="error_user"  ng-show="usernameRequire">
+                            <i class="arrow"></i>
+                            <div >输入的用户名不能为空。</div>
+                        </div>
+                    </div>
+                    <div class="login_inp mar_t10 position_r login_password">
+                        <input tabindex="2" class="inp clear_input" type="password"  placeholder="登录密码" name="password" id="password" ng-model="loginParams.password" autocomplete="off"
+                               ng-blur="passwdRequire=loginForm.password.$error.required;" ng-focus="usernameRequire=loginForm.username.$error.required;showPasswdX=true;showUserNameX=false;showVerifyCodeX=false;"  required/>
+                        <a  ng-show = "showPasswdX" tabindex="-1" href="javascript:;" class="clear" ng-click="loginParams.password=''">x</a>
+                        <div class="error_user"  ng-show="passwdRequire">
+                            <i class="arrow"></i>
+                            <div>输入的密码不能为空。</div>
+                        </div>
+                    </div>
+                    <div class="clearfix mar_t10" id="imageCode" >
+                        <div class="login_inp position_r">
+                            <input tabindex="3" class="inp clear_input" type="text" id="Code" name="imgCode" placeholder="图形验证码" ng-model="loginParams.imgVerifyCode"
+                                   ng-blur="imgCodeRequire=loginForm.imgCode.$error.required;" ng-focus="usernameRequire=loginForm.username.$error.required;passwdRequire=loginForm.password.$error.required;showVerifyCodeX=true;showUserNameX=false;showPasswdX=false;" required/>
+                            <a ng-show = "showVerifyCodeX" tabindex="-1" style="right:90px;" href="javascript:;" class="clear" ng-click="loginParams.imgVerifyCode=''">x</a>
+                            <div class="code_box float_r"><img ng-src="{{codeUrl}}" src="#" ng-click="refreshImgCode();"></div>
+                            <div class="error_user" ng-show="imgCodeRequire">
+                                <i class="arrow"></i>
+                                <div>输入的验证码不能为空。</div>
+                            </div>
+                        </div>
+                    </div>
+                    <button tabindex="4" class="btn btn_2x_t1 mar_t20 login_btn" ng-disabled="loginForm.$invalid || loginForm.$pristine" ng-click="doLogin()">登 录</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="fullscreen-posting" style="display:none;">
+        <div class="loading"><span class="img"></span> 正在提交数据，请稍等...</div>
+    </div>
+    <div class="copyright text-center">
+        <p>Copyright © 2017 广州市玄武无线科技股份有限公司 All Rights Reserved</p>
+    </div>
+</div>
+    <script type="text/javascript" src="vendor/requirejs/js/require.js" data-main="scripts/login/main"></script>
+</body>
+
+</html>
+
+<script type="text/ng-template" id="modal/common.tpl.html">
+    <div class="modal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog {{diagCls ? diagCls : ''}}">
+            <div class="modal-content">
+                <div class="modal-header" ng-show="title">
+                    <button type="button" class="close" aria-label="Close" ng-click="$hide()">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <span class="modal-title" ng-bind="title"></span>
+                </div>
+                <div class="modal-body" ng-bind="content"></div>
+                <div class="modal-footer">
+                    <button type="button" ng-if="!notFormInvalid" class="btn btn-sm modal-btn" ng-hide="okBtn.hide" ng-disabled="form.$invalid || form.$pristine" ng-click="okBtn.click()">{{okBtn.text}}
+                    </button>
+                    <button type="button" ng-if="notFormInvalid" class="btn btn-sm modal-btn" ng-hide="okBtn.hide" ng-click="okBtn.click()">{{okBtn.text}}
+                    </button>
+                    <button type="button" class="btn btn-sm modal-btn-close" ng-hide="closeBtn.hide" ng-click="$hide()">关闭
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+
+<script type="text/ng-template" id="modal/validateForm.tpl.html">
+    <form class="w5c-form form-horizontal text-center" name="form" w5c-form-validate="" novalidate>
+        <div>
+            <div class="form-group">
+                <div >
+                    <span style="color: Red;">当前登录IP不属于企业信任IP，请输入企业手机号码验证登录</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-4 control-label"><span style="color: Red;">*</span>手机号码</label>
+                <div class="col-sm-5">
+                    <input type="text" class="form-control input-sm" ng-model="validate.phone" placeholder="请输入企业绑定的号码" name="phone" ng-pattern="/^(1[3|4|5|7|8]\d{9})$/" required />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-4 control-label"><span style="color: Red;">*</span>动态验证码</label>
+                <div class="col-sm-5">
+                    <input type="text" class="form-control input-sm" ng-model="validate.code" placeholder="请输入验证码" name="code" maxlength="6" minlength="6" required ng-pattern="/^[0-9_a-zA-Z]{6,6}$/" >
+                </div>
+                <div class="col-sm-3">
+                    <button type="button" class="btn btn-sm btn_none_radius can_click" ng-click="getCode();"  ng-disabled="form.phone.$invalid || !validate.valid" style="width:100px;margin-right: 40px">{{validate.msg}}</button>
+                    &nbsp;
+                </div>
+            </div>
+        </div>
+    </form>
+</script>
+
+<script type="text/ng-template" id="modal/changePasswd.tpl.html">
+    <form class="w5c-form form-horizontal text-center" name="form" w5c-form-validate="" novalidate>
+        <div class="content">
+            <div class="form-group">
+                <div >
+                    <span style="color: red;">{{tip}}</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-5 control-label"><span style="color:red;">*</span>旧密码</label>
+                <div class="col-sm-4">
+                    <input type="password" id="oldPassword" name="oldpassword" ng-model="password.oldPassword"  class="form-control" required/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label  class="col-sm-5 control-label"><span style="color:red;">*</span>新密码</label>
+                <div class="col-sm-4">
+                    <input type="password" id="newPassword" name="password" ng-model="password.newPassword" class="form-control" required
+                           ng-pattern="/^(?![\d]+$)(?![a-zA-Z]+$)(?=[\da-zA-Z]+$).{8,20}$/"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label  class="col-sm-5 control-label"><span style="color:red;">*</span>确认新密码</label>
+                <div class="col-sm-4">
+                    <input type="password" id="secondPassword" name="repeatPassword" ng-model="password.secondPassword" class="form-control" required
+                           w5c-repeat="password"/>
+                </div>
+            </div>
+        </div>
+    </form>
+</script>
+
+

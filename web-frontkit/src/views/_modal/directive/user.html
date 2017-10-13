@@ -1,0 +1,17 @@
+<label class="label">{{params.labelDescription}}</label>
+<label angucomplete-alt id="{{autoId}}"
+       placeholder="{{params.placeholderDescription}}"
+       maxlength="50"
+       selected-object="completeUser.sendUser"
+       field-required="false"
+       pause="100"
+       search-fields="name"
+       title-field="name"
+       remote-url-data-field="data"
+       remote-url="{{completeUser.userPath}}"
+       minlength="0"
+       input-class="form-control input-sm"
+       input-changed="watchUserChange"
+       text-no-results="查不到相关记录"
+       match-class="highlight">
+</label>

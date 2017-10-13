@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.xuanwu.cmp.mapper.CarrierTelesegMapper">
+
+
+    <!-- entity  运营商号码段实体，存放运营商号码段信息，包含运营商号码段信息表(gsms_carrier_teleseg_map)的所有字段，并包含了运营商信息表(gsms_carrier)的(id,name)字段-->
+    <resultMap id="carrierTelesegResult" type="carrierTeleseg">
+        <id property="id" column="id"/>
+        <result property="phone" column="phone"/>
+        <result property="showed" column="showed"/>
+        <result property="sort" column="sort"/>
+        <result property="handleTime" column="handle_time"/>
+        <association property="carrier"
+                     javaType="com.xuanwu.mos.domain.entity.Carrier">
+            <id property="id" column="carrier_id"/>
+            <result property="name" column="carrier_name"/>
+        </association>
+
+    </resultMap>
+
+    <sql id="findResultsSql">
+        where a.showed=1
+        <if test="params.carrier!=null and params.carrier.id!='' and params.carrier.id!=-1">and carrier_id=#{params.carrier.id}</if>
+        <if test="params.phone!=null and params.phone!=''">and phone like concat('%',#{params.phone},'%')</if>
+    </sql>
+
+    <select id="findResultCount" resultType="int" parameterType="map">
+        select count(*) from gsms_carrier_teleseg_map a
+        <include refid="findResultsSql"/>
+    </select>
+
+    <select id="findResults" resultMap="carrierTelesegResult" parameterType="map">
+        select
+        a.id as id,
+        a.phone as phone,
+        a.showed as showed,
+        b.id as
+        carrier_id,
+        b.name as carrier_name/*,
+        a.handle_time as handle_time*/
+        from
+        gsms_carrier_teleseg_map a
+        left join gsms_carrier b on
+        a.carrier_id=b.id
+        <include refid="findResultsSql"/>
+        <choose>
+            <when test="sorts.name!=null">order by b.name ${sorts.name}</when>
+            <when test="sorts.phone!=null">order by a.phone ${sorts.phone}</when>
+        </choose>
+        <if test="page != null">limit #{page.from}, #{page.size}</if>
+    </select>
+
+    <select id="getById" resultMap="carrierTelesegResult" parameterType="int">
+       	select	a.id as id,
+		a.phone as phone,
+		a.showed as showed,
+		b.id as	carrier_id,
+		b.name as carrier_name,
+		a.handle_time as handle_time
+		from gsms_carrier_teleseg_map a
+		left join gsms_carrier b on
+		a.carrier_id=b.id
+		where a.showed=1
+		and a.id=#{id}
+    </select>
+
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into
+		gsms_carrier_teleseg_map(phone,carrier_id,showed,handle_time)
+		values(#{phone},#{carrier.id},#{showed},#{handleTime})
+    </insert>
+
+    <update id="update">
+       	update gsms_carrier_teleseg_map set
+		carrier_id=#{carrier.id},
+		phone=#{phone},
+		showed=#{showed},
+		handle_time=#{handleTime}
+		where
+		id=#{id}
+    </update>
+
+    <delete id="deleteById">
+    delete from gsms_carrier_teleseg_map where id=#{id}
+    </delete>
+
+    <select id="findCarrierTelesegByPhone" resultMap="carrierTelesegResult">
+        select
+        a.id as id,
+        a.phone as phone,
+        a.showed as showed,
+        b.id as
+        carrier_id,
+        b.name as carrier_name,
+        a.handle_time as handle_time
+        from
+        gsms_carrier_teleseg_map a
+        left join gsms_carrier b on
+        a.carrier_id=b.id
+        where a.showed=1 and phone = left( #{params.phone} ,3) or phone = left( #{params.phone} ,4)
+    </select>
+
+
+    <select id="findCarrierTelesegCountByPhone" resultType="int">
+        select count(*) from gsms_carrier_teleseg_map where (phone = left( #{params.phone} ,3) or phone = left(
+        #{params.phone} ,4))
+        <if test="params.carrierId!=null and params.carrierId !=-1">
+            and carrier_id=#{params.carrierId}
+        </if>
+    </select>
+
+    <!-- 运营商号码段验证 -->
+    <select id="countCarrierTelesegLike" resultType="int">
+        select
+        count(*) as num
+        from gsms_carrier_teleseg_map
+        where phone LIKE CONCAT(#{params.phone},'%') or phone in
+        <foreach collection="params.phoneList" item="subPhone" open="(" separator="," close=")">
+            #{subPhone}
+        </foreach>
+    </select>
+
+
+    <select id="countCarrierTelesegEq" resultType="int">
+        select
+        count(*) as num
+        from gsms_carrier_teleseg_map
+        where phone = #{params.phone}
+    </select>
+
+</mapper>

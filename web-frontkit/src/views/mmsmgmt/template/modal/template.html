@@ -1,0 +1,22 @@
+<div id="div_preview_mms" style="display: block;">
+    <a class="closeButton" href="javascript:;" onclick="_mms.player.destroyDiag();"></a>
+    <div class="phone" style="height: 420px;">
+        <div>
+            <ul id="preview_content">
+                <li style="font-size: 14px;">{{templateName}}</li>
+                <li>
+                    <img class="thumbImage" ngf-src="currentFrame.previewImg"/>
+                </li>
+                <li>{{currentFrame.previewText}}</li>
+            </ul>
+        </div>
+    </div>
+    <div class="page_turn_msg mar_t20 clearfix">
+        <a ng-click="editFrame(currentFrame.index-1)" class="prev">&nbsp;</a>
+        <div class="num_list">
+            <span id="curFrmaePage" class="num f14">{{currentFrame.index+1}}</span>/<span id="frameTotalPage" class="tot">{{frames.length}}</span>
+        </div>
+        <a ng-click="editFrame(currentFrame.index+1)" class="next">&nbsp;</a>
+    </div>
+    <spqn ng-hidden="true" ng-model="currentFrame.index"></spqn>
+</div>

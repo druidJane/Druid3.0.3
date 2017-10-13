@@ -1,0 +1,67 @@
+<form class="form-inline table-toolbar">
+    <div class="search_box">
+        <div class="pull-left">
+            <div class="form-group">
+                <label class="label">操作人</label>
+                <div style="display: inline-block;">
+                    <angucomplete-alt id="completeUserName"
+                                      selected-object="watchUserName"
+                                      input-changed="watchUserName"
+                                      maxlength="50"
+                                      pause="100"
+                                      remote-url="{{acompleteUserNameUrl}}"
+                                      title-field="name"
+                                      minlength="1"
+                                      input-class="form-control input-sm"
+                                      search-fields="name"
+                                      matchclass="highlight"
+                                      remote-url-data-field="data"
+                                      required=""
+                                      text-no-results="查不到相关记录"
+                                      class="angucomplete-holder" ng-model="completeUserName"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="label">操作类型</label>
+                <select  class="form-control input-sm" ng-model="params.operationType">
+                    <option value="">请选择</option>
+                    <option ng-repeat="(key,value) in operateTypes" value="{{key}}">{{value}}</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="label">操作对象</label>
+                <input type="text" ng-model="params.operationObj" class="form-control input-sm" />
+            </div>
+            <div class="form-group">
+                <label class="label">操作时间</label>
+                <input type="text" name="startTime" ng-model="params.startTime" class="form-control input-sm" placeholder="开始时间" style="width: 137px" /> 至
+                <input type="text" name="endTime" ng-model="params.endTime" class="form-control input-sm" placeholder="结束时间" style="width: 137px"/>
+            </div>
+            <div class="form-group">
+                <button type="button" class="btn btn_search" ng-click="search();">查询</button>
+            </div>
+        </div>
+        <div style="clear: both;"></div>
+    </div>
+</form>
+<div class="table_t1 mar_t10">
+    <div class="fixed-table-container">
+    <div class="loading" ng-show="sysLogTable.settings().$loading"></div>
+    <table ng-table="sysLogTable" class="table table-hover" template-pagination="custom/pager">
+        <tbody>
+            <tr ng-repeat="sysLog in $data">
+                <td data-title="cols[0].title" ng-if="cols[0].show" align="center">
+                    {{sysLog.userName}}
+                </td>
+                <td data-title="cols[1].title" ng-if="cols[1].show" align="center">{{sysLog.showOperationType}}</td>
+                <td data-title="cols[2].title" ng-if="cols[2].show" align="center">{{sysLog.operationObj}}</td>
+                <td data-title="cols[3].title" ng-if="cols[3].show" align="center">{{sysLog.content}}</td>
+                <td data-title="cols[4].title" ng-if="cols[4].show" align="center" sortable="'operateTime'">{{sysLog.operateTime|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+            </tr>
+            <tr ng-show="$data==0" align="center">
+                <td colspan="5"><div class="bootstrapTable_noData"><div></div><p>没有找到相关数据！</p></div></td>
+            </tr>
+     </tbody>
+ </table>
+</div>
+</div>

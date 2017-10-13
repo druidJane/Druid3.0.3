@@ -1,0 +1,106 @@
+﻿<form class="form-inline table-toolbar">
+	<div class="search_box">
+        <div class="pull-left">
+        	<div class="form-group">
+                <label class="label">业务类型</label>
+                <select class="form-control input-sm" ng-model="params.bizType" >
+                	<option  ng-repeat="x in bizType" value="{{x.id}}" ng-selected="number==x.id">{{x.name}}</option>
+                </select>
+            </div>
+            <div class="form-group statistics-bg">
+                <div class="statistics_tab">
+                    <input ng-click="dayChange();" type="radio" id="testTabRadio1" class="statistics_radio" name="tab" checked="checked" />
+                    <label class="statistics_label" for="testTabRadio1">日统计</label>
+                </div>
+                <div class="statistics_tab">
+                    <input ng-click="monthChange();" type="radio" id="testTabRadio2" class="statistics_radio" name="tab" />
+                    <label class="statistics_label" for="testTabRadio2">月统计</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="label">日期</label>
+                <input type="text" name="beginDate" ng-model="params.beginDate" class="form-control input-sm" placeholder="开始时间" style="width: 137px" /> 至
+                <input type="text" name="endDate" ng-model="params.endDate" class="form-control input-sm" placeholder="结束时间" style="width: 137px"/>
+            </div>
+
+            <div class="form-group">
+                <label class="label">信息类型</label>
+                <select  class="form-control input-sm" ng-model="params.smsType">
+                    <option value="0">短信</option>
+                    <option value="1">彩信</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <button type="button" class="btn btn_search" ng-if="hasPermission(urlPerMap.STATISTICS_SUMSTATISTICS_GETSUMBUSINESSTYPE);" ng-click="searchBusiStat();">查询</button>
+            </div>
+            <div class="form-group">
+                <button type="button" class="btn btn_t1 icon_import"  ng-if="hasPermission(urlPerMap.STATISTICS_SUMSTATISTICS_EXPORTBUSINESSTYPE);" ng-click="exportBusiStat()">导出</button>
+            </div>
+        </div>
+	</div>
+</form>
+<div class="container_box mar_t10">
+	<div class="statistics stat_tab_con">
+		<div class="item item2 total-data">
+			<div class="num" id="allSubmitSum_yesterday">
+				<div ng-if="d1.allSubmitSum!=null">{{d1.allReceiveSum}}</div>
+				<div ng-if="d1.allSubmitSum ==null">0</div>
+			</div>
+			<div class="detail">总提交量</div>
+			<div class="line"></div>
+		</div>
+		<div class="item item1 total-data">
+				
+			<div class="num" id="allReceiveSum_yesterday">
+				<div ng-if="d1.allSubmitSum!=null">{{d1.allSendSum}}</div>
+				<div ng-if="d1.allSubmitSum ==null">0</div>
+			</div>
+			<div class="detail">总发送量</div>
+			<div class="line"></div>
+		</div>
+		<div class="item item3 total-data">
+			<div class="num" id="allSuccessSum_yesterday">
+				<div ng-if="d1.allSubmitSum!=null">{{d1.allSuccessSum}}</div>
+				<div ng-if="d1.allSubmitSum ==null">0</div>
+			</div>
+			<div class="detail">总成功量</div>
+		</div>
+	</div>
+</div>
+
+<div class="table_t1 mar_t10">
+	<div class="fixed-table-container  loading-container">
+    <div class="loading" ng-show="bizStatTable.settings().$loading"></div>
+    <table ng-table="bizStatTable" class="table table-hover" template-pagination="custom/pager">
+        <tbody>
+            <tr ng-repeat="bizStat in $data">
+                <td data-title="cols[1].title" ng-if="cols[1].show" align="center">{{bizStat.statDateStr}}</td>
+                <td data-title="cols[0].title" ng-if="cols[0].show" align="center">{{bizStat.bizTypeName}}</td>
+                <td data-title="cols[2].title" ng-if="cols[2].show" align="center" sortable="'allReceiveSum'">{{bizStat.allReceiveSum}}</td>
+                <td data-title="cols[3].title" ng-if="cols[3].show" align="center" sortable="'allSendSum'">{{bizStat.allSendSum}}</td>
+                <td data-title="cols[4].title" ng-if="cols[4].show" align="center" sortable="'allSuccessSum'">{{bizStat.allSuccessSum}}</td>
+                <td data-title="cols[5].title" ng-if="cols[5].show" align="center">{{bizStat.successSumYD}}</td>
+                <td data-title="cols[6].title" ng-if="cols[6].show" align="center">{{bizStat.successSumLT}}</td>
+                <td data-title="cols[7].title" ng-if="cols[7].show" align="center">{{bizStat.successSumCDMA}}</td>
+                <td data-title="cols[8].title" ng-if="cols[8].show" align="center">{{bizStat.successSumXLT}}</td>
+            </tr>
+			<tr ng-show="$data==0" align="center">
+                <td colspan="9"><div class="bootstrapTable_noData"><div></div><p>没有找到相关数据！</p></div></td>
+            </tr>
+     </tbody>
+ </table>
+</div>
+</div>
+
+<div class="volume_app">
+    <ul class="nav nav-tabs volume_title" ng-if="hasApp">
+        <li role="presentation" ng-repeat="stat in stats">
+            <a href="javascript:;" ng-click="toggleStat();">{{stat.name}}</a>
+        </li>
+    </ul>
+    
+    <div class="volume_main" ng-if="hasApp">
+        <div id="echart" style="width: 100%;height: 300px">
+        </div>
+    </div>
+</div>

@@ -1,0 +1,15 @@
+<div style="overflow: auto; height: 350px;">
+    <table ng-table="invalidPhoneTable" class="table table-hover"
+           template-pagination="custom/pager">
+        <tbody>
+        <tr ng-repeat="invalidPhone in $data">
+            <td width="30%" data-title="'号码'" align="center">
+                <span>{{invalidPhone.value|ltrim:'p'}}</span>
+            </td>
+            <td width="30%" data-title="'失败原因'" align="center">
+                <span>{{invalidPhone.reason}}</span>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>

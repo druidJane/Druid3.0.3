@@ -1,0 +1,34 @@
+<form class="form-inline table-toolbar">
+    <div>
+        <label>任务名称 ： </label><input type="text" ng-disabled="showParams.selectFileButton"  class="form-control" ng-maxlength="50" disabled="disabled" />
+        <br>
+    </div>
+    <br>
+    <div class="radio_set" ng-if="exportParams.messageExport"><label>导出类型：</label>
+        <input ng-model="importParams.exportType" value="1" type="radio" id="radio-1" name="radio-set" class="regular-radio" /><label for="radio-1"></label><label>按日分文件导出</label>&nbsp;
+        <input ng-model="importParams.exportType" value="2" type="radio" id="radio-2" name="radio-set" class="regular-radio" /><label for="radio-2"></label><label>整量导出</label>&nbsp;
+    </div>
+    <div class="radio_set"><label>文件类型：</label>
+        <input ng-model="importParams.fileType" value="excel" type="radio" id="fileType01" name="radio-set-1" class="regular-radio"/>
+        <label for="fileType01"></label><label>Excel文件</label>&nbsp;
+        <input ng-model="importParams.fileType" value="txt" type="radio" id="fileType02" name="radio-set-2" class="regular-radio" />
+        <label for="fileType02"></label><label>Txt文件</label>&nbsp;
+        <input ng-model="importParams.fileType" value="csv" type="radio" id="fileType03" name="radio-set-3" class="regular-radio" />
+        <label for="fileType03"></label><label>Csv文件</label>
+    </div>
+    <div ng-show="importParams.fileType == 'txt'">
+        <div class="radio_set"><label>分隔符号：</label>
+            <input ng-model="importParams.delimiter" value="," type="radio" id="rad_delimiter0" name="delimiter1" class="regular-radio"/>
+            <label for="rad_delimiter0"></label><label>逗号</label>&nbsp;
+            <input ng-model="importParams.delimiter" value="\|" type="radio" id="rad_delimiter1" name="delimiter2" class="regular-radio" />
+            <label for="rad_delimiter1"></label><label>&nbsp;|&nbsp;</label>&nbsp;
+            <input ng-model="importParams.delimiter" value=" " type="radio" id="rad_delimiter2" name="delimiter3" class="regular-radio" />
+            <label for="rad_delimiter2"></label><label>空格</label>&nbsp;
+            <input ng-model="importParams.delimiter" value="\t" type="radio" id="rad_delimiter3" name="delimiter4" class="regular-radio" />
+            <label for="rad_delimiter3"></label><label>Tab</label>&nbsp;
+            <input ng-model="importParams.delimiter" value="otherDelimiter" type="radio" id="rad_delimiter4" name="delimiter5" class="regular-radio" />
+            <label for="rad_delimiter4"></label><label>其他</label>&nbsp;
+            <input type="text" ng-model="importParams.otherDelimiter" ng-maxlength="1" size="3" ng-disabled="importParams.delimiter !='otherDelimiter'" style="width:30px;" />
+        </div>
+    </div>
+</form>
