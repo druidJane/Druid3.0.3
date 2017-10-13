@@ -4,6 +4,12 @@
  */
 package com.xuanwu.msggate.common.sbi.entity;
 
+import com.xuanwu.msggate.common.protobuf.CommonItem.Result;
+
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 /**
  * 请求短信包，代表客户端的一次短信请求
  * 

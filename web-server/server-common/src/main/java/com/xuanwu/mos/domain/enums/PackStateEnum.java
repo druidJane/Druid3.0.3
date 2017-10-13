@@ -1,5 +1,7 @@
 package com.xuanwu.mos.domain.enums;
 
+import com.xuanwu.mos.domain.handler.HasIndexValue;
+
 /** 信息包或者是审核信息包使用该状态
  * Created by 郭垚辉 on 2017/5/20.
  */

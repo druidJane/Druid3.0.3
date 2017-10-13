@@ -1,5 +1,9 @@
 package com.xuanwu.mos.domain.enums;
 
+import com.xuanwu.mos.domain.handler.HasIndexValue;
+
+import org.apache.commons.lang3.StringUtils;
+
 /**
  * 黑名单类型
  * 

@@ -4,7 +4,21 @@
  */
 package com.xuanwu.mos.domain.entity;
 
-import com.xuanwu.msggate.common.sbi.entity.*;
+import com.xuanwu.msggate.common.sbi.entity.BindSpecNumResult;
+import com.xuanwu.msggate.common.sbi.entity.BindSpecialNum;
+import com.xuanwu.msggate.common.sbi.entity.BizTypeInfo;
+import com.xuanwu.msggate.common.sbi.entity.Carrier;
+import com.xuanwu.msggate.common.sbi.entity.CarrierMsgTypePrice;
+import com.xuanwu.msggate.common.sbi.entity.MsgContent;
+import com.xuanwu.msggate.common.sbi.entity.RedSpecNum;
+import com.xuanwu.msggate.common.sbi.entity.RegionSpecNum;
+
+import org.apache.commons.lang3.StringUtils;
+
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 账户
@@ -171,7 +185,7 @@ public abstract class Account {
 	/**
 	 * 可发送信息的类型
 	 */
-	private Map<MsgType,Boolean> allowSendType = new HashMap<MsgType,Boolean>();
+	private Map<MsgContent.MsgType,Boolean> allowSendType = new HashMap<MsgContent.MsgType,Boolean>();
 
 	/**
 	 * 是否短信免审
@@ -458,11 +472,11 @@ public abstract class Account {
 	 * 是否允许发送信息
 	 * @return
 	 */
-	public Map<MsgType,Boolean> getAllowSendType() {
+	public Map<MsgContent.MsgType,Boolean> getAllowSendType() {
 		return allowSendType;
 	}
 
-	public void setAllowSendType(Map<MsgType,Boolean> allowSendType) {
+	public void setAllowSendType(Map<MsgContent.MsgType,Boolean> allowSendType) {
 		this.allowSendType = allowSendType;
 	}
 
@@ -603,8 +617,8 @@ public abstract class Account {
 		if(cmtPrices == null) return;
 		
 		for(CarrierMsgTypePrice cmtPrice : cmtPrices){
-			if(cmtPrice.getMsgType() == MsgType.LONGSMS){
-				carrierPriceMap.put(tran2key(cmtPrice.getCarrier(), MsgType.SMS), cmtPrice.getPrice());
+			if(cmtPrice.getMsgType() == MsgContent.MsgType.LONGSMS){
+				carrierPriceMap.put(tran2key(cmtPrice.getCarrier(), MsgContent.MsgType.SMS), cmtPrice.getPrice());
 			}
 			carrierPriceMap.put(tran2key(cmtPrice.getCarrier(), cmtPrice.getMsgType()), cmtPrice.getPrice());
 		}
@@ -614,11 +628,11 @@ public abstract class Account {
      * 获得计费账户运营信息类型单价
      * @return
      */
-	public Double getPrice(com.xuanwu.msggate.common.sbi.entity.Carrier carrier, MsgType msgType) {
+	public Double getPrice(Carrier carrier, MsgContent.MsgType msgType) {
 		return carrierPriceMap.get(tran2key(carrier, msgType));
 	} 
 	
-	private int tran2key(Carrier carrier, MsgType msgType){
+	private int tran2key(Carrier carrier, MsgContent.MsgType msgType){
 		return ((carrier.getIndex() << 4 )| (msgType.getIndex() & 0xF));
 	}
 	

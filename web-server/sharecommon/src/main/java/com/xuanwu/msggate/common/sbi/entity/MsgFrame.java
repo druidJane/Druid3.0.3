@@ -4,6 +4,11 @@
  */
 package com.xuanwu.msggate.common.sbi.entity;
 
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
+
 /**
  * Interface used to delegate one message frame
  * 
@@ -613,7 +618,7 @@ public interface MsgFrame {
 	 * 
 	 * @return
 	 */
-	public SendType getSendType();
+	public MsgPack.SendType getSendType();
 
 	/**
 	 * Get the whole special number

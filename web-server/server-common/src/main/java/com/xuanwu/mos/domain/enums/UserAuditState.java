@@ -4,6 +4,8 @@
 */
 package com.xuanwu.mos.domain.enums;
 
+import com.xuanwu.mos.domain.handler.HasIndexValue;
+
 /**
  * 审核状态
  * 

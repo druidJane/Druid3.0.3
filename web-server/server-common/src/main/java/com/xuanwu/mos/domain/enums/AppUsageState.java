@@ -1,6 +1,8 @@
 package com.xuanwu.mos.domain.enums;
 
 
+import com.xuanwu.mos.domain.handler.HasIndexValue;
+
 /**
  * 应用的启停状态， 由运营人员在后台进行操作 , 如在判断应用存在判断恶意行为的时候，可以应用的状态设置为停用 即使开发者 应用实际使用状态为运营中，
  * 应该也会停止 （取决其impl）

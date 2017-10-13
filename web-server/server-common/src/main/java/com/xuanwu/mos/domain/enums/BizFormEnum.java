@@ -1,5 +1,7 @@
 package com.xuanwu.mos.domain.enums;
 
+import com.xuanwu.mos.domain.handler.HasIndexValue;
+
 /**
  * frame表中的biz_form 来源于网关
  * Created by 郭垚辉 on 2017/5/20.

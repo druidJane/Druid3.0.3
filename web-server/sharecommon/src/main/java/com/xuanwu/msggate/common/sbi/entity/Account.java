@@ -4,6 +4,15 @@
  */
 package com.xuanwu.msggate.common.sbi.entity;
 
+import com.xuanwu.msggate.common.sbi.entity.MsgContent.MsgType;
+import com.xuanwu.msggate.common.util.EditeTrustIps;
+
+import org.apache.commons.lang3.StringUtils;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 /**
  * 账户
  * 
@@ -162,7 +171,7 @@ public abstract class Account {
 	/**
 	 * 可发送信息的类型
 	 */
-	private Map<MsgType, Boolean> allowSendType = new HashMap<MsgType, Boolean>();
+	private Map<MsgContent.MsgType, Boolean> allowSendType = new HashMap<MsgType, Boolean>();
 
 	/**
 	 * 是否短信免审
@@ -429,11 +438,11 @@ public abstract class Account {
 	 * 是否允许发送信息
 	 * @return
 	 */
-	public Map<MsgType,Boolean> getAllowSendType() {
+	public Map<MsgContent.MsgType,Boolean> getAllowSendType() {
 		return allowSendType;
 	}
 
-	public void setAllowSendType(Map<MsgType,Boolean> allowSendType) {
+	public void setAllowSendType(Map<MsgContent.MsgType,Boolean> allowSendType) {
 		this.allowSendType = allowSendType;
 	}
 

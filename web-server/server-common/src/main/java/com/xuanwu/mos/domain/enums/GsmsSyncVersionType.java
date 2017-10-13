@@ -1,6 +1,8 @@
 package com.xuanwu.mos.domain.enums;
 
 
+import com.xuanwu.mos.domain.handler.HasIndexValue;
+
 /**
  * 系统配置版本类型
  * 

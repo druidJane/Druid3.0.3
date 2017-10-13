@@ -1,5 +1,7 @@
 package com.xuanwu.mos.domain.enums;
 
+import com.xuanwu.mos.domain.handler.HasIndexValue;
+
 /**
  * 
  * @author <a href="mailto:liujiawen@wxchina.com">Jiawen.Liu</a>

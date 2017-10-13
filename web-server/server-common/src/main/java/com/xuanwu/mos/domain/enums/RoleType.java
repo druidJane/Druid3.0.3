@@ -4,6 +4,8 @@
 */
 package com.xuanwu.mos.domain.enums;
 
+import com.xuanwu.mos.domain.handler.HasIndexValue;
+
 /**
  * The enum Role type.
  */

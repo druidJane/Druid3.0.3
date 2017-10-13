@@ -1,9 +1,11 @@
 package com.xuanwu.mos.domain.enums;
 
+import com.xuanwu.mos.domain.handler.HasIndexValue;
+
 /**
  * Created by 郭垚辉 on 2017/5/20.
  */
-public enum  SendTypeEnum implements HasIndexValue{
+public enum  SendTypeEnum implements HasIndexValue {
 
     MASS(0,"群发"), GROUP(1,"组发");
 

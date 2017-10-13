@@ -1,5 +1,7 @@
 package com.xuanwu.mos.domain.entity;
 
+import org.apache.commons.lang3.StringUtils;
+
 /**
  * Created by zhangz on 2017/4/21.
  */
