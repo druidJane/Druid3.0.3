@@ -1,12 +1,12 @@
 package com.xuanwu.mos.file.handler;
 
-import java.io.File;
-import java.nio.charset.Charset;
-import java.util.List;
+import com.xuanwu.mos.file.FileHead;
 
 import org.apache.commons.fileupload.FileItem;
 
-import com.xuanwu.mos.file.FileHead;
+import java.io.File;
+import java.nio.charset.Charset;
+import java.util.List;
 
 /**
  * Created by 林泽强 on 2016/8/22.

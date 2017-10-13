@@ -1,10 +1,10 @@
 package com.xuanwu.mos.domain.entity;
 
-import java.util.Date;
-
 import com.xuanwu.mos.domain.AbstractEntity;
 import com.xuanwu.mos.utils.DateUtil;
 import com.xuanwu.mos.utils.DateUtil.DateTimeType;
+
+import java.util.Date;
 
 public class KeyWord extends AbstractEntity {
 	private int id;

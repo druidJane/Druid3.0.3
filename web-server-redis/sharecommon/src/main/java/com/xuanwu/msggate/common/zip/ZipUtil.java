@@ -4,15 +4,15 @@
  */
 package com.xuanwu.msggate.common.zip;
 
+import com.google.protobuf.ByteString;
+
+import org.apache.commons.io.IOUtils;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
-
-import org.apache.commons.io.IOUtils;
-
-import com.google.protobuf.ByteString;
 
 /**
  * Zip utils

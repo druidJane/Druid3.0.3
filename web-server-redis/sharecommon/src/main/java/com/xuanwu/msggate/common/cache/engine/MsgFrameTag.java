@@ -1,14 +1,14 @@
 package com.xuanwu.msggate.common.cache.engine;
 
+import com.xuanwu.msggate.common.sbi.entity.MsgContent.MsgType;
+import com.xuanwu.msggate.common.util.DateUtil;
+
+import org.apache.commons.codec.binary.Hex;
+
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
-
-import org.apache.commons.codec.binary.Hex;
-
-import com.xuanwu.msggate.common.sbi.entity.MsgContent.MsgType;
-import com.xuanwu.msggate.common.util.DateUtil;
 
 /**
  * @Description 信息帧表标记类，用于分表

@@ -6,6 +6,7 @@ import com.xuanwu.mos.domain.entity.SimpleUser;
 import com.xuanwu.mos.dto.QueryParameters;
 import com.xuanwu.mos.exception.RepositoryException;
 import com.xuanwu.mos.utils.DateUtil;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;

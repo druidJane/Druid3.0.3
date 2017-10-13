@@ -1,0 +1,801 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="a36c24a9-e571-43ef-85f4-6ba28731441d" name="Default" comment="加入日志打印，上线后删除">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scripts/app_back.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scripts/app.js" afterPath="$PROJECT_DIR$/scripts/app.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scripts/controllers/InformationMgr/BlackList/add.js" afterPath="$PROJECT_DIR$/scripts/controllers/InformationMgr/BlackList/add.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scripts/controllers/InformationMgr/BlackList/index.js" afterPath="$PROJECT_DIR$/scripts/controllers/InformationMgr/BlackList/index.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scripts/controllers/InformationMgr/BusinessType/add.js" afterPath="$PROJECT_DIR$/scripts/controllers/InformationMgr/BusinessType/add.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scripts/controllers/InformationMgr/BusinessType/index.js" afterPath="$PROJECT_DIR$/scripts/controllers/InformationMgr/BusinessType/index.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scripts/controllers/InformationMgr/Keyword/index.js" afterPath="$PROJECT_DIR$/scripts/controllers/InformationMgr/Keyword/index.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scripts/controllers/InformationMgr/WiteListweb/index.js" afterPath="$PROJECT_DIR$/scripts/controllers/InformationMgr/WiteListweb/index.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scripts/services/a-service.js" afterPath="$PROJECT_DIR$/scripts/services/a-service.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scripts/services/modal-service.js" afterPath="$PROJECT_DIR$/scripts/services/modal-service.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/styles/common/common.css" afterPath="$PROJECT_DIR$/styles/common/common.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/InformationMgr/BlackList/index.html" afterPath="$PROJECT_DIR$/views/InformationMgr/BlackList/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/InformationMgr/BusinessType/add.html" afterPath="$PROJECT_DIR$/views/InformationMgr/BusinessType/add.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/InformationMgr/BusinessType/index.html" afterPath="$PROJECT_DIR$/views/InformationMgr/BusinessType/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/InformationMgr/Keyword/index.html" afterPath="$PROJECT_DIR$/views/InformationMgr/Keyword/index.html" />
+    </list>
+    <ignored path="$PROJECT_DIR$/.tmp/" />
+    <ignored path="$PROJECT_DIR$/temp/" />
+    <ignored path="$PROJECT_DIR$/tmp/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CreatePatchCommitExecutor">
+    <option name="PATCH_PATH" value="" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
+  <component name="FileEditorManager">
+    <leaf>
+      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/scripts/controllers/InformationMgr/BlackList/index.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="165">
+              <caret line="6" column="72" lean-forward="false" selection-start-line="6" selection-start-column="63" selection-end-line="6" selection-end-column="72" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/views/InformationMgr/BlackList/index.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="120">
+              <caret line="19" column="113" lean-forward="false" selection-start-line="19" selection-start-column="113" selection-end-line="19" selection-end-column="113" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/scripts/controllers/InformationMgr/WiteListweb/index.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-705">
+              <caret line="10" column="0" lean-forward="false" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="app.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/scripts/app.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="150">
+              <caret line="375" column="0" lean-forward="true" selection-start-line="375" selection-start-column="0" selection-end-line="375" selection-end-column="0" />
+              <folding>
+                <marker date="1495014732463" expanded="true" signature="36:25562" ph="{...}" />
+                <marker date="1495014732463" expanded="true" signature="25071:25089" ph="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="app_back.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/scripts/app_back.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="210">
+              <caret line="7" column="41" lean-forward="false" selection-start-line="7" selection-start-column="41" selection-end-line="7" selection-end-column="41" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="modal-service.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/scripts/services/modal-service.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1335">
+              <caret line="81" column="35" lean-forward="false" selection-start-line="81" selection-start-column="35" selection-end-line="81" selection-end-column="35" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>conf</find>
+      <find>bizTypeConf</find>
+      <find>console</find>
+      <find>count</find>
+      <find>reque</find>
+      <find>request</find>
+      <find>httpPost</find>
+      <find>Array</find>
+      <find>enterprise</find>
+      <find>sear</find>
+      <find>ng-switch-when</find>
+      <find>domain.item</find>
+      <find>domain</find>
+      <find>blacklistsTable</find>
+      <find>请先选择</find>
+      <find>roleSelectModel</find>
+      <find>非法关键字</find>
+      <find>关键字</find>
+      <find>priority</find>
+      <find>mode</find>
+      <find>add</find>
+      <find>update</find>
+      <find>input</find>
+      <find>sele</find>
+      <find>size</find>
+      <find>fileSize</find>
+      <find>export</find>
+      <find>domain_value</find>
+      <find>encode</find>
+      <find>?</find>
+    </findStrings>
+    <replaceStrings>
+      <replace>业务类型</replace>
+    </replaceStrings>
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/scripts/controllers/InformationMgr/Keyword/index.js" />
+        <option value="$PROJECT_DIR$/scripts/services/util-service.js" />
+        <option value="$PROJECT_DIR$/views/InformationMgr/BlackList/add.html" />
+        <option value="$PROJECT_DIR$/styles/common/common.css" />
+        <option value="$PROJECT_DIR$/views/InformationMgr/Keyword/index.html" />
+        <option value="$PROJECT_DIR$/scripts/services/a-service.js" />
+        <option value="$PROJECT_DIR$/scripts/controllers/InformationMgr/BlackList/add.js" />
+        <option value="$PROJECT_DIR$/views/InformationMgr/BusinessType/index.html" />
+        <option value="$PROJECT_DIR$/scripts/controllers/InformationMgr/BusinessType/index.js" />
+        <option value="$PROJECT_DIR$/scripts/controllers/InformationMgr/BusinessType/add.js" />
+        <option value="$PROJECT_DIR$/views/InformationMgr/BusinessType/add.html" />
+        <option value="$PROJECT_DIR$/views/_modal/import.html" />
+        <option value="$PROJECT_DIR$/scripts/services/modal-service.js" />
+        <option value="$PROJECT_DIR$/scripts/controllers/InformationMgr/BlackList/index.js" />
+        <option value="$PROJECT_DIR$/views/InformationMgr/BlackList/index.html" />
+        <option value="$PROJECT_DIR$/scripts/controllers/InformationMgr/WiteListweb/index.js" />
+        <option value="$PROJECT_DIR$/scripts/app.js" />
+      </list>
+    </option>
+  </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+    <sorting>DEFINITION_ORDER</sorting>
+  </component>
+  <component name="ProjectFrameBounds">
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
+    <option name="width" value="1936" />
+    <option name="height" value="1056" />
+  </component>
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1">
+      <flattenPackages />
+      <showMembers />
+      <showModules />
+      <showLibraryContents />
+      <hideEmptyPackages />
+      <abbreviatePackageNames />
+      <autoscrollToSource />
+      <autoscrollFromSource />
+      <sortByType />
+      <manualOrder />
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="Scratches" />
+      <pane id="Scope" />
+      <pane id="ProjectPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/.." />
+    <property name="HbShouldOpenHtmlAsHb" value="" />
+    <property name="nodejs_interpreter_path" value="C:/Program Files/nodejs/node" />
+    <property name="js.eslint.eslintPackage" value="" />
+    <property name="js-jscs-nodeInterpreter" value="C:\Program Files\nodejs\node.exe" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="F:\玄武\JFrontkit_HTML5_1.0\web-frontkit\src\scripts" />
+    </key>
+  </component>
+  <component name="RestoreUpdateTree" date="Moments ago" ActionInfo="_Update">
+    <UpdatedFiles>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Updated from server" />
+        <option name="myStatusName" value="Changed on server" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="CHANGED_ON_SERVER" />
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Updated" />
+          <option name="myStatusName" value="Changed" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="UPDATED" />
+          <PATH vcs="svn" revision="400">F:\玄武\JFrontkit_HTML5_1.0\web-frontkit\src\styles\default\login.css</PATH>
+          <PATH vcs="svn" revision="400">F:\玄武\JFrontkit_HTML5_1.0\web-frontkit\src\styles\default\images\imp_user.png</PATH>
+          <PATH vcs="svn" revision="400">F:\玄武\JFrontkit_HTML5_1.0\web-frontkit\src\styles\default\images\logo.png</PATH>
+          <PATH vcs="svn" revision="400">F:\玄武\JFrontkit_HTML5_1.0\web-frontkit\src\styles\default\images\btn_i.png</PATH>
+          <PATH vcs="svn" revision="400">F:\玄武\JFrontkit_HTML5_1.0\web-frontkit\src\scripts\main.js</PATH>
+          <PATH vcs="svn" revision="400">F:\玄武\JFrontkit_HTML5_1.0\web-frontkit\src\scripts\services\util-service.js</PATH>
+          <PATH vcs="svn" revision="400">F:\玄武\JFrontkit_HTML5_1.0\web-frontkit\src\scripts\services\graph-service.js</PATH>
+          <PATH vcs="svn" revision="400">F:\玄武\JFrontkit_HTML5_1.0\web-frontkit\src\scripts\controllers\mmsmgmt\sendmms\index.js</PATH>
+          <PATH vcs="svn" revision="400">F:\玄武\JFrontkit_HTML5_1.0\web-frontkit\src\scripts\controllers\mmsmgmt\template\index.js</PATH>
+          <PATH vcs="svn" revision="400">F:\玄武\JFrontkit_HTML5_1.0\web-frontkit\src\scripts\controllers\mmsmgmt\template\modify.js</PATH>
+          <PATH vcs="svn" revision="400">F:\玄武\JFrontkit_HTML5_1.0\web-frontkit\src\scripts\controllers\notice\index.js</PATH>
+          <PATH vcs="svn" revision="400">F:\玄武\JFrontkit_HTML5_1.0\web-frontkit\src\scripts\controllers\index.js</PATH>
+          <PATH vcs="svn" revision="400">F:\玄武\JFrontkit_HTML5_1.0\web-frontkit\src\scripts\controllers\sysmgr\capitalaccount\index.js</PATH>
+          <PATH vcs="svn" revision="400">F:\玄武\JFrontkit_HTML5_1.0\web-frontkit\src\scripts\controllers\sysmgr\capitalaccount\userSelector.js</PATH>
+          <PATH vcs="svn" revision="400">F:\玄武\JFrontkit_HTML5_1.0\web-frontkit\src\scripts\controllers\Statistics\SumStatistics\SumAccount.js</PATH>
+          <PATH vcs="svn" revision="400">F:\玄武\JFrontkit_HTML5_1.0\web-frontkit\src\scripts\controllers\Statistics\SumStatistics\SumBusinessType.js</PATH>
+          <PATH vcs="svn" revision="400">F:\玄武\JFrontkit_HTML5_1.0\web-frontkit\src\scripts\controllers\Statistics\BillingAccountStatistics\index.js</PATH>
+          <PATH vcs="svn" revision="400">F:\玄武\JFrontkit_HTML5_1.0\web-frontkit\src\scripts\controllers\Statistics\BillingAccountStatistics\detail.js</PATH>
+          <PATH vcs="svn" revision="400">F:\玄武\JFrontkit_HTML5_1.0\web-frontkit\src\scripts\login\login.js</PATH>
+          <PATH vcs="svn" revision="400">F:\玄武\JFrontkit_HTML5_1.0\web-frontkit\src\views\ContactMgr\EContact\index.html</PATH>
+          <PATH vcs="svn" revision="400">F:\玄武\JFrontkit_HTML5_1.0\web-frontkit\src\views\ContactMgr\PContact\index.html</PATH>
+          <PATH vcs="svn" revision="400">F:\玄武\JFrontkit_HTML5_1.0\web-frontkit\src\views\mmsmgmt\sendmms\index.html</PATH>
+          <PATH vcs="svn" revision="400">F:\玄武\JFrontkit_HTML5_1.0\web-frontkit\src\views\mmsmgmt\sendmms\modal\contactPhone.html</PATH>
+          <PATH vcs="svn" revision="400">F:\玄武\JFrontkit_HTML5_1.0\web-frontkit\src\views\mmsmgmt\template\index.html</PATH>
+          <PATH vcs="svn" revision="400">F:\玄武\JFrontkit_HTML5_1.0\web-frontkit\src\views\sysmgr\syslog\index.html</PATH>
+          <PATH vcs="svn" revision="400">F:\玄武\JFrontkit_HTML5_1.0\web-frontkit\src\views\sysmgr\role\index.html</PATH>
+          <PATH vcs="svn" revision="400">F:\玄武\JFrontkit_HTML5_1.0\web-frontkit\src\views\sysmgr\filetask\index.html</PATH>
+          <PATH vcs="svn" revision="400">F:\玄武\JFrontkit_HTML5_1.0\web-frontkit\src\views\sysmgr\announcement\index.html</PATH>
+          <PATH vcs="svn" revision="400">F:\玄武\JFrontkit_HTML5_1.0\web-frontkit\src\views\sysmgr\capitalaccount\userSelector.html</PATH>
+          <PATH vcs="svn" revision="400">F:\玄武\JFrontkit_HTML5_1.0\web-frontkit\src\views\sysmgr\capitalaccount\detail.html</PATH>
+          <PATH vcs="svn" revision="400">F:\玄武\JFrontkit_HTML5_1.0\web-frontkit\src\views\sysmgr\capitalaccount\index.html</PATH>
+          <PATH vcs="svn" revision="400">F:\玄武\JFrontkit_HTML5_1.0\web-frontkit\src\views\smsmgr\sendTracking\index.html</PATH>
+          <PATH vcs="svn" revision="400">F:\玄武\JFrontkit_HTML5_1.0\web-frontkit\src\views\smsmgr\sendsms\index.html</PATH>
+          <PATH vcs="svn" revision="400">F:\玄武\JFrontkit_HTML5_1.0\web-frontkit\src\views\smsmgr\smsTemplate\index.html</PATH>
+          <PATH vcs="svn" revision="400">F:\玄武\JFrontkit_HTML5_1.0\web-frontkit\src\views\Statistics\SumStatistics\SumAccount.html</PATH>
+          <PATH vcs="svn" revision="400">F:\玄武\JFrontkit_HTML5_1.0\web-frontkit\src\views\Statistics\SumStatistics\SumBusinessType.html</PATH>
+          <PATH vcs="svn" revision="400">F:\玄武\JFrontkit_HTML5_1.0\web-frontkit\src\views\Statistics\BillingAccountStatistics\detail.html</PATH>
+          <PATH vcs="svn" revision="400">F:\玄武\JFrontkit_HTML5_1.0\web-frontkit\src\views\Statistics\BillingAccountStatistics\index.html</PATH>
+          <PATH vcs="svn" revision="400">F:\玄武\JFrontkit_HTML5_1.0\web-frontkit\src\views\index.html</PATH>
+          <PATH vcs="svn" revision="400">F:\玄武\JFrontkit_HTML5_1.0\web-frontkit\src\views\InformationMgr\CarrierDnSeg\index.html</PATH>
+          <PATH vcs="svn" revision="400">F:\玄武\JFrontkit_HTML5_1.0\web-frontkit\src\views\login.html</PATH>
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Created" />
+          <option name="myStatusName" value="Created" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="CREATED" />
+          <PATH vcs="svn" revision="400">F:\玄武\JFrontkit_HTML5_1.0\web-frontkit\src\styles\default\images\user_opt.png</PATH>
+          <PATH vcs="svn" revision="400">F:\玄武\JFrontkit_HTML5_1.0\web-frontkit\src\scripts\controllers\mmsmgmt\sendtracking\index.js</PATH>
+          <PATH vcs="svn" revision="400">F:\玄武\JFrontkit_HTML5_1.0\web-frontkit\src\scripts\controllers\sysmgr\usermgr</PATH>
+          <PATH vcs="svn" revision="400">F:\玄武\JFrontkit_HTML5_1.0\web-frontkit\src\scripts\controllers\sysmgr\usermgr\deptAdd.js</PATH>
+          <PATH vcs="svn" revision="400">F:\玄武\JFrontkit_HTML5_1.0\web-frontkit\src\scripts\controllers\sysmgr\usermgr\index.js</PATH>
+          <PATH vcs="svn" revision="400">F:\玄武\JFrontkit_HTML5_1.0\web-frontkit\src\scripts\controllers\sysmgr\usermgr\dept.js</PATH>
+          <PATH vcs="svn" revision="400">F:\玄武\JFrontkit_HTML5_1.0\web-frontkit\src\scripts\controllers\sysmgr\usermgr\deptEdit.js</PATH>
+          <PATH vcs="svn" revision="400">F:\玄武\JFrontkit_HTML5_1.0\web-frontkit\src\scripts\controllers\accountinfo</PATH>
+          <PATH vcs="svn" revision="400">F:\玄武\JFrontkit_HTML5_1.0\web-frontkit\src\scripts\controllers\accountinfo\index.js</PATH>
+          <PATH vcs="svn" revision="400">F:\玄武\JFrontkit_HTML5_1.0\web-frontkit\src\scripts\controllers\Statistics\SumStatistics\SumAccount</PATH>
+          <PATH vcs="svn" revision="400">F:\玄武\JFrontkit_HTML5_1.0\web-frontkit\src\scripts\controllers\Statistics\SumStatistics\SumAccount\singleUserList.js</PATH>
+          <PATH vcs="svn" revision="400">F:\玄武\JFrontkit_HTML5_1.0\web-frontkit\src\scripts\controllers\Statistics\SumStatistics\SumDepartment.js</PATH>
+          <PATH vcs="svn" revision="400">F:\玄武\JFrontkit_HTML5_1.0\web-frontkit\src\views\mmsmgmt\sendtracking\index.html</PATH>
+          <PATH vcs="svn" revision="400">F:\玄武\JFrontkit_HTML5_1.0\web-frontkit\src\views\sysmgr\usermgr</PATH>
+          <PATH vcs="svn" revision="400">F:\玄武\JFrontkit_HTML5_1.0\web-frontkit\src\views\sysmgr\usermgr\dept.html</PATH>
+          <PATH vcs="svn" revision="400">F:\玄武\JFrontkit_HTML5_1.0\web-frontkit\src\views\sysmgr\usermgr\deptEdit.html</PATH>
+          <PATH vcs="svn" revision="400">F:\玄武\JFrontkit_HTML5_1.0\web-frontkit\src\views\sysmgr\usermgr\deptAdd.html</PATH>
+          <PATH vcs="svn" revision="400">F:\玄武\JFrontkit_HTML5_1.0\web-frontkit\src\views\sysmgr\usermgr\index.html</PATH>
+          <PATH vcs="svn" revision="400">F:\玄武\JFrontkit_HTML5_1.0\web-frontkit\src\views\accountinfo</PATH>
+          <PATH vcs="svn" revision="400">F:\玄武\JFrontkit_HTML5_1.0\web-frontkit\src\views\accountinfo\index.html</PATH>
+          <PATH vcs="svn" revision="400">F:\玄武\JFrontkit_HTML5_1.0\web-frontkit\src\views\Statistics\SumStatistics\SumAccount</PATH>
+          <PATH vcs="svn" revision="400">F:\玄武\JFrontkit_HTML5_1.0\web-frontkit\src\views\Statistics\SumStatistics\SumAccount\singleUserList.html</PATH>
+          <PATH vcs="svn" revision="400">F:\玄武\JFrontkit_HTML5_1.0\web-frontkit\src\views\Statistics\SumStatistics\SumDepartment.html</PATH>
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Deleted" />
+          <option name="myStatusName" value="Deleted" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="true" />
+          <option name="myId" value="REMOVED_FROM_REPOSITORY" />
+          <PATH vcs="svn" revision="400">F:\玄武\JFrontkit_HTML5_1.0\web-frontkit\src\scripts\controllers\mmsmgmt\sendtracking\sendrecord</PATH>
+          <PATH vcs="svn" revision="400">F:\玄武\JFrontkit_HTML5_1.0\web-frontkit\src\scripts\controllers\mmsmgmt\sendtracking\senddetail</PATH>
+          <PATH vcs="svn" revision="400">F:\玄武\JFrontkit_HTML5_1.0\web-frontkit\src\views\mmsmgmt\sendtracking\sendrecord</PATH>
+          <PATH vcs="svn" revision="400">F:\玄武\JFrontkit_HTML5_1.0\web-frontkit\src\views\mmsmgmt\sendtracking\senddetail</PATH>
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Restored" />
+          <option name="myStatusName" value="Will be restored" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="RESTORED" />
+        </FILE-GROUP>
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Modified" />
+        <option name="myStatusName" value="Modified" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MODIFIED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Skipped" />
+        <option name="myStatusName" value="Skipped" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="SKIPPED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Merged with conflicts" />
+        <option name="myStatusName" value="Will be merged with conflicts" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MERGED_WITH_CONFLICTS" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Merged with tree conflicts" />
+        <option name="myStatusName" value="Merged with tree conflicts" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MERGED_WITH_TREE_CONFLICT" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Merged with property conflicts" />
+        <option name="myStatusName" value="Will be merged with property conflicts" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MERGED_WITH_PROPERTY_CONFLICT" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Merged" />
+        <option name="myStatusName" value="Will be merged" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MERGED" />
+        <PATH vcs="svn" revision="400">F:\玄武\JFrontkit_HTML5_1.0\web-frontkit\src\styles\common\common.css</PATH>
+        <PATH vcs="svn" revision="400">F:\玄武\JFrontkit_HTML5_1.0\web-frontkit\src\scripts\services\a-service.js</PATH>
+        <PATH vcs="svn" revision="400">F:\玄武\JFrontkit_HTML5_1.0\web-frontkit\src\scripts\app.js</PATH>
+        <PATH vcs="svn" revision="400">F:\玄武\JFrontkit_HTML5_1.0\web-frontkit\src\views\InformationMgr\Keyword\index.html</PATH>
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Not in repository" />
+        <option name="myStatusName" value="Not in repository" />
+        <option name="mySupportsDeletion" value="true" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="UNKNOWN" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Locally added" />
+        <option name="myStatusName" value="Locally added" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="LOCALLY_ADDED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Locally removed" />
+        <option name="myStatusName" value="Locally removed" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="LOCALLY_REMOVED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Switched" />
+        <option name="myStatusName" value="Switched" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="SWITCHED" />
+      </FILE-GROUP>
+    </UpdatedFiles>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="DartCommandLineRunConfigurationType" factoryName="Dart Command Line Application">
+      <method />
+    </configuration>
+    <configuration default="true" type="DartTestRunConfigurationType" factoryName="Dart Test">
+      <method />
+    </configuration>
+    <configuration default="true" type="JavaScriptTestRunnerKarma" factoryName="Karma">
+      <config-file value="" />
+      <node-interpreter value="project" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavaScriptTestRunnerProtractor" factoryName="Protractor">
+      <config-file value="" />
+      <node-interpreter value="project" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug">
+      <method />
+    </configuration>
+    <configuration default="true" type="NodeJSConfigurationType" factoryName="Node.js" path-to-node="project" working-dir="">
+      <method />
+    </configuration>
+    <configuration default="true" type="cucumber.js" factoryName="Cucumber.js">
+      <option name="cucumberJsArguments" value="" />
+      <option name="executablePath" />
+      <option name="filePath" />
+      <method />
+    </configuration>
+    <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
+      <method />
+    </configuration>
+    <configuration default="true" type="js.build_tools.npm" factoryName="npm">
+      <command value="run" />
+      <scripts />
+      <node-interpreter value="project" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="mocha-javascript-test-runner" factoryName="Mocha">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <working-directory />
+      <pass-parent-env>true</pass-parent-env>
+      <envs />
+      <ui />
+      <extra-mocha-options />
+      <test-kind>DIRECTORY</test-kind>
+      <test-directory />
+      <recursive>false</recursive>
+      <method />
+    </configuration>
+  </component>
+  <component name="ShelveChangesManager" show_recycled="false">
+    <option name="remove_strategy" value="false" />
+  </component>
+  <component name="SvnConfiguration" cleanupOnStartRun="true">
+    <configuration>C:\Users\1115\AppData\Roaming\Subversion</configuration>
+  </component>
+  <component name="SvnFileUrlMappingImpl">
+    <option name="myMappingRoots">
+      <list>
+        <SvnCopyRootSimple>
+          <option name="myVcsRoot" value="F:\玄武\JFrontkit_HTML5_1.0\web-frontkit\src" />
+          <option name="myCopyRoot" value="F:\玄武\JFrontkit_HTML5_1.0\web-frontkit\src" />
+        </SvnCopyRootSimple>
+      </list>
+    </option>
+    <option name="myMoreRealMappingRoots">
+      <list>
+        <SvnCopyRootSimple>
+          <option name="myVcsRoot" value="F:\玄武\JFrontkit_HTML5_1.0\web-frontkit\src" />
+          <option name="myCopyRoot" value="F:\玄武\JFrontkit_HTML5_1.0\web-frontkit\src" />
+        </SvnCopyRootSimple>
+      </list>
+    </option>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="a36c24a9-e571-43ef-85f4-6ba28731441d" name="Default" comment="" />
+      <created>1494567428509</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1494567428509</updated>
+      <workItem from="1494567429670" duration="40518000" />
+    </task>
+    <task id="LOCAL-00001" summary="修复bug">
+      <created>1494571372423</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1494571372423</updated>
+    </task>
+    <task id="LOCAL-00002" summary="修复bug">
+      <created>1494571471742</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1494571471742</updated>
+    </task>
+    <task id="LOCAL-00003" summary="加入日志打印，上线后删除">
+      <created>1494809680544</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1494809680544</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="40518000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="false" />
+    <layout>
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2682927" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32912844" sideWeight="0.369035" order="1" side_tool="true" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32912844" sideWeight="0.630965" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+    </layout>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="processedProjectFiles" value="true" />
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="修复bug" />
+    <MESSAGE value="加入日志打印，上线后删除" />
+    <option name="LAST_COMMIT_MESSAGE" value="加入日志打印，上线后删除" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager />
+    <watches-manager />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/scripts/directives/util-directive.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="277">
+          <caret line="555" column="20" lean-forward="false" selection-start-line="555" selection-start-column="20" selection-end-line="555" selection-end-column="20" />
+          <folding>
+            <marker date="1494812215553" expanded="true" signature="7931:7955" ph="..." />
+            <marker date="1494812215553" expanded="true" signature="8147:8174" ph="..." />
+            <marker date="1494812215553" expanded="true" signature="8266:8290" ph="..." />
+            <marker date="1494812215553" expanded="true" signature="8379:8403" ph="..." />
+            <marker date="1494812215553" expanded="true" signature="8491:8515" ph="..." />
+            <marker date="1494812215553" expanded="true" signature="10823:10848" ph="..." />
+            <marker date="1494812215553" expanded="true" signature="13247:14631" ph="..." />
+            <marker date="1494812215553" expanded="true" signature="13370:14608" ph="..." />
+            <marker date="1494812215553" expanded="true" signature="13567:13652" ph="..." />
+            <marker date="1494812215553" expanded="false" signature="13635:13647" ph="..." />
+            <marker date="1494812215553" expanded="true" signature="13703:14418" ph="..." />
+            <marker date="1494812215553" expanded="false" signature="13929:13940" ph="..." />
+            <marker date="1494812215553" expanded="true" signature="13941:13975" ph="..." />
+            <marker date="1494812215553" expanded="false" signature="14320:14344" ph="..." />
+            <marker date="1494812215553" expanded="true" signature="14345:14384" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/lib/JavaScriptLanguage.jar!/com/intellij/lang/javascript/index/predefined/DHTML.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="181">
+          <caret line="211" column="0" lean-forward="false" selection-start-line="211" selection-start-column="0" selection-end-line="211" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/InformationMgr/BlackList/add.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="151">
+          <caret line="33" column="86" lean-forward="false" selection-start-line="33" selection-start-column="80" selection-end-line="33" selection-end-column="86" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/styles/common/common.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="331">
+          <caret line="1105" column="23" lean-forward="false" selection-start-line="1105" selection-start-column="23" selection-end-line="1105" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/InformationMgr/WiteListweb/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scripts/services/repo-service.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1997">
+          <caret line="231" column="40" lean-forward="false" selection-start-line="231" selection-start-column="36" selection-end-line="231" selection-end-column="40" />
+          <folding>
+            <marker date="1494812215218" expanded="true" signature="3154:3704" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/InformationMgr/Keyword/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1170">
+          <caret line="39" column="6" lean-forward="true" selection-start-line="39" selection-start-column="6" selection-end-line="39" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scripts/controllers/InformationMgr/Keyword/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1020">
+          <caret line="34" column="66" lean-forward="true" selection-start-line="34" selection-start-column="12" selection-end-line="34" selection-end-column="66" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scripts/services/a-service.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="317">
+          <caret line="415" column="46" lean-forward="false" selection-start-line="415" selection-start-column="46" selection-end-line="415" selection-end-column="46" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scripts/controllers/sysmgr/capitalaccount/userSelector.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="69" column="34" lean-forward="false" selection-start-line="69" selection-start-column="19" selection-end-line="69" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/sysmgr/capitalaccount/userSelector.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="211">
+          <caret line="37" column="61" lean-forward="true" selection-start-line="37" selection-start-column="32" selection-end-line="37" selection-end-column="61" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scripts/controllers/InformationMgr/BlackList/add.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="13" column="74" lean-forward="false" selection-start-line="13" selection-start-column="74" selection-end-line="13" selection-end-column="74" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scripts/controllers/ContactMgr/EContact/add.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1645">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scripts/controllers/ContactMgr/PContact/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="196" column="98" lean-forward="false" selection-start-line="196" selection-start-column="92" selection-end-line="196" selection-end-column="98" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scripts/controllers/InformationMgr/BusinessType/add.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="596">
+          <caret line="37" column="54" lean-forward="false" selection-start-line="37" selection-start-column="54" selection-end-line="37" selection-end-column="54" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scripts/controllers/InformationMgr/BusinessType/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1020">
+          <caret line="61" column="78" lean-forward="false" selection-start-line="61" selection-start-column="78" selection-end-line="61" selection-end-column="78" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/InformationMgr/BusinessType/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="69" column="0" lean-forward="true" selection-start-line="69" selection-start-column="0" selection-end-line="69" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/InformationMgr/BusinessType/add.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="65" column="49" lean-forward="true" selection-start-line="65" selection-start-column="49" selection-end-line="65" selection-end-column="49" />
+          <folding>
+            <element signature="n#style#0;n#input#1;n#td#1;n#tr#1;n#tbody#0;n#table#0;n#div#0;n#form#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scripts/services/util-service.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="340" column="35" lean-forward="true" selection-start-line="340" selection-start-column="35" selection-end-line="340" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/_modal/import.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="61">
+          <caret line="20" column="36" lean-forward="true" selection-start-line="20" selection-start-column="36" selection-end-line="20" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/InformationMgr/BlackList/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="19" column="113" lean-forward="false" selection-start-line="19" selection-start-column="113" selection-end-line="19" selection-end-column="113" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scripts/services/modal-service.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1335">
+          <caret line="81" column="35" lean-forward="false" selection-start-line="81" selection-start-column="35" selection-end-line="81" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scripts/controllers/InformationMgr/BlackList/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="6" column="72" lean-forward="false" selection-start-line="6" selection-start-column="63" selection-end-line="6" selection-end-column="72" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scripts/controllers/InformationMgr/WiteListweb/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-705">
+          <caret line="10" column="0" lean-forward="false" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scripts/app_back.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="7" column="41" lean-forward="false" selection-start-line="7" selection-start-column="41" selection-end-line="7" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scripts/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="375" column="0" lean-forward="true" selection-start-line="375" selection-start-column="0" selection-end-line="375" selection-end-column="0" />
+          <folding>
+            <marker date="1495014732463" expanded="true" signature="36:25562" ph="{...}" />
+            <marker date="1495014732463" expanded="true" signature="25071:25089" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>

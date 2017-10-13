@@ -22,19 +22,21 @@ import com.xuanwu.mos.vo.ContactVo;
 import com.xuanwu.mos.vo.FileParams;
 import com.xuanwu.mos.vo.MmsInfoVo;
 import com.xuanwu.msggate.common.sbi.entity.MsgPack;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.FastDateFormat;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.FileInputStream;
 import java.nio.charset.Charset;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.regex.Pattern;
+
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * Created by Jiang.Ziyuan on 2017/3/24.

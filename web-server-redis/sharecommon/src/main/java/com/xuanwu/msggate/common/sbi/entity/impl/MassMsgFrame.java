@@ -4,11 +4,8 @@
  */
 package com.xuanwu.msggate.common.sbi.entity.impl;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
 import com.google.protobuf.ByteString;
+
 import com.xuanwu.msggate.common.protobuf.CommonItem.BizMeta;
 import com.xuanwu.msggate.common.protobuf.CommonItem.MassFrame;
 import com.xuanwu.msggate.common.protobuf.CommonItem.MassPack;
@@ -20,6 +17,10 @@ import com.xuanwu.msggate.common.sbi.entity.MsgSingle;
 import com.xuanwu.msggate.common.sbi.exception.CoreError;
 import com.xuanwu.msggate.common.util.ChangeMsgFmt;
 import com.xuanwu.msggate.common.zip.ZipUtil;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Mass message frame

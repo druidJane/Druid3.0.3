@@ -1,8 +1,6 @@
 package com.xuanwu.mos.domain.enums;
 
 
-import com.xuanwu.mos.domain.handler.HasIndexValue;
-
 /**
  * Created by zengzl
  */

@@ -4,17 +4,17 @@
  */
 package com.xuanwu.msggate.common.wappush;
 
+import com.xuanwu.msggate.common.encode.EncodeUtil;
+import com.xuanwu.msggate.common.encode.WordFragment;
+
+import org.apache.commons.lang.StringUtils;
+import org.springframework.stereotype.Component;
+
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.regex.Pattern;
-
-import org.apache.commons.lang.StringUtils;
-import org.springframework.stereotype.Component;
-
-import com.xuanwu.msggate.common.encode.EncodeUtil;
-import com.xuanwu.msggate.common.encode.WordFragment;
 
 @Component
 public class WappushReposImpl implements WappushRepos {

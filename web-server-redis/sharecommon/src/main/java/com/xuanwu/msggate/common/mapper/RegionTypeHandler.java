@@ -1,14 +1,14 @@
 package com.xuanwu.msggate.common.mapper;
 
-import java.sql.CallableStatement;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import com.xuanwu.msggate.common.sbi.entity.Region;
 
 import org.apache.ibatis.type.BaseTypeHandler;
 import org.apache.ibatis.type.JdbcType;
 
-import com.xuanwu.msggate.common.sbi.entity.Region;
+import java.sql.CallableStatement;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class RegionTypeHandler extends BaseTypeHandler<com.xuanwu.msggate.common.sbi.entity.Region>{
 

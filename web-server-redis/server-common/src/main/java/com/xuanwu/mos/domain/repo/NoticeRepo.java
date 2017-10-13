@@ -2,14 +2,12 @@ package com.xuanwu.mos.domain.repo;
 
 
 import com.xuanwu.mos.config.Platform;
-import com.xuanwu.mos.config.PlatformMode;
 import com.xuanwu.mos.db.GsmsMybatisEntityRepository;
 import com.xuanwu.mos.domain.entity.Notice;
-import com.xuanwu.mos.domain.enums.NoticeState;
 import com.xuanwu.mos.exception.RepositoryException;
+
 import org.apache.ibatis.session.ExecutorType;
 import org.apache.ibatis.session.SqlSession;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.Date;

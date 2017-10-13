@@ -1,7 +1,5 @@
 package com.xuanwu.mos.vo;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 /** 发送彩信时处理前台的传来的通讯录对象
  * 在设计中，只有设计
  * 第一种，传单个电话号码，以p开头，例如p18206534521

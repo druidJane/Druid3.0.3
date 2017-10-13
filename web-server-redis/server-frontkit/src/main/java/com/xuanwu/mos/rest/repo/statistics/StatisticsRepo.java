@@ -1,19 +1,18 @@
 package com.xuanwu.mos.rest.repo.statistics;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.apache.ibatis.session.SqlSession;
-import org.springframework.stereotype.Repository;
-
 import com.xuanwu.mos.db.GsmsMybatisEntityRepository;
 import com.xuanwu.mos.domain.entity.BillingAcountInfo;
 import com.xuanwu.mos.domain.entity.BizTypeStatistics;
 import com.xuanwu.mos.domain.entity.DepartmentStatistics;
-import com.xuanwu.mos.domain.entity.SimpleUser;
 import com.xuanwu.mos.domain.entity.UserStatistics;
 import com.xuanwu.mos.dto.QueryParameters;
+
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.stereotype.Repository;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 @Repository
 public class StatisticsRepo extends GsmsMybatisEntityRepository<BillingAcountInfo> {
 

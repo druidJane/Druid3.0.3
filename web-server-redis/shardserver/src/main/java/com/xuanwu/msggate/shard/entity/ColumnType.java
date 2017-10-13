@@ -1,8 +1,5 @@
 package com.xuanwu.msggate.shard.entity;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * @author <a href="hw86xll@163.com">Wei.Huang</a>
  * @Date 2013-09-05

@@ -4,9 +4,9 @@
  */
 package com.xuanwu.mos.domain.entity;
 
-import java.util.Comparator;
-
 import com.xuanwu.mos.domain.AbstractEntity;
+
+import java.util.Comparator;
 
 /**
  * @Description:

@@ -1,7 +1,5 @@
 package com.xuanwu.mos.domain.enums;
 
-import com.xuanwu.mos.domain.handler.HasIndexValue;
-
 /** 审核
  * Created by 郭垚辉 on 2017/5/22.
  */

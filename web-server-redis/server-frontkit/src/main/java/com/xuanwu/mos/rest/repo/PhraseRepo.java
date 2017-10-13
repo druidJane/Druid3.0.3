@@ -2,8 +2,8 @@ package com.xuanwu.mos.rest.repo;
 
 import com.xuanwu.mos.db.GsmsMybatisEntityRepository;
 import com.xuanwu.mos.domain.entity.Phrase;
-
 import com.xuanwu.mos.dto.QueryParameters;
+
 import org.apache.ibatis.session.ExecutorType;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;

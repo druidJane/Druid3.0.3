@@ -30,20 +30,22 @@ import com.xuanwu.mos.utils.SessionUtil;
 import com.xuanwu.mos.utils.WebConstants;
 import com.xuanwu.mos.vo.UserTaskParameter;
 import com.xuanwu.msggate.common.cache.engine.LongHashCache;
+
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 @Component
 @Path(Keys.INFO_BLACKLIST)

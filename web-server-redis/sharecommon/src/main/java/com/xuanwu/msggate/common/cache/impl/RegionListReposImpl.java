@@ -4,13 +4,6 @@
 */
 package com.xuanwu.msggate.common.cache.impl;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.xuanwu.msggate.common.cache.RegionCarrierResult;
 import com.xuanwu.msggate.common.cache.RegionRepos;
 import com.xuanwu.msggate.common.cache.SpecSVSRepos;
@@ -19,6 +12,13 @@ import com.xuanwu.msggate.common.cache.dao.CacheDao;
 import com.xuanwu.msggate.common.core.Config;
 import com.xuanwu.msggate.common.sbi.entity.Carrier;
 import com.xuanwu.msggate.common.util.PhoneUtil;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @Description:  

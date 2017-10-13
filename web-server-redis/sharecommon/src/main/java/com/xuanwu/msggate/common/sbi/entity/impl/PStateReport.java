@@ -4,9 +4,9 @@
  */
 package com.xuanwu.msggate.common.sbi.entity.impl;
 
-import java.util.Date;
-
 import com.xuanwu.msggate.common.sbi.entity.StateReport;
+
+import java.util.Date;
 
 /**
  * @author <a href="mailto:wanglianguang@139130.netGuang Wang</a>

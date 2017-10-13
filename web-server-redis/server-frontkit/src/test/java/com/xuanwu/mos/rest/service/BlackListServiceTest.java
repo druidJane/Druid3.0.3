@@ -3,7 +3,7 @@ package com.xuanwu.mos.rest.service;
 import com.xuanwu.mos.StartServer;
 import com.xuanwu.mos.domain.entity.BlackList;
 import com.xuanwu.mos.dto.QueryParameters;
-import org.junit.Assert;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

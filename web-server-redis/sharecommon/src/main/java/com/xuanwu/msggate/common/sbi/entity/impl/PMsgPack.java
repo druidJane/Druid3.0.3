@@ -4,14 +4,6 @@
  */
 package com.xuanwu.msggate.common.sbi.entity.impl;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
-
 import com.xuanwu.msggate.common.protobuf.CommonItem.BizMeta;
 import com.xuanwu.msggate.common.protobuf.CommonItem.GroupFrame;
 import com.xuanwu.msggate.common.protobuf.CommonItem.MassFrame;
@@ -24,6 +16,14 @@ import com.xuanwu.msggate.common.sbi.entity.MsgPack;
 import com.xuanwu.msggate.common.sbi.entity.NonWhiteList;
 import com.xuanwu.msggate.common.util.DateUtil;
 import com.xuanwu.msggate.common.util.UUIDUtil;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 /**
  * Centrum message pack entity

@@ -4,13 +4,13 @@
  */
 package com.xuanwu.msggate.common.sbi.entity.impl;
 
+import com.xuanwu.msggate.common.sbi.entity.MediaItem;
+import com.xuanwu.msggate.common.sbi.entity.MsgContent;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
-
-import com.xuanwu.msggate.common.sbi.entity.MediaItem;
-import com.xuanwu.msggate.common.sbi.entity.MsgContent;
 
 /**
  * @author <a href="mailto:wanglianguang@139130.netGuang Wang</a>

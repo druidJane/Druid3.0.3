@@ -6,19 +6,21 @@ import com.xuanwu.mos.domain.entity.SimpleUser;
 import com.xuanwu.mos.dto.*;
 import com.xuanwu.mos.rest.service.FileTaskService;
 import com.xuanwu.mos.utils.SessionUtil;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.io.File;
+import java.io.UnsupportedEncodingException;
+import java.util.Collection;
 
 import javax.activation.MimetypesFileTypeMap;
 import javax.validation.Valid;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.io.File;
-import java.io.UnsupportedEncodingException;
-import java.util.Collection;
 
 /**
  * @author <a href="zhangpengfei@wxchina.com">ZhangPengFei</a>

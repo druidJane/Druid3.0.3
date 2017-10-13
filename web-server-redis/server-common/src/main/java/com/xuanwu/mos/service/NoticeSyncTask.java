@@ -4,6 +4,7 @@ package com.xuanwu.mos.service;
 import com.xuanwu.mos.config.SyncTask;
 import com.xuanwu.mos.domain.entity.Notice;
 import com.xuanwu.mos.exception.RepositoryException;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

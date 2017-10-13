@@ -7,9 +7,9 @@ package com.xuanwu.msggate.common.sbi.entity.impl;
 import com.xuanwu.msggate.common.protobuf.CommonItem.MsgItem;
 import com.xuanwu.msggate.common.sbi.entity.Carrier;
 import com.xuanwu.msggate.common.sbi.entity.MsgContent;
+import com.xuanwu.msggate.common.sbi.entity.MsgContent.MsgType;
 import com.xuanwu.msggate.common.sbi.entity.MsgSingle;
 import com.xuanwu.msggate.common.sbi.entity.Region;
-import com.xuanwu.msggate.common.sbi.entity.MsgContent.MsgType;
 
 /**
  * Centrum message single entity

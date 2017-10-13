@@ -1,9 +1,9 @@
 package com.xuanwu.mos.utils;
 
+import com.xuanwu.mos.domain.handler.HasIndexValue;
+
 import java.util.HashMap;
 import java.util.Map;
-
-import com.xuanwu.mos.domain.handler.HasIndexValue;
 
 public class EnumUtil {
 

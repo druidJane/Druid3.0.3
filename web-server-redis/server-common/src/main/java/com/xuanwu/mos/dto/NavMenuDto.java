@@ -6,6 +6,7 @@ package com.xuanwu.mos.dto;
 
 import com.xuanwu.mos.domain.entity.Permission;
 import com.xuanwu.mos.utils.ListUtil;
+
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.Serializable;

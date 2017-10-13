@@ -1,8 +1,8 @@
 package com.xuanwu.msggate.shard.util;
 
-import java.lang.reflect.Field;
-
 import org.springframework.util.ReflectionUtils;
+
+import java.lang.reflect.Field;
 
 /**
  * @author <a href="hw86xll@163.com">Wei.Huang</a>

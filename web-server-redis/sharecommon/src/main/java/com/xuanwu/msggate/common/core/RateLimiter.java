@@ -16,10 +16,10 @@
 
 package com.xuanwu.msggate.common.core;
 
-import java.util.concurrent.TimeUnit;
-
 import com.xuanwu.msggate.common.util.Preconditions;
 import com.xuanwu.msggate.common.util.Uninterruptibles;
+
+import java.util.concurrent.TimeUnit;
 
 /**
  * A rate limiter. Conceptually, a rate limiter distributes permits at a

@@ -4,9 +4,9 @@
  */
 package com.xuanwu.msggate.common.sbi.entity;
 
-import java.util.regex.Pattern;
-
 import com.xuanwu.msggate.common.protobuf.CommonItem.Result;
+
+import java.util.regex.Pattern;
 
 /**
  * 下行信息提交响应

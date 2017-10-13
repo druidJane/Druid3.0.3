@@ -1,11 +1,11 @@
 package com.xuanwu.msggate.common.cache.dao.mapper;
 
-import java.util.List;
+import com.xuanwu.msggate.common.cache.BizHandleRepos.ListType;
+import com.xuanwu.msggate.common.sbi.entity.CachePhone;
 
 import org.apache.ibatis.annotations.Param;
 
-import com.xuanwu.msggate.common.cache.BizHandleRepos.ListType;
-import com.xuanwu.msggate.common.sbi.entity.CachePhone;
+import java.util.List;
 
 public interface CacheMapper {
 	

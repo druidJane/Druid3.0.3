@@ -1,5 +1,7 @@
 package com.xuanwu.msggate.common.sbi.entity;
 
+import com.xuanwu.msggate.common.sbi.entity.MsgContent.MsgType;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -7,8 +9,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
-
-import com.xuanwu.msggate.common.sbi.entity.MsgContent.MsgType;
 
 /**
  * 

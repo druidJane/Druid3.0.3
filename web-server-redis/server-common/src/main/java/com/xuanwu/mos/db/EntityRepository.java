@@ -4,12 +4,12 @@
  */
 package com.xuanwu.mos.db;
 
-import java.io.Serializable;
-import java.util.List;
-
 import com.xuanwu.mos.domain.Entity;
 import com.xuanwu.mos.dto.QueryParameters;
 import com.xuanwu.mos.exception.RepositoryException;
+
+import java.io.Serializable;
+import java.util.List;
 
 /**
  * 仓储访问接口, 提供通用仓储方法

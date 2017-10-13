@@ -4,13 +4,13 @@
  */
 package com.xuanwu.msggate.common.sbi.entity;
 
+import com.xuanwu.msggate.common.sbi.entity.MsgContent.MsgType;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.locks.ReentrantLock;
-
-import com.xuanwu.msggate.common.sbi.entity.MsgContent.MsgType;
 
 /**
  * @author <a href="mailto:hotstong@gmail.com">LianGuang Wang</a>

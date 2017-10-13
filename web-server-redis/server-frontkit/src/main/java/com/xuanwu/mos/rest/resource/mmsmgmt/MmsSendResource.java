@@ -24,11 +24,14 @@ import com.xuanwu.msggate.common.sbi.entity.MsgContent;
 import com.xuanwu.msggate.common.sbi.entity.MsgFrame;
 import com.xuanwu.msggate.common.sbi.entity.MsgPack;
 import com.xuanwu.msggate.common.sbi.entity.impl.PMsgPack;
+
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -38,7 +41,6 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
-import java.util.*;
 
 /** 彩信管理 --> 发送彩信
  * Created by 郭垚辉 on 2017/3/23.

@@ -1,8 +1,8 @@
 package com.xuanwu.mos.domain.entity;
 
-import java.io.Serializable;
-
 import com.xuanwu.mos.domain.AbstractEntity;
+
+import java.io.Serializable;
 
 public class BillingAcountInfo extends AbstractEntity{
 

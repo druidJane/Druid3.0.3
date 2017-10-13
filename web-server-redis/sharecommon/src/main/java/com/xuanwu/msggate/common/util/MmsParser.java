@@ -1,5 +1,19 @@
 package com.xuanwu.msggate.common.util;
 
+import com.google.protobuf.ByteString;
+
+import com.xuanwu.msggate.common.sbi.entity.MediaItem;
+import com.xuanwu.msggate.common.sbi.entity.MmsContent;
+import com.xuanwu.msggate.common.sbi.entity.MmsPar;
+import com.xuanwu.msggate.common.sbi.exception.CoreException;
+
+import org.apache.commons.lang.StringUtils;
+import org.dom4j.Document;
+import org.dom4j.Element;
+import org.dom4j.io.SAXReader;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -9,19 +23,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import org.apache.commons.lang.StringUtils;
-import org.dom4j.Document;
-import org.dom4j.Element;
-import org.dom4j.io.SAXReader;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.google.protobuf.ByteString;
-import com.xuanwu.msggate.common.sbi.entity.MediaItem;
-import com.xuanwu.msggate.common.sbi.entity.MmsContent;
-import com.xuanwu.msggate.common.sbi.entity.MmsPar;
-import com.xuanwu.msggate.common.sbi.exception.CoreException;
 
 public class MmsParser {
 	private static final Logger logger = LoggerFactory

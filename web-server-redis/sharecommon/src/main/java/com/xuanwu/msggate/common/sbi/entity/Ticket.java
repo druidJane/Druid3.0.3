@@ -4,12 +4,12 @@
  */
 package com.xuanwu.msggate.common.sbi.entity;
 
+import com.xuanwu.msggate.common.encode.EncodeType;
+import com.xuanwu.msggate.common.sbi.entity.MsgContent.MsgType;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import com.xuanwu.msggate.common.encode.EncodeType;
-import com.xuanwu.msggate.common.sbi.entity.MsgContent.MsgType;
 
 
 /**

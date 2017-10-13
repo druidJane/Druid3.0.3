@@ -8,7 +8,6 @@ import com.xuanwu.mos.domain.enums.DataScope;
 import com.xuanwu.mos.domain.repo.UserRepo;
 import com.xuanwu.mos.dto.QueryParameters;
 import com.xuanwu.mos.exception.BusinessException;
-import com.xuanwu.mos.utils.SessionUtil;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

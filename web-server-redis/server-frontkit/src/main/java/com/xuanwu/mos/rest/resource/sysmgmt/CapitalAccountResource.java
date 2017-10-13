@@ -22,19 +22,21 @@ import com.xuanwu.mos.service.RoleService;
 import com.xuanwu.mos.service.SysLogService;
 import com.xuanwu.mos.service.UserService;
 import com.xuanwu.mos.utils.*;
+
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
+import java.util.*;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
-import java.math.BigDecimal;
-import java.util.*;
 
 /**
  * @author <a href="zhangpengfei@wxchina.com">ZhangPengFei</a>

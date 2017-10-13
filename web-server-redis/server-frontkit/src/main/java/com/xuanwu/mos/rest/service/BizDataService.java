@@ -1,22 +1,6 @@
 package com.xuanwu.mos.rest.service;
 
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.locks.ReentrantReadWriteLock;
-
-import javax.annotation.PostConstruct;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
 import com.xuanwu.mos.config.SyncTask;
 import com.xuanwu.mos.domain.entity.Carrier;
 import com.xuanwu.mos.domain.entity.CarrierTeleseg;
@@ -29,6 +13,22 @@ import com.xuanwu.mos.rest.repo.CarrierRepo;
 import com.xuanwu.mos.rest.repo.CarrierTelesegRepo;
 import com.xuanwu.mos.utils.ListUtil;
 import com.xuanwu.msggate.common.cache.CacheObject;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
+
+import javax.annotation.PostConstruct;
 
 /**
  * Created by 林泽强 on 2016/9/12.

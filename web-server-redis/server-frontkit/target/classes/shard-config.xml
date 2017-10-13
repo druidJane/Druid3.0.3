@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rule>
+	<!-- type:int, string, date -->
+	<table name="gsms_msg_pack">
+		<column name="msg_type" type="int" spilt="_">
+			<value alias="sms">0,1,8,9</value>
+			<value alias="mms">2</value>
+		</column>
+		<column name="post_time" type="date" format="MMdd" spilt="_">
+			<value />
+		</column>
+	</table>
+	
+	<table name="gsms_msg_frame">
+		<column name="msg_type" type="int" spilt="_">
+			<value alias="sms">0,1,8,9</value>
+			<value alias="mms">2</value>
+		</column>
+		<column name="post_time" type="date" format="MMdd" spilt="_">
+			<value />
+		</column>
+	</table>
+	
+	<table name="gsms_msg_ticket">
+		<column name="msg_type" type="int" spilt="_">
+			<value alias="sms">0,1,8,9</value>
+			<value alias="mms">2</value>
+		</column>
+		<column name="post_time" type="date" format="MMdd" spilt="_">
+			<value />
+		</column>
+	</table>
+	
+	<table name="gsms_statereport">
+		<column name="post_time" type="date" format="MMdd" spilt="_">
+			<value />
+		</column>
+	</table>
+</rule>

@@ -4,12 +4,12 @@
  */
 package com.xuanwu.msggate.common.sbi.entity;
 
-import java.util.Map;
+import com.xuanwu.msggate.common.protobuf.mto.MTOResponse.ChannelInfo;
+import com.xuanwu.msggate.common.util.XmlUtil;
 
 import org.apache.commons.lang.StringUtils;
 
-import com.xuanwu.msggate.common.protobuf.mto.MTOResponse.ChannelInfo;
-import com.xuanwu.msggate.common.util.XmlUtil;
+import java.util.Map;
 
 /**
  * Channel meta information

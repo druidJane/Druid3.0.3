@@ -4,13 +4,13 @@
  */
 package com.xuanwu.msggate.common.sbi.entity;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.xuanwu.msggate.common.sbi.entity.Carrier;
-import com.xuanwu.msggate.common.sbi.entity.MsgSingle;
 import com.xuanwu.msggate.common.sbi.entity.MsgContent.MsgType;
 import com.xuanwu.msggate.common.sbi.entity.MsgFrame.BizForm;
+import com.xuanwu.msggate.common.sbi.entity.MsgSingle;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author <a href="hw86xll@163.com">Wei.Huang</a>

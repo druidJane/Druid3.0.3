@@ -1,10 +1,10 @@
 package com.xuanwu.mos.rest.service;
 
 import com.xuanwu.mos.domain.entity.FileTask;
-import com.xuanwu.mos.domain.enums.TaskType;
 import com.xuanwu.mos.dto.QueryParameters;
 import com.xuanwu.mos.exception.RepositoryException;
 import com.xuanwu.mos.rest.repo.FileTaskRepo;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -1,8 +1,8 @@
 package com.xuanwu.mos.rest.repo;
 
 import com.xuanwu.mos.db.GsmsMybatisEntityRepository;
-import com.xuanwu.mos.db.ListMybatisEntityRepository;
 import com.xuanwu.mos.domain.entity.WhitePhone;
+
 import org.springframework.stereotype.Repository;
 
 /**

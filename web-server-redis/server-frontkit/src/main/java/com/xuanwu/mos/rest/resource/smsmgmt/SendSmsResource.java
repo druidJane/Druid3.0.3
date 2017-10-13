@@ -30,11 +30,16 @@ import com.xuanwu.msggate.common.sbi.entity.MsgFrame;
 import com.xuanwu.msggate.common.sbi.entity.MsgPack;
 import com.xuanwu.msggate.common.sbi.entity.impl.PMsgPack;
 import com.xuanwu.msggate.common.util.Constants;
+
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.math.BigDecimal;
+import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -44,9 +49,6 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
-import java.math.BigDecimal;
-import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Created by Jiang.Ziyuan on 2017/3/23.

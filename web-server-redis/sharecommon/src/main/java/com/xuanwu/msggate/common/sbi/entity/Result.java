@@ -4,10 +4,10 @@
  */
 package com.xuanwu.msggate.common.sbi.entity;
 
+import com.xuanwu.msggate.common.sbi.entity.impl.FetchFrame;
+
 import java.util.List;
 import java.util.UUID;
-
-import com.xuanwu.msggate.common.sbi.entity.impl.FetchFrame;
 
 
 /**

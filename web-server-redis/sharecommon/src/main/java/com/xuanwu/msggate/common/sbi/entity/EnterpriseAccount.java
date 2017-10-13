@@ -1,10 +1,10 @@
 package com.xuanwu.msggate.common.sbi.entity;
 
+import com.xuanwu.msggate.common.sbi.entity.MsgContent.MsgType;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import com.xuanwu.msggate.common.sbi.entity.MsgContent.MsgType;
 
 /**
  * Enterprise, just like a domain

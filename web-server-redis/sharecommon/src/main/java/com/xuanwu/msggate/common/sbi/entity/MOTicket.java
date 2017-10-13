@@ -4,9 +4,9 @@
  */
 package com.xuanwu.msggate.common.sbi.entity;
 
-import java.util.Date;
-
 import com.xuanwu.msggate.common.encode.EncodeType;
+
+import java.util.Date;
 
 /**
  * 上行消息

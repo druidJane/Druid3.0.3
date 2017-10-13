@@ -6,10 +6,9 @@ import com.xuanwu.mos.domain.entity.MsgTicket;
 import com.xuanwu.mos.domain.enums.MsgTypeEnum;
 import com.xuanwu.mos.dto.QueryParameters;
 import com.xuanwu.mos.rest.service.msgservice.MsgTicketService;
-import com.xuanwu.mos.utils.FrameTicketUtil;
 import com.xuanwu.msggate.common.protobuf.CommonItem;
 import com.xuanwu.msggate.common.zip.ZipUtil;
-import org.apache.commons.codec.digest.DigestUtils;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

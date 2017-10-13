@@ -4,16 +4,6 @@
  */
 package com.xuanwu.msggate.common.cache.impl;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.locks.ReadWriteLock;
-import java.util.concurrent.locks.ReentrantReadWriteLock;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-
 import com.xuanwu.msggate.common.cache.BizHandleRepos;
 import com.xuanwu.msggate.common.cache.RegionCarrierResult;
 import com.xuanwu.msggate.common.cache.SpecSVSRepos;
@@ -27,8 +17,18 @@ import com.xuanwu.msggate.common.sbi.entity.Carrier;
 import com.xuanwu.msggate.common.sbi.entity.CarrierChannel;
 import com.xuanwu.msggate.common.sbi.entity.MsgContent;
 import com.xuanwu.msggate.common.util.KeyFilter;
-import com.xuanwu.msggate.common.util.PhoneUtil;
 import com.xuanwu.msggate.common.util.KeyFilter.KewordType;
+import com.xuanwu.msggate.common.util.PhoneUtil;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.locks.ReadWriteLock;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 /**
  * @author <a href="mailto:wanglianguang@139130.netGuang Wang</a>

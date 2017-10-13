@@ -4,10 +4,10 @@
  */
 package com.xuanwu.msggate.common.sbi.entity;
 
+import com.xuanwu.msggate.common.sbi.entity.MsgContent.MsgType;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import com.xuanwu.msggate.common.sbi.entity.MsgContent.MsgType;
 
 /**
  * Template used to handle binding special service number

@@ -1,7 +1,5 @@
 package com.xuanwu.mos.domain.enums;
 
-import com.xuanwu.mos.domain.handler.HasIndexValue;
-
 /**
  * 企业认证类型
  * 

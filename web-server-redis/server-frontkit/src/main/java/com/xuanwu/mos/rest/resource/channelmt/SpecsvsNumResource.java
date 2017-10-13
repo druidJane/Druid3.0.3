@@ -6,17 +6,19 @@ import com.xuanwu.mos.domain.entity.SpecsvsNumVo;
 import com.xuanwu.mos.dto.*;
 import com.xuanwu.mos.rest.service.SpecsvsNumService;
 import com.xuanwu.mos.utils.SessionUtil;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 import javax.validation.Valid;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import java.util.List;
 
 /**端口分配
  * Created by zhangz on 2017/3/23.

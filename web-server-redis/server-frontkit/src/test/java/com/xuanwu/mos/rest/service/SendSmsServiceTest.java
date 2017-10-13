@@ -4,7 +4,7 @@ import com.xuanwu.mos.StartServer;
 import com.xuanwu.mos.domain.entity.Contact;
 import com.xuanwu.mos.rest.service.smsmgmt.impl.SendSmsService;
 import com.xuanwu.mos.vo.MmsInfoVo;
-import com.xuanwu.msggate.common.sbi.entity.MsgContent;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

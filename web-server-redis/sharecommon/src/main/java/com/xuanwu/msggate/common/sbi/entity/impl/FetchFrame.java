@@ -4,12 +4,8 @@
  */
 package com.xuanwu.msggate.common.sbi.entity.impl;
 
-import static com.xuanwu.msggate.common.util.DateUtil.tranDate;
-
-import java.util.Date;
-import java.util.UUID;
-
 import com.google.protobuf.ByteString;
+
 import com.xuanwu.msggate.common.protobuf.CommonItem.BizMeta;
 import com.xuanwu.msggate.common.protobuf.mto.MTOResponse.OMsgFrame;
 import com.xuanwu.msggate.common.sbi.entity.MsgContent.MsgType;
@@ -17,6 +13,11 @@ import com.xuanwu.msggate.common.sbi.entity.MsgFrame.FrameState;
 import com.xuanwu.msggate.common.sbi.entity.MsgPack.SendType;
 import com.xuanwu.msggate.common.sbi.entity.SpecSVSNumber;
 import com.xuanwu.msggate.common.util.UUIDUtil;
+
+import java.util.Date;
+import java.util.UUID;
+
+import static com.xuanwu.msggate.common.util.DateUtil.tranDate;
 
 /**
  * Fetch frame temp

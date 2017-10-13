@@ -7,6 +7,7 @@ import com.xuanwu.mos.domain.entity.SimpleUser;
 import com.xuanwu.mos.domain.enums.DataScope;
 import com.xuanwu.mos.domain.repo.RoleRepo;
 import com.xuanwu.mos.domain.repo.UserRepo;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

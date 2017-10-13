@@ -1,7 +1,5 @@
 package com.xuanwu.mos.domain.enums;
 
-import com.xuanwu.mos.domain.handler.HasIndexValue;
-
 /**
  * @author <a href="zhangpengfei@wxchina.com">ZhangPengFei</a>
  * @Discription 角色类型

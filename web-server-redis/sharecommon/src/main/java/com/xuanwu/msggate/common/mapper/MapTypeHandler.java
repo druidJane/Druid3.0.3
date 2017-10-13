@@ -4,16 +4,16 @@
  */
 package com.xuanwu.msggate.common.mapper;
 
+import com.xuanwu.msggate.common.util.XmlUtil;
+
+import org.apache.ibatis.type.BaseTypeHandler;
+import org.apache.ibatis.type.JdbcType;
+
 import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Map;
-
-import org.apache.ibatis.type.BaseTypeHandler;
-import org.apache.ibatis.type.JdbcType;
-
-import com.xuanwu.msggate.common.util.XmlUtil;
 
 /**
  * @author <a href="mailto:wanglianguang@139130.net>Guang Wang</a>

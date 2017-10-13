@@ -4,6 +4,17 @@
  */
 package com.xuanwu.msggate.common.logic.impl;
 
+import com.xuanwu.msggate.common.cache.dao.BizDataFetchDao;
+import com.xuanwu.msggate.common.cache.entity.Priority;
+import com.xuanwu.msggate.common.cache.entity.PriorityBox;
+import com.xuanwu.msggate.common.counter.FrameCounter;
+import com.xuanwu.msggate.common.logic.PriorityRepos;
+import com.xuanwu.msggate.common.util.DateUtil;
+import com.xuanwu.msggate.common.util.ListUtil;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -12,17 +23,6 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 import javax.annotation.PostConstruct;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.xuanwu.msggate.common.cache.dao.BizDataFetchDao;
-import com.xuanwu.msggate.common.cache.entity.Priority;
-import com.xuanwu.msggate.common.cache.entity.PriorityBox;
-import com.xuanwu.msggate.common.counter.FrameCounter;
-import com.xuanwu.msggate.common.logic.PriorityRepos;
-import com.xuanwu.msggate.common.util.DateUtil;
-import com.xuanwu.msggate.common.util.ListUtil;
 
 /**
  * 

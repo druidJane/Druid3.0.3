@@ -11,6 +11,7 @@ import com.xuanwu.mos.service.UserService;
 import com.xuanwu.mos.utils.JsonUtil;
 import com.xuanwu.mos.utils.ListUtil;
 import com.xuanwu.msggate.common.util.StringUtil;
+
 import org.apache.shiro.util.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

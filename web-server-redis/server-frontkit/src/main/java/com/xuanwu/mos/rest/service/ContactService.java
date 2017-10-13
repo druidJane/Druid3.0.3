@@ -2,14 +2,12 @@ package com.xuanwu.mos.rest.service;
 
 import com.xuanwu.mos.domain.entity.Contact;
 import com.xuanwu.mos.domain.entity.ContactGroup;
-import com.xuanwu.mos.domain.entity.ContactShareGroup;
 import com.xuanwu.mos.domain.entity.DynamicParam;
 import com.xuanwu.mos.dto.QueryParameters;
 import com.xuanwu.mos.file.importer.ImportInfoBuild;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by Jiang.Ziyuan on 2017/3/27.

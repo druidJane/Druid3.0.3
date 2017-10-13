@@ -23,9 +23,12 @@ import com.xuanwu.mos.utils.LogContentUtil;
 import com.xuanwu.mos.utils.Messages;
 import com.xuanwu.mos.utils.SessionUtil;
 import com.xuanwu.mos.utils.XmlUtil;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
+
+import java.util.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -35,7 +38,6 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
-import java.util.*;
 
 /**非法关键字
  * Created by zhangz on 2017/3/23.

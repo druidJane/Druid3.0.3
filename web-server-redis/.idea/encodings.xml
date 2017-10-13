@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/server-common" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/server-frontkit" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/server-security" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/server-sqlmapper" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/shardserver" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/sharecommon" charset="UTF-8" />
+  </component>
+</project>

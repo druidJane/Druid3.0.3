@@ -4,7 +4,6 @@ package com.xuanwu.mos.service;
 import com.xuanwu.mos.config.Keys;
 import com.xuanwu.mos.config.PlatformMode;
 import com.xuanwu.mos.domain.entity.Notice;
-import com.xuanwu.mos.domain.entity.NoticeDetail;
 import com.xuanwu.mos.domain.entity.SimpleUser;
 import com.xuanwu.mos.domain.enums.NoticeScope;
 import com.xuanwu.mos.domain.enums.NoticeState;
@@ -12,6 +11,7 @@ import com.xuanwu.mos.domain.repo.NoticeRepo;
 import com.xuanwu.mos.dto.QueryParameters;
 import com.xuanwu.mos.exception.RepositoryException;
 import com.xuanwu.mos.utils.SessionUtil;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

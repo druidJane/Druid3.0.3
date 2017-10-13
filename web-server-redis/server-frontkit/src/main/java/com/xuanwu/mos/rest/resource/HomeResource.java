@@ -1,30 +1,7 @@
 package com.xuanwu.mos.rest.resource;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.MediaType;
-
-import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.time.FastDateFormat;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-import org.thymeleaf.util.ListUtils;
-
 import com.xuanwu.mos.config.Keys;
 import com.xuanwu.mos.domain.entity.BaseStatistics;
-import com.xuanwu.mos.domain.entity.Department;
 import com.xuanwu.mos.domain.entity.DepartmentStatistics;
 import com.xuanwu.mos.domain.entity.SimpleUser;
 import com.xuanwu.mos.domain.entity.UserStatistics;
@@ -41,7 +18,25 @@ import com.xuanwu.mos.utils.DateUtil;
 import com.xuanwu.mos.utils.Delimiters;
 import com.xuanwu.mos.utils.SessionUtil;
 import com.xuanwu.mos.utils.UrlResourceUtil;
-import com.xuanwu.mos.utils.WebConstants;
+
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.time.FastDateFormat;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 
 /**
  * Created by zhangz on 2017/3/30.

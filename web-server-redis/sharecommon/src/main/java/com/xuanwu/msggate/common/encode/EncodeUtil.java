@@ -4,12 +4,12 @@
  */
 package com.xuanwu.msggate.common.encode;
 
+import org.apache.commons.lang.StringUtils;
+
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
-import org.apache.commons.lang.StringUtils;
 
 /**
  * Encode util

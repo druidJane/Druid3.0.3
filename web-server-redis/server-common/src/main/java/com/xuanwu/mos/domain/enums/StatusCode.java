@@ -1,8 +1,5 @@
 package com.xuanwu.mos.domain.enums;
 
-import com.xuanwu.mos.domain.handler.HasIndexValue;
-import com.xuanwu.mos.exception.BusinessException;
-
 /**
  * Created by 林泽强 on 2016-8-28. UploadResult状态编码
  */

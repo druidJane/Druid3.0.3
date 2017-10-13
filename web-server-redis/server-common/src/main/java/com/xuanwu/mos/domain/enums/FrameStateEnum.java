@@ -1,8 +1,6 @@
 package com.xuanwu.mos.domain.enums;
 
 
-import com.xuanwu.mos.domain.handler.HasIndexValue;
-
 /** 信息帧的状态：frame表的状态
  * Created by 郭垚辉 on 2017/5/20.
  */

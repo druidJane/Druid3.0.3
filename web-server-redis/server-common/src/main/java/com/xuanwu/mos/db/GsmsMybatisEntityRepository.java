@@ -1,10 +1,10 @@
 package com.xuanwu.mos.db;
 
+import com.xuanwu.mos.domain.Entity;
+
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-
-import com.xuanwu.mos.domain.Entity;
 
 public abstract class GsmsMybatisEntityRepository<T extends Entity> extends MybatisEntityRepository<T> {
 

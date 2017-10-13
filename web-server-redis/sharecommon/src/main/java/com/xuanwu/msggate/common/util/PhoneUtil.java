@@ -1,8 +1,8 @@
 package com.xuanwu.msggate.common.util;
 
-import org.apache.commons.lang.StringUtils;
-
 import com.xuanwu.msggate.common.core.ConfigDefs;
+
+import org.apache.commons.lang.StringUtils;
 
 /**
  * @author <a href="mailto:liushuaiying@139130.net">Shuaiying.Liu</a>

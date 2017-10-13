@@ -12,6 +12,7 @@ import com.xuanwu.mos.file.handler.FileHandler;
 import com.xuanwu.mos.file.handler.FileHandlerFactory;
 import com.xuanwu.mos.file.uploader.UploadResult;
 import com.xuanwu.mos.utils.Delimiters;
+
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileItemFactory;
 import org.apache.commons.fileupload.FileUploadBase;
@@ -21,9 +22,10 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * Created by 林泽强 on 2016/8/25. 文件导入器

@@ -4,20 +4,21 @@
  */
 package com.xuanwu.mos.job;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.BlockingQueue;
-
 import com.xuanwu.mos.config.SyncTask;
 import com.xuanwu.mos.domain.entity.BlackList;
 import com.xuanwu.mos.rest.service.BlackListService;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
 
 
 /**

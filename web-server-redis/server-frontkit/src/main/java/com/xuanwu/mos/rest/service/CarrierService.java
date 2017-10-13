@@ -2,10 +2,9 @@ package com.xuanwu.mos.rest.service;
 
 import com.xuanwu.mos.domain.entity.Carrier;
 import com.xuanwu.mos.domain.entity.CarrierPrice;
-import com.xuanwu.mos.domain.entity.CarrierTeleseg;
 import com.xuanwu.mos.domain.entity.MsgTicket;
-import com.xuanwu.mos.dto.QueryParameters;
 import com.xuanwu.mos.rest.repo.CarrierRepo;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

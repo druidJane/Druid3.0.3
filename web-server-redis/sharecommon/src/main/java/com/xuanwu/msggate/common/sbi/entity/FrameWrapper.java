@@ -4,16 +4,16 @@
  */
 package com.xuanwu.msggate.common.sbi.entity;
 
+import com.xuanwu.msggate.common.sbi.entity.MsgFrame;
+import com.xuanwu.msggate.common.sbi.entity.Ticket;
+import com.xuanwu.msggate.common.sbi.entity.Ticket.SMSType;
+import com.xuanwu.msggate.common.sbi.entity.Ticket.TicketState;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.locks.ReentrantLock;
-
-import com.xuanwu.msggate.common.sbi.entity.MsgFrame;
-import com.xuanwu.msggate.common.sbi.entity.Ticket;
-import com.xuanwu.msggate.common.sbi.entity.Ticket.SMSType;
-import com.xuanwu.msggate.common.sbi.entity.Ticket.TicketState;
 
 /**
  * @author <a href="hw86xll@163.com">Wei.Huang</a>

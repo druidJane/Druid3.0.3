@@ -1,6 +1,7 @@
 package com.xuanwu.mos.domain.entity;
 
 import com.xuanwu.mos.domain.AbstractEntity;
+
 import org.hibernate.validator.constraints.NotEmpty;
 
 import java.util.Date;

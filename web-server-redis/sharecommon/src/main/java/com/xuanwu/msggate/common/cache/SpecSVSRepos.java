@@ -4,9 +4,6 @@
  */
 package com.xuanwu.msggate.common.cache;
 
-import java.util.List;
-import java.util.Map;
-
 import com.xuanwu.msggate.common.sbi.entity.Account;
 import com.xuanwu.msggate.common.sbi.entity.BindSpecNumResult;
 import com.xuanwu.msggate.common.sbi.entity.BizTypeInfo;
@@ -17,6 +14,9 @@ import com.xuanwu.msggate.common.sbi.entity.MsgSingle;
 import com.xuanwu.msggate.common.sbi.entity.Region;
 import com.xuanwu.msggate.common.sbi.entity.SpecSVSNumber;
 import com.xuanwu.msggate.common.sbi.entity.UserBind;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * Special service number repository interface

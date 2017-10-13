@@ -1,0 +1,13 @@
+com\xuanwu\mos\rest\service\UtilTest.class
+com\xuanwu\mos\rest\service\WhitePhoneServiceTest.class
+com\xuanwu\mos\rest\service\ContactGroupServiceTest.class
+com\xuanwu\mos\rest\service\SendSmsServiceTest.class
+com\xuanwu\mos\rest\service\MsgPackServiceTest.class
+com\xuanwu\mos\rest\service\KeyWordServiceTest.class
+com\xuanwu\mos\rest\repo\MsgPackRepoTest.class
+com\xuanwu\mos\rest\service\BizTypeServiceTest.class
+com\xuanwu\mos\rest\service\SpecsvsNumServiceTest.class
+com\xuanwu\mos\rest\service\AutoCompleteServiceTest.class
+com\xuanwu\mos\rest\service\BlackListServiceTest.class
+com\xuanwu\mos\rest\service\MsgTicketServiceTest.class
+com\xuanwu\mos\rest\service\UserMgrServiceTest.class

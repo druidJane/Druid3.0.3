@@ -11,16 +11,18 @@ import com.xuanwu.mos.rest.service.BizTypeService;
 import com.xuanwu.mos.rest.service.BlackListService;
 import com.xuanwu.mos.service.SysLogService;
 import com.xuanwu.mos.utils.*;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.validation.Valid;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-import java.util.ArrayList;
-import java.util.List;
 
 /**业务类型
  * Created by zhangz on 2017/3/23.

@@ -4,15 +4,6 @@
  */
 package com.xuanwu.msggate.common.sbi.entity;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import com.xuanwu.msggate.common.sbi.entity.impl.FetchFrame;
-
 /**
  * Carrier channel
  * 

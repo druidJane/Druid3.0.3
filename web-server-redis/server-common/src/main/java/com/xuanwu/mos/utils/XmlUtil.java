@@ -5,6 +5,7 @@ package com.xuanwu.mos.utils;
  */
 
 import com.thoughtworks.xstream.XStream;
+
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.HashMap;

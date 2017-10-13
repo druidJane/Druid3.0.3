@@ -1,13 +1,13 @@
 package com.xuanwu.msggate.common.mapper;
 
+import org.apache.commons.codec.binary.Base64;
+import org.apache.ibatis.type.JdbcType;
+import org.apache.ibatis.type.TypeHandler;
+
 import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
-import org.apache.commons.codec.binary.Base64;
-import org.apache.ibatis.type.JdbcType;
-import org.apache.ibatis.type.TypeHandler;
 
 public class Base64TypeHandler implements TypeHandler {
 

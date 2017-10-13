@@ -4,18 +4,18 @@
  */
 package com.xuanwu.msggate.common.core;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.xuanwu.msggate.common.cache.SyncTask;
 import com.xuanwu.msggate.common.cache.dao.BizDataFetchDao;
 import com.xuanwu.msggate.common.cache.entity.ConfigRecord;
 import com.xuanwu.msggate.common.sbi.entity.PlatformMode;
 import com.xuanwu.msggate.common.util.ListUtil;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author <a href="hw86xll@163.com">Wei.Huang</a>

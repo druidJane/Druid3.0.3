@@ -4,12 +4,12 @@
  */
 package com.xuanwu.msggate.common.sbi;
 
-import java.util.List;
-import java.util.UUID;
-
 import com.xuanwu.msggate.common.sbi.entity.CarrierChannel;
 import com.xuanwu.msggate.common.sbi.entity.MsgFrame;
 import com.xuanwu.msggate.common.sbi.exception.NotExistException;
+
+import java.util.List;
+import java.util.UUID;
 
 /**
  * Interface of the frame fetch,used by MTO Server client to retrieve the frame.

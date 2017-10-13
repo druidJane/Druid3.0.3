@@ -7,7 +7,7 @@ import com.xuanwu.mos.domain.entity.ContactShareGroup;
 import com.xuanwu.mos.domain.entity.DynamicParam;
 import com.xuanwu.mos.dto.QueryParameters;
 import com.xuanwu.mos.utils.DateUtil;
-import org.apache.ibatis.session.ExecutorType;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 

@@ -1,12 +1,12 @@
 package com.xuanwu.mos.domain.serializer;
 
-import java.io.IOException;
-
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 import com.xuanwu.mos.domain.handler.HasIndexValue;
 import com.xuanwu.mos.utils.EnumUtil;
+
+import java.io.IOException;
 
 /**
  * @author <a href="kangqinghua@wxchina.com">Qinghua Kang</a>

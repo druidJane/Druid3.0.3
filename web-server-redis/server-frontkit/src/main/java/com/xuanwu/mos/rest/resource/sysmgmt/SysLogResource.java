@@ -7,8 +7,13 @@ import com.xuanwu.mos.domain.enums.OperationType;
 import com.xuanwu.mos.dto.*;
 import com.xuanwu.mos.service.SysLogService;
 import com.xuanwu.mos.utils.SessionUtil;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.validation.Valid;
 import javax.ws.rs.GET;
@@ -16,9 +21,6 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @Discription 日志管理

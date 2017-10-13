@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/mos.iml" filepath="$PROJECT_DIR$/mos.iml" />
+      <module fileurl="file://$PROJECT_DIR$/server-common/server-common.iml" filepath="$PROJECT_DIR$/server-common/server-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/server-frontkit/server-frontkit.iml" filepath="$PROJECT_DIR$/server-frontkit/server-frontkit.iml" />
+      <module fileurl="file://$PROJECT_DIR$/server-security/server-security.iml" filepath="$PROJECT_DIR$/server-security/server-security.iml" />
+      <module fileurl="file://$PROJECT_DIR$/server-sqlmapper/server-sqlmapper.iml" filepath="$PROJECT_DIR$/server-sqlmapper/server-sqlmapper.iml" />
+      <module fileurl="file://$PROJECT_DIR$/shardserver/shardserver.iml" filepath="$PROJECT_DIR$/shardserver/shardserver.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sharecommon/sharecommon.iml" filepath="$PROJECT_DIR$/sharecommon/sharecommon.iml" />
+    </modules>
+  </component>
+</project>

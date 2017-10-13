@@ -4,10 +4,10 @@
  */
 package com.xuanwu.msggate.common.sbi.entity;
 
+import com.xuanwu.msggate.common.protobuf.CommonItem.Result;
+
 import java.util.List;
 import java.util.Set;
-
-import com.xuanwu.msggate.common.protobuf.CommonItem.Result;
 
 /**
  * Message content

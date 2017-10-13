@@ -4,6 +4,7 @@ import com.xuanwu.mos.db.ListMybatisEntityRepository;
 import com.xuanwu.mos.domain.entity.BlackList;
 import com.xuanwu.mos.dto.QueryParameters;
 import com.xuanwu.mos.exception.RepositoryException;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 

@@ -1,12 +1,12 @@
 package com.xuanwu.mos.config;
 
-import javax.annotation.PostConstruct;
+import com.xuanwu.mos.utils.SessionUtil;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.web.ServerProperties;
 import org.springframework.stereotype.Component;
 
-import com.xuanwu.mos.utils.SessionUtil;
+import javax.annotation.PostConstruct;
 
 /**
  * 读取application.yml里面的server节点的配置

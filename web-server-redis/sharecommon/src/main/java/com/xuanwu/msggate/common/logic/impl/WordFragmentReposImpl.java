@@ -4,17 +4,17 @@
  */
 package com.xuanwu.msggate.common.logic.impl;
 
-import java.io.UnsupportedEncodingException;
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-
 import com.xuanwu.msggate.common.core.Config;
 import com.xuanwu.msggate.common.encode.EncodeUtil;
 import com.xuanwu.msggate.common.encode.WordFragment;
 import com.xuanwu.msggate.common.encode.WordFragmentBox;
 import com.xuanwu.msggate.common.logic.WordFragmentRepos;
 import com.xuanwu.msggate.common.sbi.entity.MsgContent.MsgType;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.io.UnsupportedEncodingException;
+import java.util.List;
 
 /**
  * 普通短信分词处理,针对内容超长的信息分词处理。 处理后的内容编码为 UTF-16BE，格式为

@@ -5,6 +5,7 @@ import com.xuanwu.mos.domain.entity.MmsMsgPack;
 import com.xuanwu.mos.domain.entity.MsgContent;
 import com.xuanwu.mos.rest.service.msgservice.MsgPackService;
 import com.xuanwu.mos.utils.DateUtil;
+
 import org.apache.commons.lang3.time.FastDateFormat;
 import org.junit.Test;
 import org.junit.runner.RunWith;

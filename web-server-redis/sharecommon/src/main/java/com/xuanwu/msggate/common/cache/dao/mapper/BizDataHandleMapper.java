@@ -4,10 +4,6 @@
  */
 package com.xuanwu.msggate.common.cache.dao.mapper;
 
-import java.util.List;
-
-import org.apache.ibatis.annotations.Param;
-
 import com.xuanwu.msggate.common.cache.entity.ConfigRecord;
 import com.xuanwu.msggate.common.cache.entity.PhoneSegment;
 import com.xuanwu.msggate.common.cache.entity.Priority;
@@ -24,6 +20,10 @@ import com.xuanwu.msggate.common.sbi.entity.RegionRedirect;
 import com.xuanwu.msggate.common.sbi.entity.SpecSVSNumber;
 import com.xuanwu.msggate.common.sbi.entity.UserBind;
 import com.xuanwu.msggate.common.sbi.entity.WhiteRedirectSpecNum;
+
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * @author <a href="mailto:hotstong@gmail.com">LianGuang Wang</a>

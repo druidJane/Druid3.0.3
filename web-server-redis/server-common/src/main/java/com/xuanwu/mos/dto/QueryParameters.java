@@ -4,12 +4,12 @@
  */
 package com.xuanwu.mos.dto;
 
-import java.util.HashMap;
-import java.util.Map;
+import com.xuanwu.mos.utils.StringUtil;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.xuanwu.mos.utils.StringUtil;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 查询参数

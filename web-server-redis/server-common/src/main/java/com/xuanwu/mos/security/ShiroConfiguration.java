@@ -3,6 +3,7 @@ package com.xuanwu.mos.security;
 import com.xuanwu.mos.config.PlatformMode;
 import com.xuanwu.mos.security.filter.ShiroAnonymousFilter;
 import com.xuanwu.mos.security.filter.ShiroAuthorizationFilter;
+
 import org.apache.shiro.cache.CacheManager;
 import org.apache.shiro.cache.ehcache.EhCacheManager;
 import org.apache.shiro.session.mgt.SessionManager;
@@ -16,14 +17,13 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.context.annotation.Lazy;
-import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.web.filter.DelegatingFilterProxy;
 
-import javax.annotation.Resource;
-import javax.servlet.DispatcherType;
-import javax.servlet.Filter;
 import java.util.LinkedHashMap;
 import java.util.Map;
+
+import javax.servlet.DispatcherType;
+import javax.servlet.Filter;
 
 /**
  * 用户登录和权限验证框架配置

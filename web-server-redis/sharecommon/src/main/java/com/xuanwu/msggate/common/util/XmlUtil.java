@@ -3,9 +3,9 @@
  */
 package com.xuanwu.msggate.common.util;
 
-import java.util.Map;
-
 import com.thoughtworks.xstream.XStream;
+
+import java.util.Map;
 
 /**
  * @author <a href="mailto:liushuaiying@139130.net">Shuaiying.Liu</a>

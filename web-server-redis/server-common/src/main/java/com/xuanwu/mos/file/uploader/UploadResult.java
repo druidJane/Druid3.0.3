@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.xuanwu.mos.domain.enums.StatusCode;
 import com.xuanwu.mos.file.FileHead;
 
-import javax.servlet.http.HttpServletRequest;
 import java.io.InputStream;
 
 /**

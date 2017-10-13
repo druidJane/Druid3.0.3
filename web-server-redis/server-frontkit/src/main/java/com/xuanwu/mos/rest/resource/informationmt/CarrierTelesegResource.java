@@ -4,13 +4,15 @@ import com.xuanwu.mos.config.Keys;
 import com.xuanwu.mos.domain.entity.CarrierTeleseg;
 import com.xuanwu.mos.dto.*;
 import com.xuanwu.mos.rest.service.CarrierTelesegService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 import javax.validation.Valid;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
-import java.util.List;
 
 /**运营商号码段
  * Created by zhangz on 2017/3/23.

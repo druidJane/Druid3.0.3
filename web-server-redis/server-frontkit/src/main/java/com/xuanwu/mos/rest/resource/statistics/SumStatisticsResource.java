@@ -1,33 +1,9 @@
 package com.xuanwu.mos.rest.resource.statistics;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.MediaType;
-
-import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.time.FastDateFormat;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
 import com.alibaba.fastjson.JSONObject;
 import com.xuanwu.mos.config.Config;
 import com.xuanwu.mos.config.Keys;
 import com.xuanwu.mos.config.Platform;
-import com.xuanwu.mos.domain.entity.BaseStatistics;
 import com.xuanwu.mos.domain.entity.BizType;
 import com.xuanwu.mos.domain.entity.BizTypeStatistics;
 import com.xuanwu.mos.domain.entity.Department;
@@ -62,9 +38,31 @@ import com.xuanwu.mos.utils.ListUtil;
 import com.xuanwu.mos.utils.SessionUtil;
 import com.xuanwu.mos.utils.UrlResourceUtil;
 import com.xuanwu.mos.utils.WebConstants;
-import com.xuanwu.mos.utils.WebConstants.StatResultCode;
 import com.xuanwu.mos.utils.XmlUtil;
 import com.xuanwu.mos.vo.UserTaskParameter;
+
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.time.FastDateFormat;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.MediaType;
 
 
 @Component

@@ -2,13 +2,12 @@ package com.xuanwu.mos.rest.service;
 
 import com.xuanwu.mos.domain.entity.UserTask;
 import com.xuanwu.mos.domain.enums.MosBizDataType;
-import com.xuanwu.mos.domain.enums.OperationType;
 import com.xuanwu.mos.domain.enums.TaskState;
 import com.xuanwu.mos.domain.enums.TaskType;
 import com.xuanwu.mos.exception.BusinessException;
 import com.xuanwu.mos.exception.RepositoryException;
-import com.xuanwu.mos.file.FileUtil;
 import com.xuanwu.mos.rest.repo.UserTaskRepo;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

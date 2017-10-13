@@ -1,10 +1,5 @@
 package com.xuanwu.mos.domain.serializer;
 
-import java.io.IOException;
-import java.util.UnknownFormatConversionException;
-
-import org.apache.commons.lang3.EnumUtils;
-
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.BeanProperty;
 import com.fasterxml.jackson.databind.DeserializationContext;
@@ -17,6 +12,11 @@ import com.fasterxml.jackson.databind.node.IntNode;
 import com.fasterxml.jackson.databind.node.TextNode;
 import com.xuanwu.mos.domain.handler.HasIndexValue;
 import com.xuanwu.mos.utils.EnumUtil;
+
+import org.apache.commons.lang3.EnumUtils;
+
+import java.io.IOException;
+import java.util.UnknownFormatConversionException;
 
 /**
  * 方便 直接将 post中的json字段 转换成相应的 enum
