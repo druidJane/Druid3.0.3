@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.xuanwu.web.common.dao.mapper.CountAccountMapper">
+
+    <!-- entity 计数账号(gsms_count_account) -->
+    <resultMap id="countAccount" type="com.xuanwu.mos.domain.entity.CountAccount">
+        <id property="id" column="id" />
+        <result property="name" column="name" />
+        <result property="parentId" column="parent_id" />
+        <result property="chargeType" column="charge_type" />
+        <result property="smsLimit" column="sms_limit" />
+        <result property="smsRemain" column="sms_remain" />
+        <result property="mmsLimit" column="mms_limit" />
+        <result property="mmsRemain" column="mms_remain" />
+        <result property="autoChargeTime" column="auto_charge_time" />
+        <result property="modifyUser" column="modify_user" />
+        <result property="modifyTime" column="modify_time" />
+        <result property="smsHasSend" column="sms_hasSend" />
+        <result property="mmsHasSend" column="mms_hasSend" />
+    </resultMap>
+
+    <!-- 新增 -->
+    <insert id="addCountAccount" parameterType="com.xuanwu.web.common.entity.CountAccount">
+        insert into gsms_count_account(name,parent_id,charge_type,sms_limit,sms_remain,mms_limit,mms_remain,modify_user,modify_time,limit_type)
+        values(#{name},#{parentId},#{chargeType},#{smsLimit},#{smsRemain},#{mmsLimit},#{mmsRemain},#{modifyUser},#{modifyTime},2)
+    </insert>
+
+    <!-- 绑定用户 -->
+    <insert id="bindUserCountAccount">
+        insert into gsms_user_count_bind(user_id,count_account_id)
+        values(#{userId},#{countAccountId})
+    </insert>
+
+    <select id="findLastInsertId" resultType="int">
+        select last_insert_id()
+    </select>
+
+    <select id="getCountAccountByUserId" resultMap="countAccount">
+        select * from gsms_count_account a left join gsms_user_count_bind b on a.id=b.count_account_id where b.user_id=#{userId}
+    </select>
+
+    <update id="updateCountAccount" parameterType="com.xuanwu.web.common.entity.CountAccount" >
+        update gsms_count_account set sms_limit=#{smsLimit},sms_remain=#{smsRemain},mms_limit=#{mmsLimit},mms_remain=#{mmsRemain},
+        modify_user=#{modifyUser},modify_time=#{modifyTime},sms_hasSend=#{smsHasSend},auto_charge_time=#{autoChargeTime},mms_hasSend=#{mmsHasSend} where id=#{id}
+    </update>
+
+    <select id="findCountAccountIdsByUserIds" resultType="int">
+        select count_account_id   from gsms_user_count_bind where user_id in
+        <foreach collection="userIds" item="item" open="(" close=")" separator=",">#{item}</foreach>
+    </select>
+
+    <delete id="batchDelete">
+        delete from gsms_count_account where id in
+        <foreach collection="ids" item="item" open="(" close=")" separator=",">#{item}</foreach>
+    </delete>
+
+    <delete id="batchDeleteMap">
+        delete from gsms_user_count_bind where user_id in
+        <foreach collection="userIds" item="item" open="(" close=")" separator=",">#{item}</foreach>
+    </delete>
+
+    <select id="getCountAccountById" resultMap="countAccount">
+        select * from gsms_count_account where id = #{id}
+    </select>
+
+    <select id="findCountAccountCount" resultType="int">
+        select count(id) from gsms_count_account where (auto_charge_time&lt;#{modifyDate} or auto_charge_time is null) and charge_type=#{chargeType} and id!=0
+    </select>
+
+    <select id="findCountAccount" resultMap="countAccount">
+        select * from gsms_count_account where (auto_charge_time&lt;#{modifyDate} or auto_charge_time is null) and charge_type=#{chargeType} and id!=0
+    </select>
+
+    <select id="findCountAccountByName" resultMap="countAccount">
+        select * from gsms_count_account where name=#{name} limit 1
+    </select>
+</mapper>

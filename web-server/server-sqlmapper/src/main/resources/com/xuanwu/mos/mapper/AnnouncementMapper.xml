@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.xuanwu.mos.mapper.AnnouncementMapper">
+
+    <resultMap id="announcementMap" type="Announcement">
+        <id property="id" column="id" />
+        <result property="title" column="title" />
+        <result property="content" column="content" />
+        <result property="showState" column="is_show" />
+        <result property="level" column="level" />
+        <result property="updateTime" column="update_time" />
+        <result property="postUserId" column="post_user_id" />
+        <result property="postDepartmentId" column="post_department_id" />
+        <result property="postTime" column="post_time"/>
+        <result property="postUserName" column="user_name"/>
+        <result property="expiredTime" column="expired_time"/>
+        <result property="isRemove" column="is_remove"/>
+    </resultMap>
+
+    <select id="findResultCount" parameterType="map" resultType="int">
+        select count(id) from gsms_announcement where is_remove is false
+        <if test="params.enterpriseId != null">and enterprise_id = #{params.enterpriseId}</if>
+        <if test="params.title != null and params.title!='' ">and title like concat('%',#{params.title},'%')</if>
+        <if test="params.showState >= 0">and is_show=#{params.showState}</if>
+        <if test="params.startTime != null">and update_time &gt;= #{params.startTime}</if>
+        <if test="params.endTime != null">and update_time &lt;= #{params.endTime}</if>
+    </select>
+
+    <select id="findResults" parameterType="map" resultMap="announcementMap">
+        select ga.id, ga.title,ga.content,ga.is_show,ga.post_user_id,
+        ga.post_time,ga.update_time,ga.expired_time,ga.post_department_id,gu.user_name
+        from  gsms_announcement ga
+        left join gsms_user gu on ga.post_user_id = gu.id
+        where ga.is_remove is false
+        <if test="params.enterpriseId != null">and ga.enterprise_id = #{params.enterpriseId}</if>
+        <if test="params.title != null and params.title!='' ">and ga.title like concat('%',#{params.title},'%')</if>
+        <if test="params.showState>=0">and ga.is_show=#{params.showState}</if>
+        <if test="params.startTime != null">and ga.update_time &gt;= #{params.startTime}</if>
+        <if test="params.endTime != null">and ga.update_time &lt;= #{params.endTime}</if>
+        <if test="sorts.postTime != null">order by ga.post_time ${sorts.postTime}</if>
+        <if test="page != null">limit #{page.from}, #{page.size}</if>
+    </select>
+
+    <select id="findAnnouncementById" resultMap="announcementMap">
+        select * from gsms_announcement where id=#{id}
+    </select>
+
+    <select id="findAnnouncementByIds" resultMap="announcementMap">
+        select id, is_show from gsms_announcement where id in
+        <foreach collection="ids" item="item" index="index" separator="," open="(" close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <update id="update" parameterType="Announcement">
+        update gsms_announcement set title=#{title},content=#{content},is_show=#{showState},level=#{level},
+		post_user_id=#{postUserId},post_department_id=#{postDepartmentId},
+		update_time=#{updateTime},expired_time=#{expiredTime},is_remove=#{isRemove}
+		where id=#{id}
+    </update>
+
+    <insert id="insert" parameterType="Announcement" useGeneratedKeys="true" keyProperty="id">
+        insert into gsms_announcement(title,content,is_show,level,post_user_id,post_department_id,post_time,update_time,expired_time,is_remove,enterprise_id)
+		value(#{title},#{content},#{showState},#{level},#{postUserId},#{postDepartmentId},#{postTime},#{updateTime},#{expiredTime},#{isRemove},#{entId})
+    </insert>
+
+    <update id="simpleUpdate" parameterType="Announcement">
+        update gsms_announcement set  is_remove=#{isRemove} where id = #{id}
+    </update>
+
+    <update id="updateByIds" parameterType="map">
+        update gsms_announcement
+        set is_remove=1
+        where id in (
+        <foreach collection="ids" item="item" index="index" separator=",">
+            #{item}
+        </foreach>
+        )
+    </update>
+
+</mapper>

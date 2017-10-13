@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<!-- Used by the mto client to fetch the frame -->
+<mapper namespace="com.xuanwu.mos.mapper.ContactGroupMapper">
+    <!--&lt;!&ndash; entity  联系人组信息表(gsms_contact_group)&ndash;&gt;-->
+    <resultMap type="ContactGroup" id="contactGroup">
+        <id property="id" column="id" />
+        <result property="parentId" column="group_id"/>
+        <result property="userId" column="user_id"/>
+        <result property="name" column="name"/>
+        <result property="path" column="path"/>
+        <result property="type" column="type"/>
+        <result property="enterpriseId" column="enterprise_id"/>
+    </resultMap>
+
+    <!--&lt;!&ndash; entity  联系人信息表(gsms_contact)&ndash;&gt;-->
+    <resultMap type="Contact" id="contact">
+        <id property="id" column="id"/>
+        <result property="groupId" column="group_id"/>
+        <result property="groupName" column="group_name"/>
+        <result property="groupType" column="group_type"/>
+        <result property="name" column="name"/>
+        <result property="phone" column="phone"/>
+        <result property="sex" column="sex"/>
+        <result property="identifier" column="identifier"/>
+        <result property="birthday" column="birthday"/>
+        <result property="vip" column="vip"/>
+        <result property="remark" column="remark"/>
+        <result property="ext1" column="extension1"/>
+        <result property="ext2" column="extension2"/>
+        <result property="ext3" column="extension3"/>
+        <association property="group" column="group_id" select="findContactGroupById"></association>
+    </resultMap>
+    <!--&lt;!&ndash; entity  共享组映射信息表(gsms_contact_group_share_map)&ndash;&gt;-->
+    <resultMap type="ContactShareGroup" id="contactShareGroup">
+        <id property="id" column="id"/>
+        <result property="showContactFlag" column="show_contact_flag"/>
+        <result property="shareChildFlag" column="share_child_flag"/>
+        <association property="contactGroup"  javaType="com.xuanwu.mos.domain.entity.ContactGroup" column="group_id">
+            <id property="id" column="id" />
+            <result property="parentId" column="group_id"/>
+            <result property="userId" column="user_id"/>
+            <result property="username" column="username"/>
+            <result property="name" column="name"/>
+            <result property="path" column="path"/>
+            <result property="type" column="type"/>
+            <result property="enterpriseId" column="enterprise_id"/>
+        </association>
+    </resultMap>
+    <!-- 根据id查询出联系人所在的组信息 -->
+    <select id="getById" resultMap="contactGroup">
+        select * from gsms_contact_group where id = #{id}
+    </select>
+    <select id="findContactGroupByName" resultMap="contactGroup">
+        select * from gsms_contact_group where name=#{name} and enterprise_id=#{entId} and user_id=#{userId} and type=#{type}
+    </select>
+    <!-- 根据enterprise_id(所属企业id)和 type(组类别)查询联系人所在的组信息-->
+    <select id="findContactGroup" resultMap="contactGroup">
+        select * from gsms_contact_group
+        where type=#{type} and enterprise_id=#{entId}
+        <if test="type==0">and user_id=#{userId}</if>
+    </select>
+    <sql id="Where_Clause">
+        <where>
+            <if test="params.type!=null">and type=#{params.type}</if>
+            <if test="params.groupId!=null">and group_id=#{params.groupId}</if>
+            <if test="params.userId!=null">and user_id=#{params.userId}</if>
+            <if test="params.entId!=null">and enterprise_id=#{params.entId}</if>
+
+            <if test="params.path!=null">
+                and path like concat(#{params.path}, '%')
+            </if>
+            <if test="params.userIds!=null ">
+                and user_id in
+                <foreach item="item" index="index" collection="params.userIds"
+                         open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="params.ids!=null ">
+                and id in
+                <foreach item="item" index="index" collection="params.ids"
+                         open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+        </where>
+    </sql>
+    <select id="findResults" resultMap="contactGroup">
+        select * from gsms_contact_group
+        <include refid="Where_Clause"/>
+    </select>
+    <select id="findGroupsByPath" resultMap="contactGroup">
+        select * from gsms_contact_group where path like concat(#{path},'%')
+        <if test="userId>0">and user_id=#{userId}</if>
+        <if test="entId>0">and enterprise_id=#{entId}</if>
+    </select>
+    <select id="findGroupsByParentId" resultMap="contactGroup">
+        select * from gsms_contact_group where group_id=#{parentId}
+        <if test="userId>0">and user_id=#{userId}</if>
+        <if test="entId>0">and enterprise_id=#{entId}</if>
+    </select>
+    <!-- 根据path(组的层级路径，模糊查询)将gsms_contact_group和gsms_contact两表关联查询，获取符合条件的联系人所在的组的记录条数-->
+    <select id="findGroupChildCount" resultType="int">
+        select count(1) from gsms_contact_group a inner join gsms_contact b on a.id = b.group_id
+        where
+        <choose>
+            <when test="path!=null"> a.path like concat(#{path}, '%')</when>
+            <when test="groupId!=null">b.group_id=#{groupId} </when>
+            <otherwise>a.user_id=#{userId}</otherwise>
+        </choose>
+    </select>
+    <insert id="insertContactGroup">
+        insert into gsms_contact_group(group_id,user_id,name,path,type,enterprise_id)
+        values(#{parentId},#{userId},#{name},#{path},#{type},#{enterpriseId})
+    </insert>
+    <select id="findLastInsertId" resultType="int">
+        select last_insert_id()
+    </select>
+    <update id="updateContactGroupPath">
+        update gsms_contact_group set path=#{path} where id=#{id}
+    </update>
+    <update id="updateContactGroup">
+        update gsms_contact_group set name=#{name} where id=#{id}
+    </update>
+    <delete id="deleteContactsByPath">
+        delete from gsms_contact where group_id in(select id from gsms_contact_group where path like concat(#{path},'%'))
+    </delete>
+    <delete id="deleteContactGroupsByPath">
+        delete from gsms_contact_group where path like concat(#{path},'%')
+    </delete>
+    <delete id="deleteContactGroup">
+        delete from gsms_contact_group
+        <where>
+            <if test="params.userIds!=null">and user_id in <foreach collection="params.userIds" item="id" open="(" separator="," close=")">#{id}</foreach></if>
+        </where>
+    </delete>
+</mapper>

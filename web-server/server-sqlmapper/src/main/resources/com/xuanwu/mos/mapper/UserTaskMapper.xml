@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xuanwu.mos.mapper.UserTaskMapper">
+    <resultMap id="BaseResultMap" type="UserTask" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="task_name" property="taskName" jdbcType="VARCHAR" />
+        <result column="percent" property="percent" jdbcType="INTEGER" />
+        <result column="progress" property="progress" jdbcType="VARCHAR" />
+        <result column="operate_type" property="operateType" jdbcType="INTEGER" />
+        <result column="state" property="state" jdbcType="INTEGER" />
+        <result column="upload_file_name" property="uploadFileName" jdbcType="VARCHAR" />
+        <result column="upload_file_address" property="uploadFileAddress" jdbcType="VARCHAR" />
+        <result column="file_name" property="fileName" jdbcType="VARCHAR" />
+        <result column="file_address" property="fileAddress" jdbcType="VARCHAR" />
+        <result column="file_size" property="fileSize" jdbcType="INTEGER" />
+        <result column="file_type" property="fileType" jdbcType="VARCHAR" />
+        <result column="file_separator" property="fileSeparator" jdbcType="VARCHAR" />
+        <result column="create_user" property="createUser" jdbcType="INTEGER" />
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="start_time" property="startTime" jdbcType="TIMESTAMP" />
+        <result column="end_time" property="endTime" jdbcType="TIMESTAMP" />
+        <result column="result_message" property="resultMessage" jdbcType="VARCHAR" />
+        <result column="parameter" property="parameter" jdbcType="VARCHAR" />
+        <result column="download_count" property="downloadCount" jdbcType="INTEGER" />
+        <result column="result_code" property="resultCode" jdbcType="INTEGER" />
+        <result column="task_code" property="taskCode" jdbcType="INTEGER" />
+    </resultMap>
+    <insert id="insert" parameterType="UserTask">
+        INSERT INTO gsms_user_task( task_name, percent, progress, operate_type,upload_file_name,upload_file_address, state, create_user, create_time, start_time, parameter, result_code,file_type,file_separator,task_code)
+      VALUES
+	(#{taskName},#{percent},#{progress},#{operateType.index},#{uploadFileName},#{uploadFileAddress},#{state.index},#{createUser},#{createTime},#{startTime},#{mosParameters},
+		#{resultCode},#{fileType},#{fileSeparator},#{taskCode})
+    </insert>
+</mapper>

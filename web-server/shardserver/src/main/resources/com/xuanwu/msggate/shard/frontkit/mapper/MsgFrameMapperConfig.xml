@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mapper namespace="com.xuanwu.mos.mapper.MsgFrameMapper">
+	<sql id="findMsgFramesCountByPackId" refTables="gsms_msg_frame">
+		<param type="map">
+			<item name="msgType" type="int" column="msg_type" />
+			<item name="postTime" type="date" column="post_time" />
+		</param>
+	</sql>
+
+	<sql id="findMsgFramesByPackId" refTables="gsms_msg_frame">
+		<param type="map">
+			<item name="msgType" type="int" column="msg_type" />
+			<item name="postTime" type="date" column="post_time" />
+		</param>
+	</sql>
+
+	<sql id="findPackStatInfos" refTables="gsms_msg_frame">
+		<param type="map">
+			<item name="msgType" type="int" column="msg_type" />
+			<item name="postTime" type="date" column="post_time" />
+		</param>
+	</sql>
+
+	<sql id="findPackFrames" refTables="gsms_msg_frame">
+		<param type="map">
+			<item name="msgType" type="int" column="msg_type" />
+			<item name="postTime" type="date" column="post_time" />
+		</param>
+	</sql>
+
+	<sql id="findMsgFrameById" refTables="gsms_msg_frame">
+		<param type="map">
+			<item name="msgType" type="int" column="msg_type" />
+			<item name="postTime" type="date" column="post_time" />
+		</param>
+	</sql>
+
+	<sql id="findSingleMsgFrameByPackId" refTables="gsms_msg_frame">
+		<param name="params" type="class">
+			<item name="msgType" type="int" column="msg_type" />
+			<item name="queryTime" type="date" column="post_time" />
+		</param>
+	</sql>
+
+	<sql id="checkRecordDetail" refTables="gsms_msg_frame">
+		<param name="params" type="class">
+			<item name="msgType" type="int" column="msg_type" />
+			<item name="queryTime" type="date" column="post_time" />
+		</param>
+	</sql>
+
+	<sql id="findMsgCountByPackId" refTables="gsms_msg_frame">
+		<param name="params" type="class">
+			<item name="msgType" type="int" column="msg_type" />
+			<item name="queryTime" type="date" column="post_time" />
+		</param>
+	</sql>
+	<sql id="findNotHandleFrame" refTables="gsms_msg_frame">
+		<param name="params" type="class">
+			<item name="msgType" type="int" column="msg_type" />
+			<item name="queryTime" type="date" column="post_time" />
+		</param>
+	</sql>
+
+</mapper>

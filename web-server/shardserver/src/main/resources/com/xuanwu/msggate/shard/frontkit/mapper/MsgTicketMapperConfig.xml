@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mapper namespace="com.xuanwu.mos.mapper.MsgTicketMapper">
+	<sql id="findPackStatInfo" refTables="gsms_msg_ticket,gsms_statereport">
+		<param type="map">
+			<item name="msgType" type="int" column="msg_type" />
+			<item name="postTime" type="date" column="post_time" />
+		</param>
+	</sql>
+	<sql id="findFailedTicketByPackId" refTables="gsms_msg_frame,gsms_msg_ticket,gsms_statereport,gsms_msg_pack">
+		<param name="params" type="class">
+			<item name="msgType" type="int" column="msg_type" />
+			<item name="queryTime" type="date" column="post_time" />
+		</param>
+	</sql>
+	<sql id="findSendedPackTicketsCount" refTables="gsms_msg_ticket,gsms_msg_frame,gsms_statereport">
+		<param type="map">
+			<item name="msgType" type="int" column="msg_type" />
+			<item name="postTime" type="date" column="post_time"/>
+		</param>
+	</sql>
+
+	<sql id="findSendedPackTickets" refTables="gsms_msg_ticket,gsms_msg_frame,gsms_statereport">
+		<param type="map">
+			<item name="msgType" type="int" column="msg_type" />
+			<item name="postTime" type="date" column="post_time" replace="submit_resp_time"/>
+		</param>
+	</sql>
+
+	<sql id="findAllSendedTicketsCount" refTables="gsms_msg_ticket,gsms_msg_frame,gsms_statereport">
+		<param type="map">
+			<item name="msgType" type="int" column="msg_type" />
+			<item name="beginTime" type="date" column="post_time" replace="submit_resp_time"/>
+		</param>
+	</sql>
+
+	<sql id="findAllSendedTickets" refTables="gsms_msg_ticket,gsms_msg_frame,gsms_statereport">
+		<param type="map">
+			<item name="msgType" type="int" column="msg_type" />
+			<item name="beginTime" type="date" column="post_time" replace="submit_resp_time"/>
+		</param>
+	</sql>
+
+	<sql id="findStateReport" refTables="gsms_statereport">
+		<param type="map">
+			<item name="postTime" type="date" column="post_time" />
+		</param>
+	</sql>
+
+	<sql id="findMsgTicketsById" refTables="gsms_msg_ticket,gsms_statereport">
+		<param type="map">
+			<item name="msgType" type="int" column="msg_type" />
+			<item name="postTime" type="date" column="post_time" />
+		</param>
+	</sql>
+
+	<sql id="findParentMsgTicketsById" refTables="gsms_msg_ticket">
+		<param type="map">
+			<item name="msgType" type="int" column="msg_type" />
+			<item name="postTime" type="date" column="post_time" />
+		</param>
+	</sql>
+
+	<sql id="fetchTicketMinAndMaxId" refTables="gsms_msg_ticket">
+		<param type="map">
+			<item name="msgType" type="int" column="msg_type" />
+			<item name="beginTime" type="date" column="post_time"/>
+		</param>
+	</sql>
+
+	<sql id="findStatMsgTickets" refTables="gsms_msg_ticket">
+		<param type="map">
+			<item name="msgType" type="int" column="msg_type" />
+			<item name="beginTime" type="date" column="post_time"/>
+		</param>
+	</sql>
+
+	<sql id="findStatStatereports" refTables="gsms_msg_ticket,gsms_statereport">
+		<param type="map">
+			<item name="msgType" type="int" column="msg_type" />
+			<item name="beginTime" type="date" column="post_time"/>
+		</param>
+	</sql>
+	
+	<sql id="findFailedMsgTickets" refTables="gsms_msg_ticket,gsms_statereport">
+		<param type="map">
+			<item name="msgType" type="int" column="msg_type" />
+			<item name="beginTime" type="date" column="post_time" replace="submit_resp_time"/>
+		</param>
+	</sql>
+	
+	<sql id="findTickets" refTables="gsms_msg_ticket">
+		<param type="map">
+			<item name="msgType" type="int" column="msg_type" />
+			<item name="postTime" type="date" column="post_time"/>
+		</param>
+	</sql>
+
+	<sql id="findAllMmsNumberRecord" refTables="gsms_msg_pack,gsms_msg_frame,gsms_msg_ticket,gsms_statereport">
+		<param name="params" type="class">
+			<item name="msgType" type="int" column="msg_type" />
+			<item name="queryTime" type="date" column="post_time" />
+		</param>
+	</sql>
+	<sql id="findAllMmsNumberRecordCount" refTables="gsms_msg_pack,gsms_msg_frame,gsms_msg_ticket,gsms_statereport">
+		<param name="params" type="class">
+			<item name="msgType" type="int" column="msg_type" />
+			<item name="queryTime" type="date" column="post_time" />
+		</param>
+	</sql>
+
+	<sql id="checkAllMmsTickets" refTables="gsms_msg_frame,gsms_msg_ticket">
+		<param name="params" type="class">
+			<item name="msgType" type="int" column="msg_type" />
+			<item name="queryTime" type="date" column="post_time" />
+		</param>
+	</sql>
+
+	<sql id="checkAllMmsTicketsCount" refTables="gsms_msg_frame,gsms_msg_ticket">
+		<param name="params" type="class">
+			<item name="msgType" type="int" column="msg_type" />
+			<item name="queryTime" type="date" column="post_time" />
+		</param>
+	</sql>
+
+	<sql id="findAbandonPackTicketsCount" refTables="gsms_msg_ticket,gsms_msg_frame">
+		<param name="params" type="class">
+			<item name="msgType" type="int" column="msg_type" />
+			<item name="queryTime" type="date" column="post_time" />
+		</param>
+	</sql>
+
+	<sql id="findAbandonPackTickets" refTables="gsms_msg_ticket,gsms_msg_frame">
+		<param name="params" type="class">
+			<item name="msgType" type="int" column="msg_type" />
+			<item name="queryTime" type="date" column="post_time"/>
+		</param>
+	</sql>
+	<sql id="findTicketsByPackId" refTables="gsms_msg_ticket">
+		<param name="params" type="class">
+			<item name="msgType" type="int" column="msg_type" />
+			<item name="queryTime" type="date" column="post_time" />
+		</param>
+	</sql>
+</mapper>

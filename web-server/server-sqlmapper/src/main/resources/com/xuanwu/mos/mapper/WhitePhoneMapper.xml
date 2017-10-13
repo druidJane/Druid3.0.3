@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.xuanwu.mos.mapper.WhitePhoneMapper">
+	<!--entity 企业白名单表(gsms_temp_whitephone)-->
+	<resultMap type="WhitePhone" id="WhitePhone">
+		<id property="id" column="id" />
+		<result property="telphone" column="telphone"/>
+		<result property="effectiveDate" column="effective_date"/>
+		<result property="enterpriseId" column="enterpreseid"/>
+		<result property="createTime" column="createtime"/>
+		<result property="isNotice" column="isnotice"/>
+		<result property="operatorId" column="operatorid"/>
+	</resultMap>
+	<sql id="Where_Clause" >
+		<where>
+			<if test="params.id!=null">
+				and id = #{params.id}
+			</if>
+			<if test="params.telphone!=null and params.telphone!=''">
+				and telphone = #{params.telphone}
+			</if>
+			<if test="params._gt_begintime!=null">
+				<![CDATA[ and createtime > #{params._gt_begintime}]]>
+			</if>
+			<if test="params._lt_endtime!=null">
+				<![CDATA[ and createtime < #{params._lt_endtime} ]]>
+			</if>
+			<if test="params.isNotice!=null and params.isNotice>-1">
+				and isNotice = #{params.isNotice}
+			</if>
+			<if test="params.enterpriseId!=null and params.enterpriseId!=''">
+				and enterpreseId = #{params.enterpriseId}
+			</if>
+			<if test="params._lk_phone!=null and ''!=params._lk_phone">
+				and telphone LIKE  concat('%',#{params._lk_phone},'%')
+			</if>
+		</where>
+	</sql>
+	<!-- -get the counts of black_phone  by the given params  
+    	根据所给参数查找出企业白名单号码的条数
+    -->
+    <select id="findResultCount" resultType="int">
+        select count(1) from gsms_temp_whitephone b 
+      	<include refid="Where_Clause" />
+    </select>
+    <select id="findResults" resultMap="WhitePhone">
+    	select * from gsms_temp_whitephone b
+      	<include refid="Where_Clause" />
+		<if test="page!=null">limit #{page.from}, #{page.size}</if>
+    </select>
+    <!-- add new white_phone
+    	添加新的企业白名单
+     -->
+    <insert id="insert">
+    	INSERT INTO gsms_temp_whitephone (telphone, effective_date, enterpreseid, createtime, isnotice, operatorid) 
+    	VALUES (#{telphone},#{effectiveDate},#{enterpriseId},#{createTime},#{isNotice},#{operatorId});
+    </insert>
+    <delete id="deleteById">
+    	delete from gsms_temp_whitephone
+    	where id=#{id} and enterpreseid=#{enterpriseId}
+    </delete>
+</mapper>
