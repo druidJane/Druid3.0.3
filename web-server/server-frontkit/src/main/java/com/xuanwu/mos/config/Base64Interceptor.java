@@ -9,12 +9,21 @@ import org.bouncycastle.util.encoders.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.util.Random;
 
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MultivaluedMap;
-import javax.ws.rs.ext.*;
+import javax.ws.rs.ext.Provider;
+import javax.ws.rs.ext.ReaderInterceptor;
+import javax.ws.rs.ext.ReaderInterceptorContext;
+import javax.ws.rs.ext.WriterInterceptor;
+import javax.ws.rs.ext.WriterInterceptorContext;
 
 //import org.glassfish.jersey.internal.util.Base64;
 
@@ -24,6 +33,7 @@ import javax.ws.rs.ext.*;
  * @author liangjiandong
  *
  */
+@Provider
 public class Base64Interceptor implements ReaderInterceptor, WriterInterceptor {
 	private Logger logger = LoggerFactory.getLogger(Base64Interceptor.class);
 	private Random random = new Random();

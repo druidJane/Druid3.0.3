@@ -1,5 +1,5 @@
 server:
-    port: 9001
+    port: 9000
     contextPath: /mos/service
     session:
         timeout: 1800
@@ -11,6 +11,9 @@ spring:
         host: 192.168.93.135
         port: 6500
         password: redis
+        #host: 192.168.93.134
+        #port: 6500
+        #password:
         pool:
             max-active: 8
             max-idle: 8

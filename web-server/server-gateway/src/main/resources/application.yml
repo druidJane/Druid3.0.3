@@ -1,0 +1,46 @@
+spring:
+  application:
+    name: api-gateway
+  mvc:
+    favicon:
+      enabled: false
+server:
+  port: 5555
+eureka:
+  client:
+    serviceUrl:
+     defaultZone: http://localhost:1111/eureka
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${spring.cloud.client.ipAddress}:${spring.application.instance_id:${server.port}}
+zuul:
+  routes:
+    mos-service:
+      path: /mos/service/**
+      serviceId: mos
+      sensitiveHeaders:
+      stripPrefix: false
+  #add-host-header: true
+  ratelimit:
+    qps: 5000
+ribbon:
+  eureka:
+    enabled: true
+  ReadTimeout: 60000
+  ConnectTimeout: 60000
+  MaxAutoRetries: 0
+  MaxAutoRetriesNextServer: 1
+  OkToRetryOnAllOperations: false
+hystrix:
+  threadpool:
+    default:
+      coreSize: 1000 ##并发执行的最大线程数，默认10
+      maxQueueSize: 1000 ##BlockingQueue的最大队列数
+      queueSizeRejectionThreshold: 500 ##即使maxQueueSize没有达到，达到queueSizeRejectionThreshold该值后，请求也会被拒绝
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 50000
+

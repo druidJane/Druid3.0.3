@@ -33,6 +33,7 @@ public class RedisDao extends AbstractSessionDAO {
             ValueOperations<String, Session> operations = redisTemplate.opsForValue();
             operations.set(session.getId().toString(),session);
         } catch (Exception e) {
+            e.printStackTrace();
             log.error(e.getMessage());
         }
         return sessionId;
