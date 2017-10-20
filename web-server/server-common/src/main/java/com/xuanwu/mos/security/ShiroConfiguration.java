@@ -3,6 +3,7 @@ package com.xuanwu.mos.security;
 import com.xuanwu.mos.config.PlatformMode;
 import com.xuanwu.mos.security.filter.ShiroAnonymousFilter;
 import com.xuanwu.mos.security.filter.ShiroAuthorizationFilter;
+import com.xuanwu.mos.service.ShiroService;
 
 import org.apache.shiro.cache.CacheManager;
 import org.apache.shiro.cache.ehcache.EhCacheManager;
@@ -12,6 +13,7 @@ import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.apache.shiro.web.servlet.SimpleCookie;
 import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.embedded.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -33,6 +35,7 @@ import javax.servlet.Filter;
  * @date 2016-08-24
  */
 @Configuration
+@ConditionalOnProperty(prefix = "shiro" , name = "enabled" , havingValue = "true")
 public class ShiroConfiguration {
 	@Bean
 	public RedisDao redisDao() {
@@ -102,5 +105,8 @@ public class ShiroConfiguration {
 	public LifecycleBeanPostProcessor lifecycleBeanPostProcessor() {
 		return new LifecycleBeanPostProcessor();
 	}
-
+	@Bean
+	public ShiroService shiroService(){
+		return new ShiroService();
+	}
 }

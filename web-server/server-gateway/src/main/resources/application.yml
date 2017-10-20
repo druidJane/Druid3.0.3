@@ -15,14 +15,17 @@ eureka:
     instance-id: ${spring.application.name}:${spring.cloud.client.ipAddress}:${spring.application.instance_id:${server.port}}
 zuul:
   routes:
+    mos-auth:
+      path: /mos/service/login/**
+      serviceId: mos-auth
+      sensitiveHeaders:
+      stripPrefix: false
     mos-service:
       path: /mos/service/**
       serviceId: mos
       sensitiveHeaders:
       stripPrefix: false
   #add-host-header: true
-  ratelimit:
-    qps: 5000
 ribbon:
   eureka:
     enabled: true
@@ -43,4 +46,16 @@ hystrix:
         isolation:
           thread:
             timeoutInMilliseconds: 50000
+base64:
+  key_str_config: mos5.0FrontKit
+  key_str_ks: REXlIBoScafdJhtkGpeqHKiubMmWOsArQgUYZFVDTvynwjxzLCNP
+
+gateway:
+  auth_limit_time: 5
+  auth_white_list: /mos/service/login,/mos/service/common #/web-backend/login
+  ratelimit_qps: 5000
+logging:
+  level:
+    com.xuanwu: debug
+    #root: debug
 

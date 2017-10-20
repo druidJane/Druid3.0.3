@@ -9,13 +9,11 @@ import com.xuanwu.mos.domain.repo.RoleRepo;
 import com.xuanwu.mos.domain.repo.UserRepo;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.List;
 
 
-@Service
 public class ShiroService {
 
 	@Autowired

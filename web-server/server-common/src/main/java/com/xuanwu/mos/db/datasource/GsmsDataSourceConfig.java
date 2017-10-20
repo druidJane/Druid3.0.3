@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceBuilder;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -24,6 +25,7 @@ import javax.sql.DataSource;
  * @version 1.0.0
  */
 @Configuration
+@ConditionalOnProperty(prefix = DsConfig.DB_PREFIX, name = "enabled", havingValue = "true")
 public class GsmsDataSourceConfig {
 
 	@Value("${mybatis.config-location}")

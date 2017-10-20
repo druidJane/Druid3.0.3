@@ -1,6 +1,7 @@
 package com.xuanwu.mos.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.CachingConfigurerSupport;
 import org.springframework.cache.annotation.EnableCaching;
@@ -16,6 +17,7 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
  */
 @Configuration
 @EnableCaching
+@ConditionalOnProperty(prefix = "spring.redis" , name = "enabled" , havingValue = "true")
 public class RedisConfig extends CachingConfigurerSupport {
     @Autowired
     private RedisConnectionFactory redisConnectionFactory;
@@ -35,7 +37,6 @@ public class RedisConfig extends CachingConfigurerSupport {
         RedisTemplate redisTemplate = new RedisTemplate();
         redisTemplate.setConnectionFactory(redisConnectionFactory);
         redisTemplate.setKeySerializer(new StringRedisSerializer());
-        //redisTemplate.setValueSerializer(new StringRedisSerializer());
         redisTemplate.afterPropertiesSet();
         return redisTemplate;
     }

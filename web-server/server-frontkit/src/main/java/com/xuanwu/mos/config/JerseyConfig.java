@@ -21,8 +21,6 @@ public class JerseyConfig extends ResourceConfig {
 	public JerseyConfig() {
 		packages("com.xuanwu.mos");
 		register(MultiPartFeature.class);
-		/*register(com.xuanwu.jersey.AuthReqFilter.class);
-		register(com.xuanwu.jersey.Base64Interceptor.class);*/
 	}
 
 }

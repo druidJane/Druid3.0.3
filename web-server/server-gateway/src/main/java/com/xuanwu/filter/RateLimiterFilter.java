@@ -9,6 +9,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.servlet.http.HttpServletRequest;
+
 import static org.springframework.http.HttpStatus.TOO_MANY_REQUESTS;
 
 /** 用于请求流量限速
@@ -35,6 +37,7 @@ public class RateLimiterFilter extends ZuulFilter {
 
     @Override
     public Object run() {
+        // TODO 根据IP，请求URL限速
         RequestContext ctx = RequestContext.getCurrentContext();
         boolean acquireSuccess = rateLimiter.tryAcquire(1);
         if(!acquireSuccess){
@@ -42,6 +45,18 @@ public class RateLimiterFilter extends ZuulFilter {
             ctx.put("rateLimitExceeded", "true");
             throw new RuntimeException(TOO_MANY_REQUESTS.toString(), null);
         }
+        // 网关转发，设置serverName
+        ctx.addZuulRequestHeader("Host", toHostHeader(ctx.getRequest()));
         return null;
+    }
+    private String toHostHeader(HttpServletRequest request) {
+        int port = request.getServerPort();
+        if ((port == 80 && "http".equals(request.getScheme()))
+                || (port == 443 && "https".equals(request.getScheme()))) {
+            return request.getServerName();
+        }
+        else {
+            return request.getServerName() + ":" + port;
+        }
     }
 }

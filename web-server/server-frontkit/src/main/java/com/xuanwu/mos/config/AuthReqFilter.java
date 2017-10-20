@@ -22,14 +22,12 @@ import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerRequestFilter;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
-import javax.ws.rs.ext.Provider;
 
 /**
  * 服务器传输鉴权 过滤器
  * @author liangjiadnong
  *
  */
-@Provider
 public class AuthReqFilter implements ContainerRequestFilter{
 	private Logger logger = LoggerFactory.getLogger(AuthReqFilter.class);
 	private static final String KEY_STR = Base64.encodeBase64String("mos5.0FrontKit".getBytes());

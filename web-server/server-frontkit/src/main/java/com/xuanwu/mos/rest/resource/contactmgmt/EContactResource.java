@@ -2,16 +2,24 @@ package com.xuanwu.mos.rest.resource.contactmgmt;
 
 import com.xuanwu.mos.config.Keys;
 import com.xuanwu.mos.config.Platform;
-import com.xuanwu.mos.domain.entity.*;
+import com.xuanwu.mos.domain.entity.Contact;
+import com.xuanwu.mos.domain.entity.ContactGroup;
+import com.xuanwu.mos.domain.entity.ContactShareGroup;
+import com.xuanwu.mos.domain.entity.SimpleUser;
+import com.xuanwu.mos.domain.entity.User;
 import com.xuanwu.mos.domain.enums.OperationType;
-import com.xuanwu.mos.dto.*;
+import com.xuanwu.mos.dto.JsonResp;
+import com.xuanwu.mos.dto.PageInfo;
+import com.xuanwu.mos.dto.PageReqt;
+import com.xuanwu.mos.dto.PageResp;
+import com.xuanwu.mos.dto.QueryParameters;
 import com.xuanwu.mos.exception.BusinessException;
 import com.xuanwu.mos.exception.RepositoryException;
 import com.xuanwu.mos.rest.service.ContactGroupService;
 import com.xuanwu.mos.rest.service.ContactService;
 import com.xuanwu.mos.rest.service.ContactShareGroupService;
+import com.xuanwu.mos.rest.service.SysLogService;
 import com.xuanwu.mos.rest.service.UserMgrService;
-import com.xuanwu.mos.service.SysLogService;
 import com.xuanwu.mos.utils.SessionUtil;
 
 import org.springframework.beans.factory.annotation.Autowired;

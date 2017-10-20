@@ -223,11 +223,6 @@
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-jdbc</artifactId>
-			<version>${boot.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<version>${boot.version}</version>
 			<scope>test</scope>
@@ -262,6 +257,7 @@
 		<module>server-frontkit</module>
 		<module>shardserver</module>
 		<module>sharecommon</module>
+		<module>server-auth</module>
 	</modules>
 
 	<distributionManagement>

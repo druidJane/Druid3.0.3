@@ -1,0 +1,21 @@
+server:
+    port: 5000
+    session:
+        timeout: 1800
+    context-path: /mos/service
+spring:
+    application:
+        name: mos-auth
+shiro:
+    loginUrl: /login
+    unauthorizedUrl : /login/unauthorized
+    filters:
+        /login/**: anonymous
+        /**: authorization
+eureka:
+ client:
+   serviceUrl:
+     defaultZone: http://${eureka.host:localhost}:${eureka.port:1111}/eureka/
+ instance:
+     prefer-ip-address: true
+     instance-id: ${spring.application.name}:${spring.cloud.client.ipAddress}:${spring.application.instance_id:${server.port}}

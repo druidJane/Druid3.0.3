@@ -8,7 +8,8 @@ spring:
     application:
         name: mos
     redis:
-        host: 192.168.93.135
+        enabled: true
+        host: docker
         port: 6500
         password: redis
         #host: 192.168.93.134
@@ -24,7 +25,7 @@ datasource:
     gsms:
         name: gsmsDS
         driverClassName: com.mysql.jdbc.Driver
-        url: jdbc:mysql://172.16.0.83:3306/mos5.0_gsms_cxh?useSSL=false&autoReconnect=true&sessionVariables=FOREIGN_KEY_CHECKS=0&useUnicode=yes&characterEncoding=UTF-8
+        url: jdbc:mysql://docker:3306/mos5.0.1_gsms?useSSL=false&autoReconnect=true&sessionVariables=FOREIGN_KEY_CHECKS=0&useUnicode=yes&characterEncoding=UTF-8
         username: root
         password: 123456
         maxTotal: 200
@@ -40,7 +41,7 @@ datasource:
     list:
         name: listDS
         driverClassName: com.mysql.jdbc.Driver
-        url: jdbc:mysql://172.16.0.83:3306/mos5.0_list_cxh?useSSL=false&autoReconnect=true&sessionVariables=FOREIGN_KEY_CHECKS=0&useUnicode=yes&characterEncoding=UTF-8
+        url: jdbc:mysql://docker:3306/mos5.0.1_list?useSSL=false&autoReconnect=true&sessionVariables=FOREIGN_KEY_CHECKS=0&useUnicode=yes&characterEncoding=UTF-8
         username: root
         password: 123456
         maxTotal: 200
@@ -57,6 +58,7 @@ mybatis:
     config-location: classpath:mybatis-config.xml
 
 shiro:
+    enabled: true
     loginUrl: /login
     unauthorizedUrl : /login/unauthorized
     filters:

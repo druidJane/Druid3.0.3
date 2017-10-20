@@ -8,6 +8,7 @@ package com.xuanwu.mos.db.datasource;
  * @version 1.0.0
  */
 public class DsConfig {
+	public static final String DB_PREFIX = "datasource";
 
 	private String name;
 

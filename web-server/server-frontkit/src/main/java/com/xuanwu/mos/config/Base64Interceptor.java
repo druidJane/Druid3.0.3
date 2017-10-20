@@ -19,7 +19,6 @@ import java.util.Random;
 
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MultivaluedMap;
-import javax.ws.rs.ext.Provider;
 import javax.ws.rs.ext.ReaderInterceptor;
 import javax.ws.rs.ext.ReaderInterceptorContext;
 import javax.ws.rs.ext.WriterInterceptor;
@@ -33,7 +32,6 @@ import javax.ws.rs.ext.WriterInterceptorContext;
  * @author liangjiandong
  *
  */
-@Provider
 public class Base64Interceptor implements ReaderInterceptor, WriterInterceptor {
 	private Logger logger = LoggerFactory.getLogger(Base64Interceptor.class);
 	private Random random = new Random();
