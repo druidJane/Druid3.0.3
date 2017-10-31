@@ -12,6 +12,8 @@ shiro:
     filters:
         /login/**: anonymous
         /**: authorization
+mybatis:
+    config-location: classpath:mybatis-config.xml
 eureka:
  client:
    serviceUrl:

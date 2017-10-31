@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <settings>
+        <setting name="logImpl" value="STDOUT_LOGGING"/>
+    </settings>
+    <typeAliases>
+        <package name="com.xuanwu.mos.domain.entity"/>
+    </typeAliases>
+
+    <typeHandlers>
+        <typeHandler handler="com.xuanwu.mos.domain.handler.HasIndexValueEnumHandler"
+                     jdbcType="INTEGER" javaType="com.xuanwu.mos.domain.enums.AuditStateEnum"/>
+    </typeHandlers>
+
+    <!--添加了shardserver的分表插件
+    <plugins>
+        <plugin interceptor="com.xuanwu.msggate.shard.plugin.ShardPlugin">
+            <property name="shardTableStartTime" value="2013-10-29"/>
+        </plugin>
+    </plugins>-->
+
+    <mappers>
+        <mapper resource="com/xuanwu/mos/mapper/UserMapper.xml"/>
+        <mapper resource="com/xuanwu/mos/mapper/RoleMapper.xml"/>
+        <mapper resource="com/xuanwu/mos/mapper/UserMgrMapper.xml" />
+    </mappers>
+</configuration>
