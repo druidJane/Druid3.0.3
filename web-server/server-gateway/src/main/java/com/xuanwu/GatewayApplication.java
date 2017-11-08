@@ -20,12 +20,12 @@ import org.springframework.web.filter.CorsFilter;
 
 @EnableZuulProxy
 @SpringBootApplication
-public class ServerGatewayApplication {
+public class GatewayApplication {
 
 	@Value("${gateway.ratelimit_qps:5000}")
 	private Long QPS;
 	public static void main(String[] args) {
-		SpringApplication.run(ServerGatewayApplication.class, args);
+		SpringApplication.run(GatewayApplication.class, args);
 	}
 	@Bean
 	public AccessFilter accessFilter(){

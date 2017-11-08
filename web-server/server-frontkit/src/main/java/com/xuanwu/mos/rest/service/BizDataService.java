@@ -7,7 +7,6 @@ import com.xuanwu.mos.domain.entity.CarrierTeleseg;
 import com.xuanwu.mos.domain.entity.GsmsUser;
 import com.xuanwu.mos.domain.enums.GsmsSyncVersionType;
 import com.xuanwu.mos.domain.repo.ConfigRepo;
-import com.xuanwu.mos.domain.repo.UserRepo;
 import com.xuanwu.mos.dto.QueryParameters;
 import com.xuanwu.mos.rest.repo.CarrierRepo;
 import com.xuanwu.mos.rest.repo.CarrierTelesegRepo;
@@ -67,7 +66,6 @@ public class BizDataService implements SyncTask {
 
 	@PostConstruct
 	public void init() {
-		System.out.println("bizDataService PostConstruct");
 		QueryParameters params = new QueryParameters();
 		List<Carrier> carriers = carrierRepo.findResults(params);
 		for (Carrier carrier : carriers) {

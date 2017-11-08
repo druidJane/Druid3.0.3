@@ -24,7 +24,7 @@ import javax.sql.DataSource;
  * @version 1.0.0
  */
 @Configuration
-@ConditionalOnProperty(prefix = DsConfig.DB_PREFIX, name = "enabled", havingValue = "true")
+@ConditionalOnProperty(prefix = DsConfig.DB_LIST_PREFIX, name = "enabled", havingValue = "true")
 public class ListDataSourceConfig {
 
 	@Value("${mybatis.config-location}")

@@ -1,5 +1,13 @@
 package com.xuanwu.mos.service;
 
+import com.xuanwu.mos.domain.entity.BiztypeSpecnum;
+import com.xuanwu.mos.domain.entity.Carrier;
+import com.xuanwu.mos.domain.entity.CarrierChannel;
+import com.xuanwu.mos.domain.entity.ChannelCarrier;
+import com.xuanwu.mos.domain.entity.ChannelRegion;
+import com.xuanwu.mos.domain.entity.EnterpriseSpecnumBind;
+import com.xuanwu.mos.domain.entity.SimpleUser;
+import com.xuanwu.mos.domain.entity.SpecsvsNum;
 import com.xuanwu.mos.domain.enums.WhiteRedirectEnum;
 import com.xuanwu.mos.rest.repo.CarrierChannelRepo;
 import com.xuanwu.mos.rest.repo.CarrierRepo;

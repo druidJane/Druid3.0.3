@@ -6,12 +6,36 @@ server:
 spring:
     application:
         name: mos-auth
-shiro:
-    loginUrl: /login
-    unauthorizedUrl : /login/unauthorized
-    filters:
-        /login/**: anonymous
-        /**: authorization
+    redis:
+        enabled: true
+        host: docker
+        port: 6500
+        password: redis
+        #host: 192.168.93.134
+        #port: 6500
+        #password:
+        pool:
+            max-active: 8
+            max-idle: 8
+            min-idle: 0
+            max-wait: 10000
+datasource:
+    gsms:
+        enabled: true
+        name: gsmsDS
+        driverClassName: com.mysql.jdbc.Driver
+        url: jdbc:mysql://docker:3321/mos5.0.1_gsms_cxh1025?useSSL=false&autoReconnect=true&sessionVariables=FOREIGN_KEY_CHECKS=0&useUnicode=yes&characterEncoding=UTF-8
+        username: root
+        password: 123456
+        maxTotal: 200
+        maxIdle: 8
+        minIdle: 8
+        initialSize: 10
+        maxWaitMillis: 3000
+        validationQuery: select 1
+        testWhileIdle: true
+        testOnBorrow: false
+        testOnReturn: false
 mybatis:
     config-location: classpath:mybatis-config.xml
 eureka:

@@ -18,7 +18,7 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 @Configuration
 @EnableCaching
 @ConditionalOnProperty(prefix = "spring.redis" , name = "enabled" , havingValue = "true")
-public class RedisConfig extends CachingConfigurerSupport {
+public class RedisConfig1 extends CachingConfigurerSupport {
     @Autowired
     private RedisConnectionFactory redisConnectionFactory;
 

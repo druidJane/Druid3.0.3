@@ -24,9 +24,7 @@ import com.xuanwu.mos.utils.DateUtil;
 import com.xuanwu.mos.utils.Delimiters;
 import com.xuanwu.mos.utils.Md5Utils;
 import com.xuanwu.mos.utils.Messages;
-import com.xuanwu.mos.utils.PageDataEncode;
 import com.xuanwu.mos.utils.RSAUtil;
-import com.xuanwu.mos.utils.RsaEncode;
 import com.xuanwu.mos.utils.SessionUtil;
 import com.xuanwu.mos.utils.VerifyCodeUtils;
 import com.xuanwu.msggate.common.sbi.entity.MsgContent;
@@ -56,7 +54,6 @@ import java.security.PrivateKey;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -362,7 +359,7 @@ public class LoginResource {
 
     /**
      * 生产令牌
-     */
+     *//*
     @POST
     @Path("token")
     @Produces({MediaType.APPLICATION_JSON})
@@ -376,7 +373,7 @@ public class LoginResource {
         typeMap.put("mod", rsa.getModulus());
         SessionUtil.setTokenVerify(rsa.getKey());
         return JsonResp.success(typeMap);
-    }
+    }*/
 
     private PMsgPack buildPack(String msg, String phone) {
         PMsgPack pack = new PMsgPack();

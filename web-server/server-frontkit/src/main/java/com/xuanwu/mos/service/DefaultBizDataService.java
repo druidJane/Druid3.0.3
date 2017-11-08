@@ -2,6 +2,12 @@ package com.xuanwu.mos.service;
 
 import com.xuanwu.mos.config.Platform;
 import com.xuanwu.mos.domain.CacheObject;
+import com.xuanwu.mos.domain.entity.Carrier;
+import com.xuanwu.mos.domain.entity.CarrierTeleseg;
+import com.xuanwu.mos.domain.entity.GsmsUser;
+import com.xuanwu.mos.domain.entity.Permission;
+import com.xuanwu.mos.domain.entity.Region;
+import com.xuanwu.mos.domain.entity.RolePermission;
 import com.xuanwu.mos.domain.enums.GsmsSyncVersionType;
 import com.xuanwu.mos.domain.enums.UserState;
 import com.xuanwu.mos.domain.repo.RoleRepo;
@@ -32,7 +38,7 @@ import javax.annotation.PostConstruct;
  * 默认的基本业务数据服务实现，基于版本号的缓存实现
  * Created by Jiang.Ziyuan on 2017/4/24.
  */
-@Component("iBizDataService")
+/**@Component("iBizDataService")*/
 public class DefaultBizDataService implements IBizDataService, SyncTask {
 
     private Logger logger = LoggerFactory.getLogger(DefaultBizDataService.class);

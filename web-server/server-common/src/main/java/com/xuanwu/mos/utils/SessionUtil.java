@@ -7,10 +7,14 @@ import com.xuanwu.mos.domain.enums.LoginTypeEnum;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.session.Session;
+import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * 会话相关的工具类
@@ -19,7 +23,10 @@ import java.util.Map;
  * @date 2016-08-24
  * @version 1.0.0
  */
+@Component
 public class SessionUtil {
+
+    public static final String FRONTKIT_SESSIONID= "FRONTKIT_SESSIONID";
 
 	private static int sessionTimeout = 20 * 60;// session失效时间，单位秒 (默认为20分钟，可以通过setSessionTime去修改,目前在配置中设置)
 
@@ -182,5 +189,18 @@ public class SessionUtil {
 	public static LoginTypeEnum getLoginType(){
 		return (LoginTypeEnum) SecurityUtils.getSubject().getSession(true).getAttribute(Constants.KEY_LOGIN_TYPE);
 	}
+
+	public static String getSessionId(HttpServletRequest request) {
+        Cookie[] cookies = request.getCookies();
+        if(cookies == null){
+            return null;
+        }
+        for(Cookie cookie : cookies){
+            if(FRONTKIT_SESSIONID.equals(cookie.getName())){
+                return cookie.getValue();
+            }
+        }
+        return null;
+    }
 
 }

@@ -9,6 +9,8 @@ package com.xuanwu.mos.db.datasource;
  */
 public class DsConfig {
 	public static final String DB_PREFIX = "datasource";
+	public static final String DB_GSMS_PREFIX = "datasource.gsms";
+	public static final String DB_LIST_PREFIX = "datasource.list";
 
 	private String name;
 

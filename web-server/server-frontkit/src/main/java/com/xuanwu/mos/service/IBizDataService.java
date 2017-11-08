@@ -1,6 +1,11 @@
 package com.xuanwu.mos.service;
 
 import com.xuanwu.mos.config.Platform;
+import com.xuanwu.mos.domain.entity.Carrier;
+import com.xuanwu.mos.domain.entity.GsmsUser;
+import com.xuanwu.mos.domain.entity.Permission;
+import com.xuanwu.mos.domain.entity.Region;
+import com.xuanwu.mos.domain.entity.RolePermission;
 
 import java.util.List;
 

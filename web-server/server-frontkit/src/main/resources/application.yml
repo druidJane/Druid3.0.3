@@ -25,7 +25,7 @@ datasource:
     gsms:
         name: gsmsDS
         driverClassName: com.mysql.jdbc.Driver
-        url: jdbc:mysql://docker:3306/mos5.0.1_gsms?useSSL=false&autoReconnect=true&sessionVariables=FOREIGN_KEY_CHECKS=0&useUnicode=yes&characterEncoding=UTF-8
+        url: jdbc:mysql://docker:3321/mos5.0.1_gsms_cxh1025?useSSL=false&autoReconnect=true&sessionVariables=FOREIGN_KEY_CHECKS=0&useUnicode=yes&characterEncoding=UTF-8
         username: root
         password: 123456
         maxTotal: 200
@@ -41,7 +41,7 @@ datasource:
     list:
         name: listDS
         driverClassName: com.mysql.jdbc.Driver
-        url: jdbc:mysql://docker:3306/mos5.0.1_list?useSSL=false&autoReconnect=true&sessionVariables=FOREIGN_KEY_CHECKS=0&useUnicode=yes&characterEncoding=UTF-8
+        url: jdbc:mysql://docker:3321/mos5.0.1_list_cxh1025?useSSL=false&autoReconnect=true&sessionVariables=FOREIGN_KEY_CHECKS=0&useUnicode=yes&characterEncoding=UTF-8
         username: root
         password: 123456
         maxTotal: 200

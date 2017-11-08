@@ -7,7 +7,6 @@ package com.xuanwu.auth.service;
 
 import com.xuanwu.auth.repo.RoleRepo;
 import com.xuanwu.mos.config.Platform;
-import com.xuanwu.mos.config.PlatformMode;
 import com.xuanwu.mos.domain.entity.Permission;
 import com.xuanwu.mos.domain.entity.Role;
 import com.xuanwu.mos.domain.entity.RolePermission;
@@ -52,8 +51,8 @@ public class RoleService {
 	@Autowired
 	private RoleRepo roleRepo;
 
-	@Autowired
-	private PlatformMode platformMode;
+	/*@Autowired
+	private PlatformMode platformMode;*/
 
 	public List<Permission> getUserPermissions(int userId, Platform platform) {
 		List<Permission> permissionList = roleRepo.findPermissionsForUser(userId,platform.getIndex());
@@ -79,7 +78,9 @@ public class RoleService {
 		Map<String, List<?>> resultMap = new HashMap<>();
 		try {
 			List<Permission> permissionList = getUserPermissions(userId, platform);
-			Map<Integer,Permission> allPermissionMap = findAllPermissionMap(platformMode.getPlatform());
+			//Map<Integer,Permission> allPermissionMap = findAllPermissionMap(platformMode.getPlatform());
+			//TODO 根据前台后台获取权限
+			Map<Integer,Permission> allPermissionMap = findAllPermissionMap(Platform.FRONTKIT);
 			List<String> btnList = new ArrayList<>();
 			Map<String,Boolean> btnMap = new HashMap<>();
 			List<NavMenuDto> menuList = new ArrayList<>();
