@@ -38,6 +38,13 @@ datasource:
         testOnReturn: false
 mybatis:
     config-location: classpath:mybatis-config.xml
+shiro:
+    enabled: true
+    loginUrl: /login
+    unauthorizedUrl : /login/unauthorized
+    filters:
+        /login/**: anonymous
+        #/**: authorization
 eureka:
  client:
    serviceUrl:
